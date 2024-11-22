@@ -113,7 +113,7 @@
 }
 
 body {
-    background-color: #000000;
+    background: linear-gradient(10deg, #000000, #0d0536, #041e3b, #0c1134);
     display: flex;
     justify-content: center;
     min-height: 100vh;
@@ -223,9 +223,10 @@ body {
 
 .products-cards {
     width: 100%;
-    display: flex;
+    display: grid;
     align-items: center;
     gap: 25px;
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .products {
