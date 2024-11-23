@@ -146,10 +146,8 @@ body {
 
 .ad {
     width: 100%;
-    height: 250px;
-    padding: 10px;
+    height: 256px;
     border-radius: 25px;
-    background-color: var(--main-outline-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -157,9 +155,9 @@ body {
 }
 
 .ad-space img {
-    width: 236px;
+    width: 256px;
     border-radius: 20px;
-
+    border: solid 5px var(--main-outline-color);
 }
 
 .blog-space {
@@ -233,39 +231,30 @@ body {
   .comments input[type="email"] {
     flex: 1; /* Equal width for both inputs */
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
+    border: solid 3px var(--main-outline-color);
     font-size: 14px;
     color: #333;
     background-color: #fff;
     transition: border-color 0.3s, box-shadow 0.3s;
   }
-  
-  .comments input:focus {
-    border-color: #007BFF;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    outline: none;
-  }
-  
+
+
   /* Comment textarea */
   .comments textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 14px;
     color: #333;
     background-color: #fff;
     resize: vertical;
     transition: border-color 0.3s, box-shadow 0.3s;
+    border: solid 3px var(--main-outline-color);
   }
   
-  .comments textarea:focus {
-    border-color: #007BFF;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    outline: none;
-    min-height: 100px;
-  }
+
   
   /* Submit button */
   .comments button {
@@ -273,8 +262,8 @@ body {
     padding: 12px 15px;
     font-size: 16px;
     color: grey;
-    border: none;
-    border-radius: 5px;
+    border: solid 3px var(--main-outline-color);
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
   }
