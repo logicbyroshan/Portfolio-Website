@@ -1,0 +1,778 @@
+/* Define root variables for colors and fonts */
+:root {
+    --main-bg-color-1: #000F1C;
+    --main-bg-color-2: #04234B;
+    --main-outline-color: #004AAA;
+    --btn-hover-color: #E19A00;
+    --main-text-color: #FFFFFF;
+    --secondary-text-color: #BEBEBE;
+
+    /* Font definitions */
+    --heading-font: 'Jersey 10', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+}
+
+/* CSS Which is Used Many Time */
+
+.sec-title, .main-title h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 85px;
+    font-family: var(--heading-font);
+    color: var(--main-text-color);
+    letter-spacing: 4px;
+}
+
+.main-title p {
+    font-size: 20px;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+    margin-bottom: 15px;
+}
+
+.outline-btn {
+    padding: 10px 15px;
+    background-color: transparent;
+    border: 2px solid var(--main-text-color);
+    color: var(--main-text-color);
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.outline-btn:hover {
+    background-color: var(--btn-hover-color);
+    color: #0d1a28;
+    border: 2px solid var(--btn-hover-color);
+}
+
+.view-all-btn {
+    background-color: transparent;
+    color: var(--main-text-color);
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: none;
+    text-decoration: none;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.view-all-btn img {
+    width: 20px;
+    margin: 0px 8px;
+    filter: brightness(0) invert(1);
+}
+
+.view-all-btn:hover {
+    opacity: 0.3;
+}
+
+
+/* CSS for Main Page */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(10deg, #000000, #0d0536, #041e3b, #0c1134);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.main-container {
+    max-width: 1280px;
+    width: 100%;
+}
+
+/* CSS for Navbar */
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 40px;
+    background-color: transparent;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+.nav-bar img {
+    width: 200px;
+}
+
+.nav-items {
+    display: flex;
+    gap: 30px;
+    font-family: var(--secondary-font);
+}
+
+.nav-items a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.nav-items a:hover {
+    color: var(--btn-hover-color);
+}
+
+/* CSS for Main blogs detialed */
+.blog-page {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-top: 100px;
+    width: 100%;
+}
+
+.ad-space {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin-right: 50px;
+    gap: 20px;
+}
+
+.ad {
+    width: 100%;
+    height: 250px;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: var(--main-outline-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ad-space img {
+    width: 236px;
+    border-radius: 20px;
+
+}
+
+.blog-space {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    color: white;
+    gap: 50px;
+}
+
+.blog-space h1 {
+    font-size: 50px;
+    font-family: var(--heading-font);
+    color: var(--main-text-color);
+    letter-spacing: 3px;
+}
+.blog-space h2 {
+    font-size: 30px;
+    font-family: var(--heading-font);
+    color: var(--main-text-color);
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.blog-space p {
+
+    font-size: 20px;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+}
+
+.blog-space img {
+    width: 600px;
+    height: 350px;
+    border: solid 5px var(--main-outline-color);
+    border-radius: 25px;
+    object-fit: cover;
+}
+
+/* Container for the comments section */
+.comments {
+    width: 100%; /* Adjust based on your layout, e.g., 256px or responsive width */
+    max-width: 640px; /* Prevent it from becoming too wide */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading styles */
+  .comments h2 {
+    font-size: 30px;
+    font-family: var(--heading-font);
+    color: var(--main-text-color);
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+  }
+  
+  /* Form styles */
+  .comments form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between inputs */
+  }
+  
+  .comments .input-row {
+    display: flex;
+    gap: 10px; /* Space between the inputs */
+  }
+  
+  /* Name and Email inputs */
+  .comments input[type="text"],
+  .comments input[type="email"] {
+    flex: 1; /* Equal width for both inputs */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .comments input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+  
+  /* Comment textarea */
+  .comments textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    resize: vertical;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .comments textarea:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+    min-height: 100px;
+  }
+  
+  /* Submit button */
+  .comments button {
+    width: 100%; /* Full width button */
+    padding: 12px 15px;
+    font-size: 16px;
+    color: grey;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .comments button:hover {
+    background-color: var(--btn-hover-color);
+  }
+  
+.details-space {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    gap: 20px;
+    width: 20%;
+    color: white;
+}
+
+.search-card {
+    width: 100%;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+/* Card title */
+.search-card h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ccc; /* Divider below title */
+    padding-bottom: 10px;
+
+  }
+  
+  /* Search bar container */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    border-radius: 25px; /* Rounded corners */
+    overflow: hidden;
+    border: solid 2px white; /* Border color */
+    padding: 10px; /* Space between border and elements */
+  }
+  
+  /* Input field styling */
+  .search-bar input {
+    flex: 1; /* Takes available space */
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background-color: transparent;
+    color: white; /* White text color */
+  }
+  
+  /* Button styling */
+  .search-bar button {
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+  }
+  
+  .search-bar button img {
+    width: 15px;
+    height: 15px;
+    filter: invert(1); /* Invert the color */
+  }
+  
+  /* Placeholder text color */
+  .search-bar input::placeholder {
+    color: rgb(255, 255, 255);
+  }
+
+  .categories {
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+    .categories h2 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #ccc; /* Divider below title */
+        padding-bottom: 10px;
+
+    }
+
+  
+  /* Styling for each category link */
+  .categories a {
+    text-decoration: none; /* Remove underline from links */
+    color: lightgrey; /* Dark text color for readability */
+    display: block; /* Make the entire row clickable */
+    margin-bottom: 10px; /* Space between categories */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth hover effects */
+    border: none;
+  }
+  
+  /* Individual category container */
+  .category1 {
+    display: flex;
+    justify-content: space-between; /* Space between title and count */
+    align-items: center; /* Center vertically */
+    border-radius: 5px; /* Slightly rounded corners */
+  }
+  
+  /* Category title styling */
+  .category1 h3 {
+    font-size: 1em; /* Medium font size for category titles */
+    margin: 0; /* Remove default margins */
+  }
+  
+  /* Count styling */
+  .category1 p {
+    margin: 0; /* Remove default margins */
+    font-size: 0.9em; /* Slightly smaller font for the count */
+  }
+  
+  .category1 span {
+    font-weight: bold; /* Make the number bold */
+  }
+  
+.recent-posts {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+}
+
+.recent-posts h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ccc; /* Divider below title */
+    padding-bottom: 10px;
+
+}
+
+/* Styling for individual post cards */
+.posts-card {
+    display: flex; /* Flex layout for image and details */
+    align-items: center; /* Align items to the top */
+    margin-bottom: 15px; /* Space between posts */
+    text-decoration: none; /* Remove link underline */
+    color: #333; /* Dark text color for readability */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effects */
+  }
+  
+  /* Hover effect for post card */
+  .posts-card:hover {
+    transform: scale(1.02); /* Slight zoom-in on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+  }
+  
+  /* Image container */
+  .posts-img-card {
+    flex-shrink: 0; /* Prevent image from shrinking */
+    width: 60px; /* Fixed width for the image */
+    height: 60px; /* Fixed height for the image */
+    overflow: hidden; /* Hide overflowing parts of the image */
+    border-radius: 5px; /* Rounded corners for images */
+    margin-right: 10px; /* Space between image and text */
+  }
+  
+  .posts-img-card img {
+    width: 100%; /* Make the image fill the container */
+    height: 100%; /* Maintain aspect ratio */
+    object-fit: cover; /* Crop the image to fit container */
+  }
+  
+  /* Post details container */
+  .posts-dtl-card {
+    flex: 1; /* Allow details to take remaining space */
+  }
+  
+  /* Post title styling */
+  .posts-dtl-card h3 {
+    font-size: 0.8em; /* Smaller font size for post titles */
+    margin: 0; /* Remove default margins */
+    line-height: 1.2; /* Slightly taller line height for readability */
+    color: white; /* Dark text color */
+    font-family: var(--secondary-font); /* Secondary font for titles */
+    font-weight: 500; /* Bold font weight for emphasis */
+  }
+  
+  /* Post metadata styling */
+  .posts-dtl-card p {
+    margin: 5px 0 0 0; /* Small space above the metadata */
+    font-size: 0.7em; /* Smaller font size for metadata */
+    color: white; /* Gray color for metadata */
+    font-family: var(--secondary-font); /* Secondary font for titles */
+    font-weight: 300; /* Light font weight for metadata */
+  }
+  
+  /* Styling for the blogger name and date */
+  #post-name, #post-date {
+    font-weight: bold; /* Highlight blogger name and date */
+    color: grey; /* Blue color for emphasis */
+  }
+
+  /* Container for the Tags section */
+.tags {
+    width: 256px; /* Matches the width of other sections for consistency */
+    padding: 20px; /* Space around the content */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  /* Title styling */
+  .tags h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ccc; /* Divider below title */
+    padding-bottom: 10px;
+  }
+  
+  /* Individual tag container */
+  .tag {
+    display: inline-block; /* Inline-block for tag layout */
+    margin: 5px; /* Space between tags */
+    padding: 8px 15px; /* Padding inside the tag */
+    background-color: #f0f0f0; /* Light gray background */
+    border-radius: 20px; /* Rounded shape for tags */
+    font-size: 0.85em; /* Smaller font for tags */
+    color: #555; /* Medium gray text color */
+    text-align: center; /* Center text */
+    transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
+    font-family: var(--secondary-font); /* Secondary font for tags */
+  }
+  
+  /* Hover effect for tags */
+  .tag:hover {
+    background-color: #007BFF; /* Blue background on hover */
+    color: #fff; /* White text on hover */
+    cursor: pointer; /* Pointer cursor for interactivity */
+  }
+  
+  /* Styling for anchor tags around the tag */
+  .tags a {
+    text-decoration: none; /* Remove underline from links */
+  }
+
+.social-media {
+    width: 100%;
+    padding: 10px;
+    gap: 10px;}
+
+.social-media h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ccc; /* Divider below title */
+    padding-bottom: 10px;    
+}
+
+.social-media img {
+    width: 50px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.social-media img:hover {
+    opacity: 0.5;
+    transition: all 0.3s;
+    width: 45px;
+}
+  
+/* CSS for Blogs Section */
+
+.blogs-container {
+    margin-top: 100px;
+}
+
+.blogs-title {
+    display: flex;
+    justify-content: center; /* Space between title and button */
+    align-items: center; /* Vertically center the elements */
+    border-radius: 30px; /* Smooth corners */
+    position: relative; /* To contain the dropdown */
+    padding-bottom: 40px; /* Space between title and cards */
+}
+
+.blogs-title h1 {
+    margin: 0;
+    font-size: 85px;
+    font-family: var(--heading-font);
+    color: var(--main-text-color); /* Title color */
+    letter-spacing: 3px;
+}
+
+.cards-holder {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px; 
+    width: 100%; 
+    justify-items: center;
+}
+
+.blogs-card {
+    width: 385px;
+    height: 325px;
+    border-radius: 25px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.blogs-details-card {
+    width: 100%;
+    height: 325px;
+    border-radius: 25px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    text-align: center;
+}
+
+.blogs-details-card h1 {
+    font-size: 85px;
+    font-family: var(--heading-font);
+    font-weight: 600;
+    color: var(--main-text-color);
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.details-details-card p {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+}
+
+.blogs-img-card {
+    border-radius: 20px; 
+    color: white; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 250px;
+    border: 3px solid var(--main-outline-color);
+    padding: 10px;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.blogs-img-card img {
+    width: 365px;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 12px;
+    object-position: top;
+    transition: opacity 0.3s ease;
+}
+
+.blogs-dtl-card h2{
+    font-size: 22px;
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
+    margin: 0;
+    padding: 5px 10px;
+    font-weight: 300;
+}
+
+.blogs-dtl-card p {
+    font-size: 16px;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+    margin: 0;
+    padding-left: 10px;
+}
+#blogger-name {
+    font-size: 18px;
+    color: var(--btn-hover-color);
+    font-weight: 900;
+}
+#blog-date {
+    font-size: 18px;
+    color: var(--main-text-color);
+    font-weight: 500;
+}
+
+
+/* Footer section starts from here */
+
+.footer {
+    background-color: var(--main-bg-color-1);
+    border-radius: 50px;
+    padding: 50px;
+    align-items: center;
+    margin-top: 100px;
+    display: grid;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+.head-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 25px;
+}
+.footer h2 {
+    font-size: 60px;
+    font-family: var(--heading-font); /* Pixelated font */
+    color: var(--main-text-color);
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+}
+
+.footer-dtl {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    gap: 50px;
+}
+
+.footer-logo img {
+    height: 50px;
+    margin-bottom: 25px;
+}
+
+.footer-logo p {
+    font-size: 18px;
+    color: var(--secondary-text-color);
+}
+
+.footer-social-icons {
+    margin-top: 25px;
+}
+
+.footer-social-icons a {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.footer-social-icons img {
+    height: 40px;
+    width: 40px;
+}
+
+.nave-links {
+    display: flex;
+    gap: 35px;
+}
+.Navigation-links,
+.footer-contact {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.Navigation-links h3,
+.footer-contact h3 {
+    color: var(--btn-hover-color); /* Orange heading color */
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-family: var(--secondary-font);
+}
+
+.Navigation-links a,
+.footer-contact a {
+    color: var(--secondary-text-color);
+    display: block;
+    margin: 5px 0;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: var(--secondary-font);
+}
+
+.Navigation-links a:hover,
+.footer-contact a:hover {
+    color: var(--main-text-color);
+}
+
+.copy-footer {
+    margin-top: 30px;
+    font-size: 25px;
+    color: var(--secondary-text-color);
+    border-top: 2px solid var(--main-outline-color);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.copy-footer p {
+    margin: 5px 0;
+    font-size: 22px;
+}
+
+.copy-footer a {
+    color: var(--secondary-text-color);
+    text-decoration: none;
+}
+
+.copy-footer a:hover {
+    color: var(--main-text-color);
+}
