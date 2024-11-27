@@ -1,0 +1,406 @@
+/* Define root variables for colors and fonts */
+:root {
+    --main-bg-color-1: #000F1C;
+    --main-bg-color-2: #04234B;
+    --main-outline-color: #004AAA;
+    --btn-hover-color: #E19A00;
+    --main-text-color: #FFFFFF;
+    --secondary-text-color: #BEBEBE;
+
+    /* Font definitions */
+    --heading-font: 'Jersey 10', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+}
+
+/* CSS Which is Used Many Time */
+
+.sec-title, .main-title h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 85px;
+    font-family: var(--heading-font);
+    color: var(--main-text-color);
+    letter-spacing: 4px;
+}
+
+.main-title p {
+    font-size: 20px;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+    margin-bottom: 15px;
+}
+
+.outline-btn {
+    padding: 10px 15px;
+    background-color: transparent;
+    border: 2px solid var(--main-text-color);
+    color: var(--main-text-color);
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.outline-btn:hover {
+    background-color: var(--btn-hover-color);
+    color: #0d1a28;
+    border: 2px solid var(--btn-hover-color);
+}
+
+.view-all-btn {
+    background-color: transparent;
+    color: var(--main-text-color);
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: none;
+    text-decoration: none;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.view-all-btn img {
+    width: 20px;
+    margin: 0px 8px;
+    filter: brightness(0) invert(1);
+}
+
+.view-all-btn:hover {
+    opacity: 0.3;
+}
+
+
+
+/* CSS for Main Page */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(10deg, #000000, #0d0536, #041e3b, #0c1134);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.main-container {
+    max-width: 1280px;
+    width: 100%;
+}
+
+/* CSS for Navbar */
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 40px;
+    background-color: transparent;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+.nav-bar img {
+    width: 200px;
+}
+
+.nav-items {
+    display: flex;
+    gap: 30px;
+    font-family: var(--secondary-font);
+}
+
+.nav-items a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.nav-items a:hover {
+    color: var(--btn-hover-color);
+}
+
+/* CSS for Skills Section */
+
+.skills-title {
+    margin-top: 50px; /* Add some space at the top */
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between; /* Space between title and button */
+    align-items: center; /* Vertically center the elements */
+    border-radius: 30px; /* Smooth corners */
+    position: relative; /* To contain the dropdown */
+    padding: 20px 40px; /* Add some padding */
+    background-color: var(--main-bg-color-1); /* Background color */
+}
+
+.skills-title h1 {
+    margin: 0;
+    font-size: 85px;
+    font-family: var(--heading-font);
+    color: var(--main-text-color); /* Title color */
+    letter-spacing: 3px;
+}
+
+.sort-btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    gap: 10px;
+    font-size: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.sort-btn img {
+    margin-left: 10px; /* Space between button text and arrow icon */
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1); /* Ensures image stays white on hover */
+}
+
+
+.skills-title ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none; /* Initially hide the dropdown */
+    position: absolute;
+    top: 100%; /* Position it below the button */
+    right: 0; /* Align it to the right of the button */
+    background-color: var(--main-bg-color-2);
+    border: 1px solid var(--main-outline-color);
+    border-radius: 10px;
+    width: 250px; /* Adjust width as needed */
+    z-index: 10; /* Ensure dropdown appears above other elements */
+    transition-delay: 0s;
+}
+
+.skills-title ul li {
+    padding: 10px;
+    cursor: pointer;
+    color: var(--main-text-color);
+    text-align: center;
+}
+
+.skills-title ul li:last-child {
+    border-bottom: none; /* Remove border for the last item */
+}
+
+.skills-title ul li:hover {
+    background-color: var(--main-outline-color); /* Hover effect on dropdown items */
+}
+
+.sort-btn:hover + ul,
+.skills-title ul:hover {
+    display: block; /* Show dropdown on hover */
+    transition-delay: 1s; /* Add delay before hiding */
+}
+
+
+.skills-cards-holder {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px; 
+    width: 100%; 
+    justify-items: center;
+    margin-top: 25px;
+}
+
+.skill-title h1 {
+    margin: 0;
+    font-size: 85px;
+    font-family: var(--heading-font);
+    color: var(--main-text-color); /* Title color */
+}
+
+.skill-card {
+    background-color: var(--main-bg-color-1);
+    color: white;
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 305px;
+    position: relative;
+    text-align: justify;
+}
+
+.img-status-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img-status-card img {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+
+.status-card {
+    background-color: var(--main-outline-color);
+    color: #0d1b2a;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.progress {
+    background-color: #1e3a5f;
+    border-radius: 10px;
+    height: 8px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: #3da9fc;
+    height: 100%;
+    border-radius: 10px;
+}
+
+p {
+    font-size: 15px;
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
+}
+
+.skl-btn {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--main-outline-color);
+    padding: 5px 10px;
+    background-color: transparent;
+    border: none; 
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.skl-btn:hover {
+    text-decoration: none;
+    color: var(--btn-hover-color);
+}
+
+/* Footer section starts from here */
+
+/* Footer Styles */
+.footer {
+    background-color: var(--main-bg-color-1);
+    border-radius: 50px;
+    padding: 50px;
+    align-items: center;
+    margin-top: 100px;
+    display: grid;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+.head-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 25px;
+}
+.footer h2 {
+    font-size: 60px;
+    font-family: var(--heading-font); /* Pixelated font */
+    color: var(--main-text-color);
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+}
+
+.footer-dtl {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    gap: 50px;
+}
+
+.footer-logo img {
+    height: 50px;
+    margin-bottom: 25px;
+}
+
+.footer-logo p {
+    font-size: 18px;
+    color: var(--secondary-text-color);
+}
+
+.footer-social-icons {
+    margin-top: 25px;
+}
+
+.footer-social-icons a {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.footer-social-icons img {
+    height: 40px;
+    width: 40px;
+}
+
+.nave-links {
+    display: flex;
+    gap: 35px;
+}
+.Navigation-links,
+.footer-contact {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.Navigation-links h3,
+.footer-contact h3 {
+    color: var(--btn-hover-color); /* Orange heading color */
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-family: var(--secondary-font);
+}
+
+.Navigation-links a,
+.footer-contact a {
+    color: var(--secondary-text-color);
+    display: block;
+    margin: 5px 0;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: var(--secondary-font);
+}
+
+.Navigation-links a:hover,
+.footer-contact a:hover {
+    color: var(--main-text-color);
+}
+
+.copy-footer {
+    margin-top: 30px;
+    font-size: 25px;
+    color: var(--secondary-text-color);
+    border-top: 2px solid var(--main-outline-color);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.copy-footer p {
+    margin: 5px 0;
+    font-size: 22px;
+}
+
+.copy-footer a {
+    color: var(--secondary-text-color);
+    text-decoration: none;
+}
+
+.copy-footer a:hover {
+    color: var(--main-text-color);
+}
