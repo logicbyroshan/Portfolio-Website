@@ -1,0 +1,150 @@
+.exp-title {
+    margin-top: 50px; /* Add some space at the top */
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between; /* Space between title and button */
+    align-items: center; /* Vertically center the elements */
+    border-radius: 30px; /* Smooth corners */
+    position: relative; /* To contain the dropdown */
+    padding: 20px 40px; /* Add some padding */
+    background-color: var(--main-bg-color-1); /* Background color */
+}
+
+.exp-title h1 {
+    margin: 0;
+    font-size: 85px;
+    font-family: var(--heading-font);
+    color: var(--main-text-color); /* Title color */
+    letter-spacing: 3px;
+}
+
+.sort-btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.sort-btn img {
+    margin-left: 10px; /* Space between button text and arrow icon */
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1); /* Ensures image stays white on hover */
+}
+
+.exp-title ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none; /* Initially hide the dropdown */
+    position: absolute;
+    top: 100%; /* Position it below the button */
+    right: 0; /* Align it to the right of the button */
+    background-color: var(--main-bg-color-2);
+    border: 1px solid var(--main-outline-color);
+    border-radius: 10px;
+    width: 250px; /* Adjust width as needed */
+    z-index: 10; /* Ensure dropdown appears above other elements */
+    transition-delay: 0s;
+}
+
+.exp-title ul li {
+    padding: 10px;
+    cursor: pointer;
+    color: var(--main-text-color);
+    text-align: center;
+}
+
+.exp-title ul li:last-child {
+    border-bottom: none; /* Remove border for the last item */
+}
+
+.exp-title ul li:hover {
+    background-color: var(--main-outline-color); /* Hover effect on dropdown items */
+}
+
+.sort-btn:hover + ul,
+.exp-title ul:hover {
+    display: block; /* Show dropdown on hover */
+    transition-delay: 1s; /* Add delay before hiding */
+}
+/* Experience section starts from here */
+
+.exp-card {
+
+    width: 100%;
+    margin-top: 30px;
+    border-radius: 35px;
+    background-color: var(--main-bg-color-1);
+    display: flex;
+    align-items: center;
+    padding: 30px 40px;
+}
+
+.compney {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.comney-img img {
+    width: 200px; 
+    height: 100px;
+    object-fit: contain;
+    margin-right: 25px;
+}
+
+.compney h2 {
+    color: var(--main-text-color);
+    font-size: 30px;
+    margin-left: 30px;
+    font-family: var(--secondary-font);
+}
+
+.compney h3 {
+    color: var(--secondary-text-color);
+    font-size: 25px;
+    margin-left: auto; /* This pushes the h3 to the end */
+    text-align: right;
+    font-weight: 200;
+    font-family: var(--secondary-font);
+}
+
+.description {
+    color: var(--secondary-text-color);
+    padding-top: 25px;
+    line-height: 1.2;
+    border-top: 2px solid var(--main-outline-color);
+    font-family: var(--secondary-font);
+}
+.description p {
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    .exp-card {
+        padding: 15px; /* Reduce padding on mobile */
+    }
+
+    .comney-img img {
+        width: 100px; /* Smaller image size on mobile */
+        height: 50px; /* Maintain aspect ratio */
+    }
+
+    .compney h2 {
+        font-size: 17px; /* Smaller font size for job title */
+    }
+
+    .compney h3 {
+        font-size: 14px; /* Smaller font size for date */
+    }
+
+    .description p {
+        font-size: 13px; /* Smaller font size for description */
+    }
+}

@@ -1,0 +1,600 @@
+/* CSS for Home Section */
+
+.home-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 50px;
+}
+
+.home-content {
+    width: 50%;
+}
+.home-content p:first-child {
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin: 0;
+    color: var(--secondary-text-color);
+    font-family: var(--secondary-font);
+}
+
+.home-content h1 {
+    color: rgb(111, 188, 255);
+    letter-spacing: 3px;
+    font-size: 120px;
+    font-family: var(--heading-font);
+    font-weight:900;
+}
+
+.home-content h4 {
+    font-size: 30px;
+    color: #ffffff;
+    margin: 5px 0;
+    font-family: var(--secondary-font);
+}
+
+#skill-text {
+    font-weight: 900;
+    font-size: 35px;
+    color: var(--btn-hover-color);
+}
+
+.home-content p:nth-child(4) {
+    font-size: 20px;
+    margin: 20px 0;
+    line-height: 1.5;
+    color: var(--secondary-text-color);
+    font-family: var(--secondary-font);
+}
+
+.home-btns {
+    gap: 50px;
+    margin-top: 10px;
+}
+.home-hero-image img {
+    width: 400px;
+}
+.social-icons {
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 10;
+    padding-right: 15px;
+    max-width: 5%;
+    width: 100%;
+}
+
+.social-icons a {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--main-text-color);
+    transition: all 0.3s;
+}
+
+.social-icons a :hover {
+    background-color: var(--main-text-color);
+}
+
+.social-icons a img {
+    width: 25px;
+    filter: invert(1);
+}
+
+/* CSS for Project Section */
+
+.project-container {
+    background-color: var(--main-bg-color-1);
+    border-radius: 50px;
+    padding: 50px;
+    margin-top: 30px;
+}
+
+.cards-holder {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 30px; 
+    width: 100%; 
+    justify-items: center;
+}
+
+.details-card {
+    width: 575px;
+    height: 325px;
+    border-radius: 25px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+
+.project-card {
+    position: relative;
+    border-radius: 20px; 
+    color: white; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 575px;
+    height: 325px;
+    border: 3px solid var(--main-outline-color);
+    padding: 10px;
+    overflow: hidden;
+}
+.details-card a{
+    text-decoration: none;
+   
+}
+
+.project-card img {
+    width: 550px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    object-position: top;
+    transition: opacity 0.3s ease;
+}
+
+.project-card p {
+    visibility: hidden;
+    font-size: 18px;
+    font-family: var(--secondary-font);
+    text-align: left; 
+    margin: 0;
+    padding: 5px;
+}
+
+.project-card h1 {
+    position: absolute;
+    top: 10%; 
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: hidden; 
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+    text-align: center;
+    font-size: 24px;
+    margin: 0;
+    padding: 5px;
+    color: var(--btn-hover-color);
+}
+
+.project-card p {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+    text-align: center;
+    font-family: var(--secondary-font);
+    width: 90%;
+    color: lightgrey;
+}
+
+.project-btns {
+    position: absolute;
+    bottom: 10%;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+    display: flex;
+    gap: 10px;
+}
+
+.project-card:hover img {
+    opacity: 0.2;
+}
+
+.project-card:hover h1,
+.project-card:hover p,
+.project-card:hover .project-btns {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+}
+
+/* CSS for Skills Section */
+
+.skills-cards-holder {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px; 
+    width: 100%; 
+    justify-items: center;
+    margin-top: 25px;
+}
+
+.skill-card {
+    background-color: var(--main-bg-color-1);
+    color: white;
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 305px;
+    position: relative;
+    text-align: justify;
+}
+
+.img-status-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img-status-card img {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+
+.status-card {
+    background-color: var(--main-outline-color);
+    color: #0d1b2a;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.progress {
+    background-color: #1e3a5f;
+    border-radius: 10px;
+    height: 8px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: #3da9fc;
+    height: 100%;
+    border-radius: 10px;
+}
+
+p {
+    font-size: 15px;
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
+}
+
+.skl-btn {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--main-outline-color);
+    padding: 5px 10px;
+    background-color: transparent;
+    border: none; 
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.skl-btn:hover {
+    text-decoration: none;
+    color: var(--btn-hover-color);
+}
+
+/* CSS for Blogs Section */
+
+.blogs-container {
+    background-color: var(--main-bg-color-1);
+    border-radius: 50px;
+    padding: 50px;
+    margin-top: 100px;
+}
+
+
+.cards-holder {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 30px; 
+    width: 100%; 
+    justify-items: center;
+}
+
+.blogs-img-card {
+    border-radius: 20px; 
+    color: white; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 575px;
+    height: 275px;
+    border: 3px solid var(--main-outline-color);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.blogs-img-card img {
+    width: 550px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+    object-position: top;
+    transition: opacity 0.3s ease;
+}
+
+.blogs-dtl-card h2{
+    font-size: 22px;
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
+    margin: 0;
+    padding: 5px 10px;
+    font-weight: 300;
+}
+
+.blogs-dtl-card p {
+    font-size: 16px;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+    margin: 0;
+    padding-left: 10px;
+}
+#blogger-name {
+    font-size: 18px;
+    color: var(--btn-hover-color);
+    font-weight: 900;
+}
+#blog-date {
+    font-size: 18px;
+    color: var(--main-text-color);
+    font-weight: 500;
+}
+
+
+/* Experience section starts from here */
+
+.exp-card {
+
+    width: 100%;
+    margin-top: 30px;
+    border-radius: 35px;
+    background-color: var(--main-bg-color-1);
+    display: flex;
+    align-items: center;
+    padding: 30px 40px;
+}
+
+.compney {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.comney-img img {
+    width: 200px; 
+    height: 100px;
+    object-fit: contain;
+    margin-right: 25px;
+}
+
+.compney h2 {
+    color: var(--main-text-color);
+    font-size: 30px;
+    margin-left: 30px;
+    font-family: var(--secondary-font);
+}
+
+.compney h3 {
+    color: var(--secondary-text-color);
+    font-size: 25px;
+    margin-left: auto; /* This pushes the h3 to the end */
+    text-align: right;
+    font-weight: 200;
+    font-family: var(--secondary-font);
+}
+
+.description {
+    color: var(--secondary-text-color);
+    padding-top: 25px;
+    line-height: 1.2;
+    border-top: 2px solid var(--main-outline-color);
+    font-family: var(--secondary-font);
+}
+.description p {
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    .exp-card {
+        padding: 15px; /* Reduce padding on mobile */
+    }
+
+    .comney-img img {
+        width: 100px; /* Smaller image size on mobile */
+        height: 50px; /* Maintain aspect ratio */
+    }
+
+    .compney h2 {
+        font-size: 17px; /* Smaller font size for job title */
+    }
+
+    .compney h3 {
+        font-size: 14px; /* Smaller font size for date */
+    }
+
+    .description p {
+        font-size: 13px; /* Smaller font size for description */
+    }
+}
+
+
+/* Contact form css starts from here */
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--main-bg-color-1);
+    border-radius: 50px;
+    padding: 50px;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.contect-title {
+    width: 50%;
+    margin-right: 25px;
+}
+
+.contect-title h1 {
+    margin: 0;
+    font-size: 85px;
+    font-family: var(--heading-font);
+    color: var(--main-text-color); /* Title color */
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.contect-title p {
+    font-size: 35px;
+    margin: 20px 0;
+}
+.contect-title img {
+    margin-right: 25px;
+    padding-bottom: 10px;
+    width: 35px;
+}
+
+.contect-title .mobile, .contect-title .email, .contect-title .address, .contect-title .gmail {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.contect-title p {
+    margin: 0;
+    font-size: 30px;
+    color: var(--secondary-text-color);
+    padding-bottom: 10px;
+    font-family: var(--secondary-font);
+}
+
+.contact-form {
+    width: 50%;
+    border: 2px solid var(--main-outline-color);
+    border-radius: 30px;
+    padding: 30px;
+    margin-left: 25px;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-form input, 
+.contact-form textarea {
+    padding: 15px;
+    font-size: 20px;
+    background-color: var(--main-bg-color-2);
+    color: var(--main-text-color);
+    border: none;
+    border-radius: 15px;
+}
+
+.contact-form input::placeholder, 
+.contact-form textarea::placeholder {
+    color: #b0c0e4;
+}
+
+.contact-form button.btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--main-bg-color-2);
+    color: var(--main-text-color);
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.contact-form button.btn img {
+    margin-left: 10px;
+    width: 20px;
+}
+
+.contact-form button.btn:hover {
+    background-color: var(--btn-hover-color);
+    color: var(--main-bg-color-2);
+}
+
+/* Css for FAQ page from here */
+
+
+.faq-cards {
+    max-width: 100%; /* Maximum width of the FAQ section */
+    margin: 50px auto; /* Center the FAQ section */
+    padding: 50px; /* Add padding around the section */
+    background-color: var(--main-bg-color-1); /* Dark gray background for the cards */
+    border-radius: 50px; /* Rounded corners */
+}
+
+.faq-card {
+    border: 1px solid var(--main-outline-color); /* Light gray border */
+    border-radius: 10px; /* Rounded corners for each card */
+    margin: 10px 0; /* Spacing between cards */
+    padding: 15px; /* Padding inside each card */
+    transition: background-color 0.3s; /* Smooth transition */
+    display: flex;
+    justify-content: space-between;
+}
+
+.faq-card:hover {
+    background-color: var(--main-bg-color-2); /* Change background on hover */
+}
+
+.faq-card h2 {
+    margin: 0; /* Remove default margin */
+    font-size: 25px; /* Font size for the question */
+    color: var(--main-text-color); /* Text color */
+    font-family: var(--secondary-font);
+}
+
+.faq-card p {
+    margin: 10px 0 0; /* Spacing above the paragraph */
+    font-size: 20px; /* Font size for the answer */
+    display: none; /* Hide answer by default */
+    color: var(--secondary-text-color); /* Text color */
+    font-family: var(--secondary-font);
+}
+
+.show-faq {
+    cursor: pointer; /* Pointer cursor for the plus icon */
+    float: right; /* Align to the right */
+}
+
+.hide-faq {
+    cursor: pointer; /* Pointer cursor for the minus icon */
+    display: none; /* Hide minus icon by default */
+    float: right; /* Align to the right */
+}
+.faq-card img {
+    width: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+    .faq-cards {
+        padding: 20px; /* Reduce padding on smaller screens */
+    }
+
+    .faq-card h2 {
+        font-size: 16px; /* Smaller font size for the question */
+    }
+
+    .faq-card p {
+        font-size: 14px; /* Smaller font size for the answer */
+    }
+
+    .faq-card img {
+        width: 18px; /* Reduce icon size */
+    }
+
+    .dtl-btn {
+        font-size: 14px; /* Smaller font for View All FAQ's button */
+    }
+}

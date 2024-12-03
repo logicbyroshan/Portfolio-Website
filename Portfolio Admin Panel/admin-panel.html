@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roshan | Admin Panel</title>
+    <link rel="stylesheet" href="admin-panel.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="dashboard-container">
+            <!-- Header -->
+            <header>
+                <h1>Admin Dashboard</h1>
+                <div class="header-actions">
+                    <button>Profile</button>
+                    <button>Logout</button>
+                </div>
+            </header>
+        
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <ul>
+                    <li><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+                    <li><i class="fas fa-blog"></i> Blog</li>
+                    <li><i class="fas fa-folder"></i> Projects</li>
+                    <li><i class="fas fa-heart"></i> Hobbies</li>
+                    <li><i class="fas fa-lightbulb"></i> Ideas</li>
+                    <li><i class="fas fa-comments"></i> Messages</li>
+                    <li><i class="fas fa-cogs"></i> Settings</li>
+                </ul>
+            </div>
+        
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Stats Section -->
+                <section class="stats-section">
+                    <div class="stat-card">
+                        <h2>Total Projects</h2>
+                        <p>15</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2>Total Blogs</h2>
+                        <p>7</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2>Total Messages</h2>
+                        <p>4</p>
+                    </div>
+                </section>
+        
+                <!-- Recent Activity -->
+                <section class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <ul>
+                        <li><strong>Blog Post:</strong> "New Blog on Python" by [Name]</li>
+                        <li><strong>Project:</strong> "Personal Website" by [Name]</li>
+                        <li><strong>Message:</strong> New message from [User]</li>
+                    </ul>
+                </section>
+        
+                <!-- Visual Analytics -->
+                <section class="analytics-section">
+                    <h3>Website Traffic</h3>
+                    <div id="traffic-chart"></div> <!-- This will be a chart -->
+                </section>
+        
+                <!-- Task Reminder -->
+                <section class="task-reminder">
+                    <h3>To-Do List</h3>
+                    <ul>
+                        <li>Approve new blog post submissions</li>
+                        <li>Respond to unanswered messages</li>
+                    </ul>
+                </section>
+            </div>
+        </div>        
+    </div>
+
+    <script src="https://kit.fontawesome.com/9da37a3f78.js" crossorigin="anonymous"></script>
+</body>
+</html>
