@@ -46,7 +46,7 @@
             <div class="main-title">
                 <h1>my projects.</h1>
                 <p>VISIT MY ALL PROJECTS AND VIEW FULL DETAILS ASWELL AS PREVIEW IT. </p>
-                <a href="project.html"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png' %}" alt="">View All Projects</button></a>
+                <a href="my-projects/"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png' %}" alt="">View All Projects</button></a>
             </div>
 
             <div class="project-card">
@@ -68,7 +68,7 @@
     <div class="skills-container">
         <div class="sec-title">
             <h1>my skills.</h1>
-            <a href="skills.html"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png'%}" alt="">View All Skills</button></a>
+            <a href="my-skills/"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png'%}" alt="">View All Skills</button></a>
         </div>
         <div class="skills-cards-holder">
             <div class="skill-card">
@@ -96,7 +96,7 @@
             <div class="main-title">
                 <h1>my blogs.</h1>
                 <p>VISIT MY ALL BLOGS AND READ ALL MY BLOGS NOW. VIEW ALL MY AND READ NOW BLOGS NOW. </p>
-                <a href="blogs.html"><button class="view-all-btn"><img src="assets/Icons/right-arrow.png" alt="">View All Projects</button></a>
+                <a href="my-blogs/"><button class="view-all-btn"><img src="assets/Icons/right-arrow.png" alt="">View All Projects</button></a>
             </div>
             <div class="blogs-card">
                 <a href=""><div class="blogs-img-card">
@@ -117,7 +117,7 @@
     <div class="experience-container">
         <div class="sec-title">
             <h1>my projects.</h1>
-            <a href="experience.html"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png' %}" alt="">View All Skills</button></a>
+            <a href="my-expericence/"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png' %}" alt="">View All Skills</button></a>
         </div>
         <div class="exp-cards">
             <div class="exp-card">
@@ -159,13 +159,18 @@
             </div>
         </div>
 
+        {% if success %}
+        <p style="color: white;">Your message has been sent successfully!</p>
+        {% endif %}
         <div class="contact-form">
-            <form action="#">
-                <input type="text" placeholder="Full Name">
-                <input type="email" placeholder="Your Email">
-                <input type="text" placeholder="Subject">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
-                <button class="btn">Send Message <img src="{% static 'assets/Icons/arrow.png' %}" alt=""></button>
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="text" name="name" placeholder="Full Name" value="{{ form.name.value|default:'' }}">
+                <input type="email" name="email" placeholder="Your Email" value="{{ form.email.value|default:'' }}">
+                <input type="text" name="subject" placeholder="Subject" value="{{ form.subject.value|default:'' }}">
+                <textarea name="message" id="" cols="30" rows="10" placeholder="Your Message">{{ form.message.value|default:'' }}</textarea>
+                <button type="submit" class="btn">Send Message <img src="{% static 'assets/Icons/arrow.png' %}" alt=""></button>
             </form>
         </div>
     </div>

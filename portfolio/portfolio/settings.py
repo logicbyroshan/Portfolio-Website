@@ -121,6 +121,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'myapp', 'static'),
 ]
 
+# settings.py
+
+MEDIA_URL = '/media/'  # Add the leading slash for proper URL mapping
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # This is fine as it specifies where media files are stored
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

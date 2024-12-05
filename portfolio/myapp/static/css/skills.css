@@ -1,5 +1,8 @@
 
 /* CSS for Skills Section */
+.main-container {
+    margin-top: 50px;
+}
 
 .skills-title {
     margin-top: 50px; /* Add some space at the top */
