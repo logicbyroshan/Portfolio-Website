@@ -14,197 +14,29 @@
     <title>{% block title %}Blogs{% endblock  %}</title>
 </head>
 <body>
-
+    {% block main-content %}
     <div class="main-container">
-        <!--Blogs Page Title Is Staring From Here-->
-        <div class="blogs-title">
-            <h1>my blogs</h1>
-            <button class="sort-btn">Sort Blogs<img src="assets/Icons/down-arrow.png" alt=""></button>
-            <ul>
-                <li>Web Development Project</li>
-                <li>App Development Project</li>
-                <li>Software Development Project</li>
-                <li>Game Development Project</li>
-                <li>Artificial Inteligance Project</li>
-                <li>Machine Learning Project</li>
-                <li>Deep Learning Project</li>
-                <li>Internet Of Things Project</li>
-                <li>Blockchain Project</li>
-                <li>Cloud Computing Project</li>
-                <li>Big Data Analytics Project</li>
-                <li>Edge Computing Project</li>
-                <li>Data Science Project</li>
-                <li>Data Analytics Project</li>
-                <li>UI-UX Project</li>
-                <li>Other Projects</li>
-            </ul>
-        </div>
 
         <!--All Projects Is Staring From Here-->
         <div class="blogs-container">
             <div class="cards-holder">
-
+                {% for blog in blogs %}
                 <div class="blogs-card">
                     <a href=""><div class="blogs-img-card">
                         <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
+                            <img src="{{blog.image.url}}" alt="Project 1">
                         </div>
                     </div></a>
                     <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
+                        <h2>{{blog.title}}</h2>
+                        <p>by <span id="blogger-name">{{blog.author}}</span> on <span id="blog-date">{{blog.date}}</span></p>
                     </div>
                 </div>
-
-                <div class="blogs-card">
-                    <a href="#"><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
-                    </div>
-                </div>
-
-                <div class="blogs-card">
-                    <a href="#"><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
-                    </div>
-                </div>
-
-                <div class="blogs-card">
-                    <a href=""><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
-                    </div>
-                </div>
-
-                <div class="blogs-card">
-                    <a href="#"><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
-                    </div>
-                </div>
-
-                <div class="blogs-card">
-                    <a href="#"><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
-                    </div>
-                </div>
-
-                <div class="blogs-card">
-                    <a href=""><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
-                    </div>
-                </div>
-
-                <div class="blogs-card">
-                    <a href="#"><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
-                    </div>
-                </div>
-
-                <div class="blogs-card">
-                    <a href="#"><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
-                    </div>
-                </div>
-
-                <div class="blogs-card">
-                    <a href=""><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
-                    </div>
-                </div>
-
-                <div class="blogs-card">
-                    <a href="#"><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
-                    </div>
-                </div>
-
-                <div class="blogs-card">
-                    <a href="#"><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="assets/Projects/Project 1.jpg" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                        <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
-                    </div>
-                </div>
-
+                {% endfor %}
             </div>
         </div>
+    </div>
+    {% endblock %}
 
-        <div class="blogs-footer">
-            <button class="sort-btn"><img src="assets/Icons/left-arrow.png" alt="">Back</button>
-            <a href="#"><div class="btn-no">01</div></a>
-            <a href="#"><div class="btn-no">02</div></a>
-            <a href="#"><div class="btn-no">03</div></a>
-            <a href="#"><div class="btn-no">04</div></a>
-            <a href="#"><div class="btn-no">05</div></a>
-            <a href="#"><div class="btn-no">06</div></a>
-            <a href="#"><div class="btn-no">07</div></a>
-            <a href="#"><div class="btn-no">08</div></a>
-            <p>....</p>
-            <a href="#"><div class="btn-no">00</div></a>
-            <button class="sort-btn">Next <img src="assets/Icons/right-arrow.png" alt=""></button>
-        </div>
-     
 </body>
 </html>

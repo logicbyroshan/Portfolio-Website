@@ -1,18 +1,7 @@
 {% extends "index.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{% static 'assets/My Image/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <title>{% block title %}Home{% endblock  %}</title>
-</head>
+<title>{% block title %}Home{% endblock  %}</title>
+
 <body>
 
 {% block main-content %}
@@ -49,18 +38,21 @@
                 <a href="my-projects/"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png' %}" alt="">View All Projects</button></a>
             </div>
 
-            <div class="project-card">
-                <div class="img-card-container">
-                    <img src="assets/Projects/Project 1.jpg" alt="Project 1">
+            {% for project in projects %}
+                <div class="project-card">
+                    <a href="{{ project.url }}"> <!-- Assuming project has a 'url' field -->
+                        <div class="img-card-container">
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                        </div>
+                    </a>
+                    <h1>{{ project.title }}</h1>
+                    <p>{{ project.description }}</p>
+                    <div class="project-btns">
+                        <button class="outline-btn">Preview Project</button>
+                        <button class="outline-btn">View Code</button>
+                    </div>
                 </div>
-                <h1>Portfolio Full Stack Website Project</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. esse aspernatur nostrum ad impedit, autem obcaecati ipsam! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio, corrupti unde accusamus ipsa tempora tenetur soluta explicabo voluptate suscipit! Sit adipisci dolore nesciunt in? Vitae!</p>
-                <div class="project-btns">
-                    <button class="outline-btns">Preview Project</button>
-                    <button class="outline-btns">View Code</button>
-                    <button class="outline-btns">Documentation</button>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 
@@ -71,20 +63,26 @@
             <a href="my-skills/"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png'%}" alt="">View All Skills</button></a>
         </div>
         <div class="skills-cards-holder">
-            <div class="skill-card">
-                <div class="img-status-card">
-                    <img src="assets/Skills/Python.png" alt="Python">
-                    <div class="status-card">
-                        <p>ongoing</p>
+            {% for skill in skills %}
+                <div class="skill-card">
+                    <div class="img-status-card">
+                        <img src="{{ skill.image.url }}" alt="{{ skill.name }}">
+                        <div class="status-card">
+                            <p>{{ skill.level }}</p>
+                        </div>
                     </div>
+                    <div class="progress">
+                        <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p>{{ skill.description }}</p>
+                    {% if skill.link1 %}
+                    <a href="{{ skill.link1 }}" class="skl-btn" target="_blank">View Resource 1</a>
+                    {% endif %}
+                    {% if skill.link2 %}
+                    <a href="{{ skill.link2 }}" class="skl-btn" target="_blank">View Resource 2</a>
+                    {% endif %}
                 </div>
-                <div class="progress">
-                    <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis velit expedita illo labore esse ea architecto placeat porro quam iure.</p>
-                <button class="skl-btn">View Cirtificate</button>
-                <button class="skl-btn">My Resources</button>
-            </div>
+                {% endfor %}
 
         </div>
 
@@ -96,42 +94,58 @@
             <div class="main-title">
                 <h1>my blogs.</h1>
                 <p>VISIT MY ALL BLOGS AND READ ALL MY BLOGS NOW. VIEW ALL MY AND READ NOW BLOGS NOW. </p>
-                <a href="my-blogs/"><button class="view-all-btn"><img src="assets/Icons/right-arrow.png" alt="">View All Projects</button></a>
+                <a href="my-blogs/"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png' %}" alt="">View All Blogs</button></a>
             </div>
-            <div class="blogs-card">
-                <a href=""><div class="blogs-img-card">
-                    <div class="img-card-container">
-                        <img src="assets/Projects/Project 1.jpg" alt="Project 1">
+            {% for blog in blogs %}
+                <div class="blogs-card">
+                    <a href=""><div class="blogs-img-card">
+                        <div class="img-card-container">
+                            <img src="{{blog.image.url}}" alt="Project 1">
+                        </div>
+                    </div></a>
+                    <div class="blogs-dtl-card">
+                        <h2>{{blog.title}}</h2>
+                        <p>by <span id="blogger-name">{{blog.author}}</span> on <span id="blog-date">{{blog.date}}</span></p>
                     </div>
-                </div></a>
-                <div class="blogs-dtl-card">
-                    <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-                    <p>by <span id="blogger-name">Roshan Damor</span> on <span id="blog-date">April 20, 2024</span></p>
                 </div>
-            </div>
-
+                {% endfor %}
         </div>
     </div>
 
     <!--Experience Is Staring From Here-->
     <div class="experience-container">
         <div class="sec-title">
-            <h1>my projects.</h1>
-            <a href="my-expericence/"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png' %}" alt="">View All Skills</button></a>
+            <h1>my expericence.</h1>
+            <a href="my-experience/"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png' %}" alt="">View All Experiences</button></a>
         </div>
         <div class="exp-cards">
+            {% for exp in expericence %}
             <div class="exp-card">
                 <div class="detail">
                     <div class="compney">
-                        <div class="comney-img"><img src="assets/Experience/Infosys.png" alt="Google"></div>
-                        <h2>Sr. Python Developer (AI-ML)</h2>
-                        <h3>15th Oct - 19th Nov</h3>
+                        <!-- Company Image -->
+                        <div class="comney-img">
+                            <img src="{{ exp.image.url }}" alt="{{ exp.title }}">
+                        </div>
+                        <!-- Job Title -->
+                        <h2>{{ exp.title }}</h2>
+                        <!-- Job Duration -->
+                        <h3>
+                            <span>{{ exp.date1 }}</span> - 
+                            <span>{{ exp.date2|default:"Present" }}</span>
+                        </h3>
                     </div>
+                    <!-- Job Description -->
                     <div class="description">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe, fugit! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus alias perspiciatis minus architecto modi quisquam commodi adipisci quo ullam nobis. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam iusto laudantium, exercitationem deleniti necessitatibus quaerat? Lorem ipsum dolor sit amet.</p>
+                        <p>{{ exp.description }}</p>
+                        {% if exp.link %}
+                        <!-- Optional Project Link -->
+                        <a href="{{ exp.link }}" target="_blank" class="link-btn">Learn More</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+            {% endfor %}
 
         </div>
     </div>
@@ -179,27 +193,25 @@
     <div class="faqs-container">
         <div class="sec-title">
             <h1>my faq's.</h1>
-            <a href="faq's.html"><button class="view-all-btn"><img src="{% static 'assets/Icons/right-arrow.png' %}" alt="">View All FAQ's</button></a>
         </div>
-
         <div class="faq-cards">
+            {% for faq in faqs %}
             <div class="faq-card">
                 <div class="faq-dtln">
-                    <h2>What is Python in Programming Language?</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.</p>
+                    <h2>{{faq.question}}</h2>
+                    <p>{{faq.answer}}</p>
                 </div>
                 <div class="btn-faq">
-                    <img class="show-faq" src="assets/Icons/plus.png" alt="">
-                    <img class="hide-faq" src="assets/Icons/minus.png" alt="">
+                    <img class="show-faq" src="{% static 'assets/Icons/plus.png' %}" alt="">
+                    <img class="hide-faq" src="{% static 'assets/Icons/minus.png' %}" alt="">
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div> 
 
 </div>
 {% endblock %}
 
-    
-<script src="home.js"></script>
 </body>
 </html>

@@ -8,5 +8,5 @@ urlpatterns = [
     path("my-skills/", views.SkillsView.as_view(), name="skills"),
     path("my-projects/", views.ProjectsView.as_view(), name="projects"),
     path("my-blogs/", views.BlogsView.as_view(), name="blogs"),
-    path("my-expericence/", views.ExpericenceView.as_view(), name="expericence"),
+    path("my-experience/", views.ExperienceView.as_view(), name="experience"),
 ]

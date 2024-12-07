@@ -5,38 +5,45 @@ from django.http import HttpResponse
 from .models import Skills  # Ensure this matches your model name
 from .models import Projects  # Ensure this matches your model name
 from .models import Blogs  # Ensure this matches your model name
-from .models import Expericence  # Ensure this matches your model name
+from .models import Experience  # Ensure this matches your model name
+from .models import FAQ  # Ensure this matches your model name
 
 
 
 def home(request):
-    return render(request, 'home.html')
+    blogs = Blogs.objects.all()[:3]  # Get the first 3 blogs
+    projects = Projects.objects.all()[:3]  # Get the first 3 projects
+    skills = Skills.objects.all()[:8]  # Get the first 3 skills
+    expericence = Experience.objects.all()[:3]  # Get the first 3 experiences
+    faqs = FAQ.objects.all()  # Fetch all FAQs (since you want all of them)
+
+    context = {
+        'blogs': blogs,
+        'projects': projects,
+        'skills': skills,
+        'expericence': expericence,
+        'faqs': faqs,
+    }
+    return render(request, 'home.html', context)
+
 
 class SkillsView(View):
     def get(self, request):
-        # Fetch all skills from the database
         skills = Skills.objects.all()  # Using the correct model name
-        # Render the template with the skills data
         return render(request, 'skills.html', {'skills': skills})
 
     
 class ProjectsView(View):
     def get(self, request):
-        # Fetch all projects from the database
         projects = Projects.objects.all()  # Using the correct model name
-        # Render the template with the projects data
         return render(request, 'project.html', {'projects': projects})
 
 class BlogsView(View):
     def get(self, request):
-        # Fetch all blogs from the database
         blogs = Blogs.objects.all()  # Using the correct model name
-        # Render the template with the blogs data
         return render(request, 'blogs.html', {'blogs': blogs})
 
-class ExpericenceView(View):
+class ExperienceView(View):
     def get(self, request):
-        # Fetch all expericence from the database
-        expericence = Expericence.objects.all()  # Using the correct model name
-        # Render the template with the expericence data
+        expericence = Experience.objects.all()
         return render(request, 'experience.html', {'expericence': expericence})

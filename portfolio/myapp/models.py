@@ -33,7 +33,7 @@ class Blogs(models.Model):
         return self.title
 
 
-class Expericence(models.Model):
+class Experience(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     image = models.ImageField(upload_to='expericence/')

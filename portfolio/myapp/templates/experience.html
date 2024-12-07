@@ -1,64 +1,46 @@
 {% extends "index.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{% static 'assets/My Image/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/experience.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <title>{% block title %}Home{% endblock  %}</title>
-</head>
-<body>
 
-    <div class="main-container">
+{% block title %}Experience{% endblock %}
 
-        <!--Navbar Is Starting From Here-->
-        <div class="nav-bar">
-            <img src="assets/My Image/Roshan Logo5.png" alt="Roshan Damor Logo">
-            <div class="nav-items">
-                <a href="#">MY RESEARCH WORKS</a>
-                <a href="#projects">MY STARTUP</a>
-                <a href="#skills">MY PERSONAL INFO</a>
-            </div>
-            <button class="outline-btn">DOWNLOAD RESUME</button>
-        </div>
+{% block main-content %}
 
-        <!--Project Page Title Is Staring From Here-->
-        <div class="exp-title">
-            <h1>my blogs</h1>
-            <button class="sort-btn">Sort Blogs<img src="assets/Icons/down-arrow.png" alt=""></button>
-            <ul>
-                <li>Latest Experience</li>
-                <li>Oldest Experience</li>
-                <li>Biggest Experience</li>
-            </ul>
-        </div>
 
-        <!--All Projects Is Staring From Here-->
-        <div class="exp-container">
-            <div class="exp-cards">
-                <div class="exp-card">
-                    <div class="detail">
-                        <div class="compney">
-                            <div class="comney-img"><img src="assets/Experience/infosys.png" alt="Google"></div>
-                            <h2>Sr. Python Developer (AI-ML)</h2>
-                            <h3>15th Oct - 19th Nov</h3>
+<div class="main-container">
+    <!-- Experience Section -->
+    <div class="exp-container">
+        <div class="exp-cards">
+            {% for exp in expericence %}
+            <div class="exp-card">
+                <div class="detail">
+                    <div class="compney">
+                        <!-- Company Image -->
+                        <div class="comney-img">
+                            <img src="{{ exp.image.url }}" alt="{{ exp.title }}">
                         </div>
-                        <div class="description">
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe, fugit! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus alias perspiciatis minus architecto modi quisquam commodi adipisci quo ullam nobis. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam iusto laudantium, exercitationem deleniti necessitatibus quaerat? Lorem ipsum dolor sit amet.</p>
-                        </div>
+                        <!-- Job Title -->
+                        <h2>{{ exp.title }}</h2>
+                        <!-- Job Duration -->
+                        <h3>
+                            <span>{{ exp.date1 }}</span> - 
+                            <span>{{ exp.date2|default:"Present" }}</span>
+                        </h3>
+                    </div>
+                    <!-- Job Description -->
+                    <div class="description">
+                        <p>{{ exp.description }}</p>
+                        {% if exp.link %}
+                        <!-- Optional Project Link -->
+                        <a href="{{ exp.link }}" target="_blank" class="link-btn">Learn More</a>
+                        {% endif %}
                     </div>
                 </div>
-    
             </div>
+            {% empty %}
+            <!-- Message if no experience is found -->
+            <p>No experience entries are currently available.</p>
+            {% endfor %}
         </div>
-
-        
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
