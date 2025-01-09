@@ -15,8 +15,8 @@
             <h4>I am a <span id="skill-text">Python Developer</span></h4>
             <p>GREETINGS, ALL DIGITAL EXPLORERS ! I AM ROSHAN, A PASSIONATE AMD INNOVATIVE DEVELOPER DEDICATED TO CRAFTING IMMERSIVE DIGITAL EXPERIENCE, WELCOME TO MY ONLINE WORLD ...</p>
             <div class="home-btns">
-                <a href="personal.html"><button class="outline-btn">KNOW PERSONAL</button></a>
-                <a href="#"><button class="outline-btn">My Video Resume</button></a>
+                <a href="my-personal/"><button class="outline-btn">KNOW PERSONAL</button></a>
+                <a href="my-video-resume/"><button class="outline-btn">VIDEO RESUME</button></a>
             </div>
         </div>
         <div class="home-hero-image">
@@ -40,7 +40,7 @@
 
             {% for project in projects %}
                 <div class="project-card">
-                    <a href="{{ project.url }}"> <!-- Assuming project has a 'url' field -->
+                    <a href="{% url 'project_detail' project.id %}"> <!-- Assuming project has a 'url' field -->
                         <div class="img-card-container">
                             <img src="{{ project.image.url }}" alt="{{ project.title }}">
                         </div>
