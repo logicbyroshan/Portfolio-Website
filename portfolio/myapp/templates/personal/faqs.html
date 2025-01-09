@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Quicksand:wght@300..700&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>Roshan Portfolio |</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/faq.css">
+    <link rel="stylesheet" href="../../static/css/re-used.css">
+</head>
+<body>
+    
+<div class="faq-container">
+    <div class="faq-questions">
+        <div class="input-faq">
+            <input type="text" placeholder="Ask your question here...">
+            <button>Ask Question ?</button>
+        </div>
+    </div>
+    <div class="cards-header">
+        <h1>my faq's.</h1>
+        <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+        <div class="cards-sorting">
+            <div class="cards-categories">
+                <span class="category active" onclick="toggleCategory(this)">All FAQ's</span>
+                <span class="category" onclick="toggleCategory(this)">Job FAQ's</span>
+                <span class="category" onclick="toggleCategory(this)">Tech FAQ's</span>
+                <span class="category" onclick="toggleCategory(this)">Freelance FAQ's</span>
+            </div>
+            <div class="cards-sort">
+                <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort FAQ's</button>
+                <div class="sort-items" id="sort-items">
+                    <ul>
+                        <li onclick="changeSortOption(this)">Most Viewed FAQ's</li>
+                        <li onclick="changeSortOption(this)">Least Viewed FAQ's</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="faq-cards">
+        <div class="faq-card">
+            <div class="faq-content">
+                <h2>What is your girlfriend's name?</h2>
+                <p class="answer">The answer is the same as you might not know her.</p>
+            </div>
+            <div class="btn-faq">
+                <img class="faq-toggle" src="../../static/assets/Icons/open.png" alt="Show FAQ">
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <div class="faq-content">
+                <h2>What is your girlfriend's name?</h2>
+                <p class="answer">The answer is the same as you might not know her.</p>
+            </div>
+            <div class="btn-faq">
+                <img class="faq-toggle" src="../../static/assets/Icons/open.png" alt="Show FAQ">
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <div class="faq-content">
+                <h2>What is your girlfriend's name?</h2>
+                <p class="answer">The answer is the same as you might not know her.</p>
+            </div>
+            <div class="btn-faq">
+                <img class="faq-toggle" src="../../static/assets/Icons/open.png" alt="Show FAQ">
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <div class="faq-content">
+                <h2>What is your girlfriend's name?</h2>
+                <p class="answer">The answer is the same as you might not know her.</p>
+            </div>
+            <div class="btn-faq">
+                <img class="faq-toggle" src="../../static/assets/Icons/open.png" alt="Show FAQ">
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <div class="faq-content">
+                <h2>What is your boyfriend's name?</h2>
+                <p class="answer">The answer is the same as you might not know her.</p>
+            </div>
+            <div class="btn-faq">
+                <img class="faq-toggle" src="../../static/assets/Icons/open.png" alt="Show FAQ">
+            </div>
+        </div>
+        
+    </div>
+    <div class="project-footer">
+        <button class="outline-btn">VIEW ALL THE FAQ's <img src="" alt=""></button>
+    </div>
+</div>
+    <script src="../../static/js/index.js"></script>
+</body>
+</html>

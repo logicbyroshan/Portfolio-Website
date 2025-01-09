@@ -1,36 +1,163 @@
-{% extends "index.html" %}
-{% load static %}
-{% block title %}Skills{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Quicksand:wght@300..700&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>Roshan Portfolio |</title>
+    <link rel="icon" type="image/x-icon" href="../static/assets/My Image/favicon.ico">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/re-used.css">
+    <link rel="stylesheet" href="../static/css/skills.css">
+</head>
 <body>
-    {% block main-content %}
-    <div class="main-container">
-        <!-- All Skills -->
-        <div class="skills-container">
-            <div class="skills-cards-holder">
-                {% for skill in skills %}
-                <div class="skill-card">
-                    <div class="img-status-card">
-                        <img src="{{ skill.image.url }}" alt="{{ skill.name }}">
-                        <div class="status-card">
-                            <p>{{ skill.level }}</p>
-                        </div>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p>{{ skill.description }}</p>
-                    {% if skill.link1 %}
-                    <a href="{{ skill.link1 }}" class="skl-btn" target="_blank">View Resource 1</a>
-                    {% endif %}
-                    {% if skill.link2 %}
-                    <a href="{{ skill.link2 }}" class="skl-btn" target="_blank">View Resource 2</a>
-                    {% endif %}
+    
+<div class="skills-container">
+    <div class="cards-header">
+        <h1>my skills.</h1>
+        <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+        <div class="cards-sorting">
+            <div class="cards-categories">
+                <span class="category active" onclick="toggleCategory(this)">All Skills</span>
+                <span class="category" onclick="toggleCategory(this)">Full Stack Skills</span>
+                <span class="category" onclick="toggleCategory(this)">Frontend Skills</span>
+                <span class="category" onclick="toggleCategory(this)">Backend Skills</span>
+                <span class="category" onclick="toggleCategory(this)">Mobile App Development Skills</span>
+                <span class="category" onclick="toggleCategory(this)">AI Skills</span>
+                <span class="category" onclick="toggleCategory(this)">ML Skills</span>
+                <span class="category" onclick="toggleCategory(this)">Data Analytics Skills</span>
+
+            </div>
+            <div class="cards-sort">
+                <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Skills</button>
+                <div class="sort-items" id="sort-items">
+                    <ul>
+                        <li onclick="changeSortOption(this)">Latest Learned Skills</li>
+                        <li onclick="changeSortOption(this)">Oldest Learned Skills</li>
+                        <li onclick="changeSortOption(this)">Most Used Skills</li>
+                        <li onclick="changeSortOption(this)">Least Used Skills</li>
+                    </ul>
                 </div>
-                {% endfor %}
             </div>
         </div>
-    </div>
-    {% endblock main-content %}
 
+    <div class="skills-cards">
+
+        <div class="skills-card">
+            <div class="top-content">
+                <div class="skill-content">
+                    <div class="skill-image">
+                        <img src="../static/assets/skills/python.png" alt="">
+                    </div>
+                    <h3>Python</h3>
+                </div>
+
+                <div class="progress-card">
+                    <span class="progress-tag1 ">Progress</span>
+                    <span class="progress-tag2 ">Done</span>
+                    <span class="progress-tag3 active">Expert</span>
+                </div>
+            </div>
+            <div class="skills-content">
+                <div class="progress-container" data-progress="90">
+                    <div class="progress"></div>
+                </div>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati corrupti enim debitis ipsum cum tempora.</p>
+                <div class="skills-links">
+                    <button class="outline-btn">View Certificate</button>
+                    <button class="outline-btn">Used Resources</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="skills-card">
+            <div class="top-content">
+                <div class="skill-content">
+                    <div class="skill-image">
+                        <img src="../static/assets/skills/python.png" alt="">
+                    </div>
+                    <h3>Python</h3>
+                </div>
+
+                <div class="progress-card">
+                    <span class="progress-tag1 ">Progress</span>
+                    <span class="progress-tag2 ">Done</span>
+                    <span class="progress-tag3 active">Expert</span>
+                </div>
+            </div>
+            <div class="skills-content">
+                <div class="progress-container" data-progress="70">
+                    <div class="progress"></div>
+                </div>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati corrupti enim debitis ipsum cum tempora.</p>
+                <div class="skills-links">
+                    <button class="outline-btn">View Certificate</button>
+                    <button class="outline-btn">Used Resources</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="skills-card">
+            <div class="top-content">
+                <div class="skill-content">
+                    <div class="skill-image">
+                        <img src="../static/assets/skills/python.png" alt="">
+                    </div>
+                    <h3>Python</h3>
+                </div>
+
+                <div class="progress-card">
+                    <span class="progress-tag1 ">Progress</span>
+                    <span class="progress-tag2 ">Done</span>
+                    <span class="progress-tag3 active">Expert</span>
+                </div>
+            </div>
+            <div class="skills-content">
+                <div class="progress-container" data-progress="20">
+                    <div class="progress"></div>
+                </div>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati corrupti enim debitis ipsum cum tempora.</p>
+                <div class="skills-links">
+                    <button class="outline-btn">View Certificate</button>
+                    <button class="outline-btn">Used Resources</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="skills-card">
+            <div class="top-content">
+                <div class="skill-content">
+                    <div class="skill-image">
+                        <img src="../static/assets/skills/python.png" alt="">
+                    </div>
+                    <h3>Python</h3>
+                </div>
+
+                <div class="progress-card">
+                    <span class="progress-tag1 ">Progress</span>
+                    <span class="progress-tag2 ">Done</span>
+                    <span class="progress-tag3 active">Expert</span>
+                </div>
+            </div>
+            <div class="skills-content">
+                <div class="progress-container" data-progress="40">
+                    <div class="progress"></div>
+                </div>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati corrupti enim debitis ipsum cum tempora.</p>
+                <div class="skills-links">
+                    <button class="outline-btn">View Certificate</button>
+                    <button class="outline-btn">Used Resources</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="skills-footer">
+        <button class="outline-btn">VIEW ALL THE SKILLS <img src="" alt=""></button>
+    </div>
+</div>  
+    <script src="../static/js/index.js"></script>
 </body>
 </html>

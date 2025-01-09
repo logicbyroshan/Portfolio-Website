@@ -1,42 +1,142 @@
-{% extends "index.html" %}
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{% static 'assets/My Image/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <title>{% block title %}Blogs{% endblock  %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Quicksand:wght@300..700&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>Roshan Portfolio |</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/re-used.css">
+    <link rel="stylesheet" href="../static/css/blogs.css">
+    <link rel="icon" type="image/x-icon" href="../static/assets/My Image/favicon.ico">
 </head>
 <body>
-    {% block main-content %}
-    <div class="main-container">
-
-        <!--All Projects Is Staring From Here-->
-        <div class="blogs-container">
-            <div class="cards-holder">
-                {% for blog in blogs %}
-                <div class="blogs-card">
-                    <a href=""><div class="blogs-img-card">
-                        <div class="img-card-container">
-                            <img src="{{blog.image.url}}" alt="Project 1">
-                        </div>
-                    </div></a>
-                    <div class="blogs-dtl-card">
-                        <h2>{{blog.title}}</h2>
-                        <p>by <span id="blogger-name">{{blog.author}}</span> on <span id="blog-date">{{blog.date}}</span></p>
-                    </div>
+    
+<div class="blogs-container">
+    <div class="cards-header">
+        <h1>my blogs.</h1>
+        <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+        <div class="cards-sorting">
+            <div class="cards-categories">
+                <span class="category active" onclick="toggleCategory(this)">All Blogs</span>
+                <span class="category" onclick="toggleCategory(this)">Tech</span>
+                <span class="category" onclick="toggleCategory(this)">Job</span>
+                <span class="category" onclick="toggleCategory(this)">Education</span>
+                <span class="category" onclick="toggleCategory(this)">Smartphones</span>
+                <span class="category" onclick="toggleCategory(this)">Vehicles</span>
+                <span class="category" onclick="toggleCategory(this)">AI</span>
+            </div>
+            <div class="cards-sort">
+                <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Blogs</button>
+                <div class="sort-items" id="sort-items">
+                    <ul>
+                        <li onclick="changeSortOption(this)">Latest Blogs</li>
+                        <li onclick="changeSortOption(this)">Oldest Blogs</li>
+                        <li onclick="changeSortOption(this)">Most Liked Blogs</li>
+                        <li onclick="changeSortOption(this)">Least Liked Blogs</li>
+                    </ul>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
-    {% endblock %}
 
+    <div class="blogs-cards">
+        <div class="blogs-card">
+            <div class="blogs-image">
+                <img src="../static/assets/Projects/Project 1.jpg" alt="">
+            </div>
+            <div class="blogs-content">
+                <div class="date">
+                    <img src="../static/assets/Icons/calendar (2).png" alt="">
+                    <p>2022-01-01</p>
+                    <p>. Read Time: 10 min</p>
+                </div>
+                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
+                <div class="skills">
+                    <p>Category : </p>
+                    <span>Technology</span>
+                    <span>Job</span>
+                </div>
+                <div class="blogs-links">
+                    <button class="outline-btn">Read More</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="blogs-card">
+            <div class="blogs-image">
+                <img src="../static/assets/Projects/Project 1.jpg" alt="">
+            </div>
+            <div class="blogs-content">
+                <div class="date">
+                    <img src="../static/assets/Icons/calendar (2).png" alt="">
+                    <p>2022-01-01</p>
+                    <p>. Read Time: 10 min</p>
+                </div>
+                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
+                <div class="skills">
+                    <p>Category : </p>
+                    <span>Technology</span>
+                    <span>Job</span>
+                </div>
+                <div class="blogs-links">
+                    <button class="outline-btn">Read More</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="blogs-card">
+            <div class="blogs-image">
+                <img src="../static/assets/Projects/Project 1.jpg" alt="">
+            </div>
+            <div class="blogs-content">
+                <div class="date">
+                    <img src="../static/assets/Icons/calendar (2).png" alt="">
+                    <p>2022-01-01</p>
+                    <p>. Read Time: 10 min</p>
+                </div>
+                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
+                <div class="skills">
+                    <p>Category : </p>
+                    <span>Technology</span>
+                    <span>Job</span>
+                </div>
+                <div class="blogs-links">
+                    <button class="outline-btn">Read More</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="blogs-card">
+            <div class="blogs-image">
+                <img src="../static/assets/Projects/Project 1.jpg" alt="">
+            </div>
+            <div class="blogs-content">
+                <div class="date">
+                    <img src="../static/assets/Icons/calendar (2).png" alt="">
+                    <p>2022-01-01</p>
+                    <p>. Read Time: 10 min</p>
+                </div>
+                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
+                <div class="skills">
+                    <p>Category : </p>
+                    <span>Technology</span>
+                    <span>Job</span>
+                </div>
+                <div class="blogs-links">
+                    <button class="outline-btn">Read More</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="blogs-footer">
+        <button class="outline-btn">VIEW ALL THE BLOGS <img src="" alt=""></button>
+    </div>
+</div>
+    <script src="../static/js/index.js"></script>
+    <script src="../static/js/all-page.js"></script>
 </body>
 </html>

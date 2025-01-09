@@ -1,0 +1,141 @@
+.edu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 1280px;
+    width: 100%;
+    color: var(--main-text-color);
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+.edu-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px;
+    gap: 50px;
+}
+
+.edu-cards .edu-card {
+    width: 375px;
+    border-radius: 20px;
+    overflow: hidden;
+    color: var(--main-text-color);
+    padding: 25px;
+    border: 2px solid var(--main-outline-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.edu-cards .edu-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: var(--main-bg-color-2);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.edu-card .edu-image {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 25px;
+}
+
+.edu-card .edu-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 2px solid var(--main-outline-color);
+}
+
+.edu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edu-content .date {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.edu-content .date img {
+    width: 18px;
+    margin-right: 5px;
+    filter: invert(1);
+}
+
+.edu-content .date p {
+    font-size: 16px;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+}
+
+.edu-content h2 {
+    font-size: 20px;
+    font-family: var(--secondary-font);
+    color: var(--main-text-color);
+    letter-spacing: 2px;
+}
+
+.edu-content p {
+    font-size: 13px;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+    text-align: justify;
+}
+
+.edu-content .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.edu-content .skills p {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+}
+
+.edu-content .skills span {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--secondary-text-color);
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
+    font-size: 12px;
+}
+
+.edu-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.edu-content button {
+    padding: 6px 12px;
+    border-radius: 5px;
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.edu-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+}

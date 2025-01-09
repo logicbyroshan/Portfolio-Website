@@ -1,208 +1,139 @@
-/* CSS for Blogs Section */
-
-.blogs-title {
-    margin-top: 50px; /* Add some space at the top */
-    margin-bottom: 50px;
-    display: flex;
-    justify-content: space-between; /* Space between title and button */
-    align-items: center; /* Vertically center the elements */
-    border-radius: 30px; /* Smooth corners */
-    position: relative; /* To contain the dropdown */
-    padding: 20px 40px; /* Add some padding */
-    background-color: var(--main-bg-color-1); /* Background color */
-}
-
-.blogs-title h1 {
-    margin: 0;
-    font-size: 85px;
-    font-family: var(--heading-font);
-    color: var(--main-text-color); /* Title color */
-    letter-spacing: 3px;
-}
-
-.blogs-footer {
-    margin-top: 50px; /* Add some space at the top */
-    display: flex;
-    justify-content: space-between; /* Space between title and button */
-    align-items: center; /* Vertically center the elements */
-    border-radius: 30px; /* Smooth corners */
-    position: relative; /* To contain the dropdown */
-    padding: 20px 40px; /* Add some padding */
-    background-color: var(--main-bg-color-1); /* Background color */
-    margin-bottom: 50px;
-}
-
-.blogs-footer h1 {
-    margin: 0;
-    font-size: 85px;
-    font-family: var(--heading-font);
-    color: var(--main-text-color); /* Title color */
-}
-
-.blogs-footer p {
-    font-size: 20px;
-    font-family: var(--secondary-font);
-    color: var(--secondary-text-color);
-    margin-bottom: 15px;
-}
-.sort-btn {
-    background-color: transparent;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    gap: 10px;
-    font-size: 25px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-.sort-btn img {
-    margin-left: 10px; /* Space between button text and arrow icon */
-    width: 20px;
-    height: 20px;
-    filter: brightness(0) invert(1); /* Ensures image stays white on hover */
-}
-.btn-no {
-    background-color: var(--main-outline-color);
-    color: var(--main-text-color);
-    border: none;
-    border-radius: 50px;
-    padding: 12px;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-.btn-no:hover {
-    background-color: var(--btn-hover-color);
-    color: #0d1a28;
-}
-
-.blogs-title ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: none; /* Initially hide the dropdown */
-    position: absolute;
-    top: 100%; /* Position it below the button */
-    right: 0; /* Align it to the right of the button */
-    background-color: var(--main-bg-color-2);
-    border: 1px solid var(--main-outline-color);
-    border-radius: 10px;
-    width: 250px; /* Adjust width as needed */
-    z-index: 10; /* Ensure dropdown appears above other elements */
-    transition-delay: 0s;
-}
-
-.blogs-title ul li {
-    padding: 10px;
-    cursor: pointer;
-    color: var(--main-text-color);
-    text-align: center;
-}
-
-.blogs-title ul li:last-child {
-    border-bottom: none; /* Remove border for the last item */
-}
-
-.blogs-title ul li:hover {
-    background-color: var(--main-outline-color); /* Hover effect on dropdown items */
-}
-
-.sort-btn:hover + ul,
-.blogs-title ul:hover {
-    display: block; /* Show dropdown on hover */
-    transition-delay: 1s; /* Add delay before hiding */
-}
-
-
 .blogs-container {
-    background-color: var(--main-bg-color-1);
-    border-radius: 50px;
-    padding: 50px;
-}
-
-.cards-holder {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 30px; 
-    width: 100%; 
-    justify-items: center;
-}
-
-.blogs-details-card {
-    width: 575px;
-    height: 325px;
-    border-radius: 25px;
+    display: flex;
     justify-content: center;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.blogs-details-card h1 {
-    font-size: 85px;
-    font-family: var(--heading-font);
-    font-weight: 600;
-    color: var(--main-text-color);
-    letter-spacing: 3px;
-    margin-bottom: 12px;
-}
-
-.details-details-card p {
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-family: var(--secondary-font);
-    color: var(--secondary-text-color);
-}
-
-.blogs-img-card {
-    border-radius: 20px; 
-    color: white; 
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    width: 575px;
-    height: 275px;
-    border: 3px solid var(--main-outline-color);
-    padding: 10px;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 1280px;
+    width: 100%;
+    color: var(--main-text-color);
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+.blogs-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px;
+    gap: 50px;
+}
+
+.blogs-cards .blogs-card {
+    width: 375px;
+    border-radius: 20px;
+    overflow: hidden;
+    color: var(--main-text-color);
+    padding: 25px;
+    border: 2px solid var(--main-outline-color);
+}
+
+.blogs-cards .blogs-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: var(--main-bg-color-2);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.blogs-card .blogs-image {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 25px;
+}
+
+.blogs-card .blogs-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 2px solid var(--main-outline-color);
+}
+
+.blogs-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.blogs-content .date {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
     margin-bottom: 10px;
 }
 
-.blogs-img-card img {
-    width: 550px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 12px;
-    object-position: top;
-    transition: opacity 0.3s ease;
+.blogs-content .date img {
+    width: 18px;
+    margin-right: 5px;
+    filter: invert(1);
 }
 
-.blogs-dtl-card h2{
-    font-size: 22px;
-    color: var(--main-text-color);
-    font-family: var(--secondary-font);
-    margin: 0;
-    padding: 5px 10px;
-    font-weight: 300;
-}
-
-.blogs-dtl-card p {
+.blogs-content .date p {
     font-size: 16px;
     font-family: var(--secondary-font);
     color: var(--secondary-text-color);
-    margin: 0;
-    padding-left: 10px;
 }
-#blogger-name {
-    font-size: 18px;
-    color: var(--btn-hover-color);
-    font-weight: 900;
-}
-#blog-date {
-    font-size: 18px;
+
+.blogs-content h2 {
+    font-size: 20px;
+    font-family: var(--secondary-font);
     color: var(--main-text-color);
-    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+.blogs-content p {
+    font-size: 13px;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+    text-align: justify;
+}
+
+.blogs-content .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.blogs-content .skills p {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+}
+
+.blogs-content .skills span {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--secondary-text-color);
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
+    font-size: 12px;
+}
+
+.blogs-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.blogs-content button {
+    padding: 6px 12px;
+    border-radius: 5px;
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.blogs-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
 }

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Rating Card</title>
+    <style>
+        .helping-card {
+            display: flex;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            max-width: 300px;
+            font-family: Arial, sans-serif;
+        }
+
+        .helping-img img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .helping-content {
+            margin-left: 16px;
+            flex: 1;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .star-rating span {
+            font-size: 20px;
+        }
+
+        .price span {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .price span:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="helping-card">
+        <div class="helping-img">
+            <img src="../../static/assets/Books/Book 1.jpg" alt="">
+        </div>
+        <div class="helping-content">
+            <div class="star-rating" data-progress="4"></div>
+            <h1>How to get a job?</h1>
+            <div class="price">
+                <span>Preview</span>
+                <span>Download</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const starRatings = document.querySelectorAll(".star-rating");
+
+            starRatings.forEach(rating => {
+                const progress = Math.min(Math.max(parseInt(rating.dataset.progress, 10) || 1, 1), 5);
+                for (let i = 0; i < progress; i++) {
+                    const star = document.createElement("span");
+                    star.textContent = "⭐"; // Emoji for filled star
+                    rating.appendChild(star);
+                }
+                for (let i = progress; i < 5; i++) {
+                    const emptyStar = document.createElement("span");
+                    emptyStar.textContent = "☆"; // Emoji for empty star
+                    rating.appendChild(emptyStar);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

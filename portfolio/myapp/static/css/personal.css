@@ -95,6 +95,13 @@ img:hover {
     color: grey;
 }
 
+.my-btns {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+}
+
 
 /*Product Page Section Start from Here */
 
@@ -104,25 +111,21 @@ img:hover {
     width: 100%;
     max-width: 1280px;
     background-color: var(--main-bg-color-1);
-    padding: 35px;
 }
 
 .book_header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 50px;
     padding-bottom: 15px;
     padding-left: 5px;
     margin-bottom: 30px;
 }
-.book_header button {
-    margin-left: auto;
-}
 
-.book_header h2 {
-    margin: 0;
-    padding: 0;
-    font-size: 85px;
+
+.book_header h1 {
+    font-size: 75px;
     font-family: var(--heading-font);
     color: var(--main-text-color);
     letter-spacing: 4px;
@@ -135,43 +138,20 @@ img:hover {
     padding-right: 30px;
     gap: 25px;
 }
-.img-product {
-    width: 33%;
-    color: white;
-}
-
-.img-product p {
-    color: white;
-    padding: 10px;
-}
-
-.btns {
-    display: flex;
-    justify-content: space-between;
-    width: 100%; /* Ensures the container spans the full width of its parent */
-}
-
-.img-product img {
-    width: 100%;
-    border-radius: 20px;
-    border: 4px solid var(--main-outline-color);
-    padding: 10px;
-}
 
 .products-cards {
-    width: 100%;
     display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.products {
-    background-color: azure;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .product1 {
-    width: 25%;
-    
+    width: 24%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
 }
 
 .imgs-product {
@@ -181,22 +161,23 @@ img:hover {
 .imgs-product img {
     width: 100%;
     border-radius: 25px;
-    border: 4px solid var(--main-bg-color-2);
+    border: 2px solid var(--main-outline-color);
     padding: 10px;
 }
 
 .dtl-product {
-    padding: 10px;
-    margin-top: 20px;
-    background-color: var(--main-bg-color-2);
+    display: none;
+    position :absolute;
+    bottom: 15px;
+    left: 10px;
     border-radius: 20px;
-    width: 100%;
-}   
+    width: 90%;
+}
 
 .dtl-product h3 {
+    font-size: 18px;
     color:#dfdede;
     padding: 10px;
-    font-size: 25px;
     margin-bottom: 5px;
 }
 
@@ -210,7 +191,15 @@ img:hover {
     margin-left: 10px;
 }
 
+.product1:hover .imgs-product img {
+    filter: brightness(0.6);
+    cursor: pointer;
+}
 
+.product1:hover .dtl-product {
+    cursor: pointer;
+    display: block;
+}
 
 /*Education Page Section Start from Here */
 
@@ -575,9 +564,15 @@ img:hover {
 
 
 /* CSS for ideas Section */
+.ideas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
 .ideas-cards-holder {
-    display: grid;
-    grid-gap: 20px; 
+    display: flex;
+    flex-direction: column;
+    gap: 75px;
     width: 100%; 
     justify-items: center;
     margin-top: 25px;
@@ -585,68 +580,77 @@ img:hover {
 
 .ideas-card {
     color: white;
-    border-radius: 20px;
-    padding: 20px;
-    position: relative;
     text-align: justify;
     width: 100%;
 }
 
+.img-status-card {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 2px var(--main-outline-color);
+    padding-bottom: 20px;
+}
+
 .left-half {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 30px;
-    width: 60%;
+    width: 70%;
+}
+
+.left-half .img-card{
+    width: 20%;
+    border-radius: 25px;
+    overflow: hidden;
+    border: solid 2px var(--main-outline-color);
+    padding: 10px;
+}
+
+.left-half .img-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.left-half .idea-title-card {
+    width: 100%;
+}
+
+.left-half .idea-title-card h3 {
+    font-size: 30px;
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
 }
 
 .right-half {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     width: 30%;
+    align-items: flex-end;
 }
 
-.img-status-card {
+.right-half .my-btns {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border-bottom: solid 2px var(--main-bg-color-2);
-}
-
-.img-card{
-    width: 250px;
-    height: 150px;
-    border-radius: 20px;
-    overflow: hidden;
-    border: solid 2px var(--main-bg-color-2);
-    padding: 10px;
-}
-
-.img-status-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 20px;
+    gap: 15px;
 }
 
 .status-card {
+    display: flex;
+    gap: 15px;
+}
+
+.status-card span {
+    margin: 0;
+    padding: 8px 15px; 
+    font-family: var(--secondary-font);
     background-color: var(--main-bg-color-2);
-    color: white;
-    padding: 10px 10px;
-    border-radius: 20px;
-    font-size: 1.5rem;
-    width: 33%;
-    text-align: center;
+    border-radius: 10px;
+    font-size: 15px;
 }
-
-.idea-title-card {
-    width: 65%;
-}
-.idea-title-card h3 {
-    font-size: 30px;
-    color: var(--main-text-color);
-}
-
 
 .dtl-status-card {
     padding: 10 0px;
@@ -654,8 +658,8 @@ img:hover {
 }
 
 .dtl-status-card p {
-    font-size: 15px;
+    font-size: 18px;
+    letter-spacing: 1px;
     color: var(--main-text-color);
     font-family: var(--secondary-font);
 }
-

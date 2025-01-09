@@ -1,0 +1,121 @@
+.faq-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 1280px;
+    width: 100%;
+    color: var(--main-text-color);
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+.faq-questions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.faq-questions .input-faq {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--main-bg-color-2);
+    border-radius: 10px;
+}
+
+.faq-questions .input-faq input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: var(--main-bg-color-2);
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
+    font-size: 20px;
+}
+
+.faq-questions .input-faq input:focus {
+    outline: none;
+  }  
+
+.faq-questions .input-faq input::placeholder {
+    color: var(--secondary-text-color);
+}
+
+.faq-questions .input-faq button {
+    background-color: var(--main-outline-color);
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
+    font-size: 20px;
+    cursor: pointer;
+    width: 200px;
+}
+
+.faq-questions .input-faq button:hover {
+    background-color: var(--secondary-text-color);
+}
+
+/* CSS for FAQ Section */
+.faq-cards {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.faq-card {
+    width: 100%;
+    border: 1px solid var(--main-outline-color); 
+    border-radius: 10px;
+    padding: 15px;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: space-between;
+}
+
+.faq-card h2 {
+    font-size: 25px; /* Larger font size */
+    margin: 0; /* Remove default margin */
+    font-family: var(--secondary-font);
+    color: var(--main-text-color);
+}
+
+.faq-card p {
+    font-size: 20px;
+    margin: 0;
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+}
+
+.faq-card:hover {
+    background-color: var(--main-bg-color-2); 
+}
+
+.faq-content .answer {
+    display: none; 
+    margin-top: 10px;
+    color: #555;
+}
+
+.btn-faq {
+
+    cursor: pointer;
+}
+
+.faq-toggle {
+    width: 30px;
+    height: 30px;
+}
