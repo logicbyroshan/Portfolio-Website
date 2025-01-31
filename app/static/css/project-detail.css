@@ -1,0 +1,386 @@
+/* Define root variables for colors and fonts */
+:root {
+    /* Color definitions */
+    --main-bg-color-1: #000000;
+    --main-bg-color-2: #0d0536;
+    --card-bg-color-1: #001530;
+    --card-bg-color-2: #0c1134;
+    --main-outline-color: #022249;
+    --card-outline-color: #082448;
+    --heading-text-color: #ffffff;
+    --main-text-color: #dddddd;
+    --secondary-text-color: #92a8c0;
+    --text-hover-color: #e0dd03;
+    /* Font definitions */
+    --heading-font: 'Jersey 10', sans-serif;
+    --main-font: 'Montserrat', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+  }
+  
+  .projects-container {
+    width: 1280px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: start;
+    background-color: var(--main-bg-color-1);
+    padding: 20px;
+  }
+  
+  .project-side-card {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    border-radius: 10px;
+    color: white;
+    gap: 30px;
+  }
+  
+  .project-side-card1 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+    border-radius: 20px;
+    border: solid 2px var(--card-outline-color);
+  }
+  
+  .project-side-card1 h1 {
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    color: var(--heading-text-color);
+  }
+  
+  .project-detail-card {
+    width: 960px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border-radius: 25px;
+    gap: 75px;
+  }
+
+
+  .hero-image-slider {
+    position: relative;
+    width: 960px;
+    height: 500px;
+    overflow: hidden;
+    border-radius: 40px;
+    background-color: #0B192C;
+}
+
+.slider {
+    display: flex;
+    width: 100%; /* Allow smooth sliding */
+    transition: transform 1s ease-in-out;
+}
+
+.slide {
+    min-width: 960px;
+    height: 500px;
+    border-radius: 40px;
+    overflow: hidden;
+    border: solid 2px #1E3E62;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+/* Navigation buttons */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  z-index: 1000;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: opacity 0.3s ease;
+  filter: invert(80%);
+}
+
+/* Ensure button remains in place */
+.prev { left: 20px; }
+.next { right: 20px; }
+
+/* Fix hover issue */
+.prev:hover, .next:hover {
+  opacity: 0.7;
+  transform: translateY(-50%); /* Prevents unwanted movement */
+  width: 50px;  /* Ensures no size change */
+  height: 50px;
+}
+
+/* Fix active issue */
+.prev:active, .next:active {
+  opacity: 0.8; /* Instead of scaling */
+}
+
+  .project-header {
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      gap: 10px;
+  }
+  
+  .project-header .project-meg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: #292a43;
+      padding: 5px 15px;
+      border-radius: 10px;
+  }
+
+  .project-brief {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .project-detail-card h1 {
+    font-family: var(--heading-font);
+    font-size: 2.5rem;
+    color: var(--heading-text-color);
+  }
+  
+  .project-detail-card p{
+    font-family: var(--main-font);
+    font-size: 1.2rem;
+    color: var(--main-text-color);
+    line-height: 1.4;
+    text-align: justify;
+  }
+  
+  .project-tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .project-tags span {
+    font-family: var(--main-font);
+    font-size: 1rem;
+    color: var(--heading-text-color);
+    background-color: #292a43;
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+  
+  .latest-projects {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .latest-projects .latest-project {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--card-bg-color-1);
+  }
+
+  .latest-projects .latest-project img {
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+  }
+  
+  .latest-project:hover {
+    background-color: var(--card-bg-color-2);
+    cursor: pointer;
+  }
+  
+  .latest-project h2 {
+    font-family: var(--heading-font);
+    font-size: 14px;
+    color: var(--heading-text-color);
+  }
+  
+  .latest-project h1 {
+    font-family: var(--main-font);
+    font-size: 15px;
+    color: var(--main-text-color);
+  }
+
+  .skills-used {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .skills-used h1 {
+    font-family: var(--main-font);
+    font-size: 1.5rem;
+    color: var(--heading-text-color);
+  }
+
+  .skills-used .skill-cards {
+    display: flex;
+    gap: 15px;
+  }
+
+  .skill-cards .skill-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 8px 15px;
+    border-radius: 10px;
+    background-color: var(--card-bg-color-1);
+  }
+
+  .skill-cards .skill-card p {
+    font-family: var(--main-font);
+    font-size: 1.2rem;
+    color: var(--main-text-color);
+    margin: 0;
+  }
+
+  .skills-used .skill-card img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .project-features {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .project-features .features-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 30px;
+    list-style-type: none;
+  }
+
+  .project-features .features-list li {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    font-family: var(--main-font);
+    font-size: 1.2rem;
+    color: var(--main-text-color);
+    background-color: var(--card-bg-color-1);
+    padding: 15px;
+    gap: 25px;
+    border-radius: 10px;
+  }
+
+  .project-features .features-list li img {
+    width: 75px;
+    height: 75px;
+    border-radius: 10px;
+  }
+
+  .project-features .features-list li .feature-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .project-features .features-list li h3 {
+    font-family: var(--heading-font);
+    font-size: 1.2rem;
+    color: var(--heading-text-color);
+  }
+
+  .project-features .features-list li p {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .project-learnings {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .project-learnings ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .project-learnings li {
+    list-style: none;
+    font-family: var(--main-font);
+    font-size: 1.2rem;
+    color: var(--main-text-color);
+    line-height: 1.4;
+    text-align: justify;
+  }
+
+  .project-problem, .project-solution, .project-impact, .project-learnings, .project-features, .project-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .project-problem .heading, .project-solution .heading, .project-impact .heading, .project-learnings .heading, .project-features .heading, .project-suggestions .heading {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .project-problem .heading img, .project-solution .heading img, .project-impact .heading img, .project-learnings .heading img, .project-features .heading img, .project-suggestions .heading img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+  }
+
+  .project-problem h1, .project-solution h1, .project-impact h1, .project-learnings h1, .project-features h1, .project-suggestions h1 {
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    color: var(--heading-text-color);
+  }
+
+  .projects-suggestions-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 30px;
+    list-style-type: none;
+  }
+
+  .projects-suggestions-cards .project-suggest {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    font-family: var(--main-font);
+    font-size: 1.2rem;
+    color: var(--main-text-color);
+    background-color: var(--card-bg-color-1);
+    padding: 15px;
+    gap: 25px;
+    border-radius: 10px;
+  }
+
+  .projects-suggestions-cards .project-suggest img {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+  }
+
+  .projects-suggestions-cards .project-suggest h2 {
+    font-family: var(--heading-font);
+    font-size: 1.2rem;
+    color: var(--heading-text-color);
+  }

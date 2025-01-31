@@ -1,0 +1,374 @@
+{% extends "portfolio-base.html" %}
+{% block title %} Roshan {% endblock %}
+
+{% block content %}
+    <div class="main-container">
+        <!--Home Is Staring From Here-->
+        <div class="home-container">
+            <div class="home-content">
+                <p>HIII, IT'S ME</p>
+                <h1>Roshan Damor</h1>
+                <h4>I am a <span id="skill-text"></span></h4>
+                <p>GREETINGS, ALL DIGITAL EXPLORERS ! I AM ROSHAN, A PASSIONATE AMD INNOVATIVE DEVELOPER DEDICATED TO CRAFTING IMMERSIVE DIGITAL EXPERIENCE, WELCOME TO MY ONLINE WORLD ...</p>
+                <div class="home-btns">
+                    <a href="my-personal/"><button class="outline-btn">KNOW PERSONAL</button></a>
+                    <a href="my-video-resume/"><button class="outline-btn">VIDEO RESUME</button></a>
+                    <a href=""><button class="outline-btn">Refrances</button></a>
+                </div>
+                <div class="success">
+                    <div class="success-card">
+                        <img src="../static/images/icons/promotion.gif" alt="">
+                        <p>2+ Year of Experience</p>
+                    </div>
+                    <div class="success-card">
+                        <img src="../static/images/icons/projects.gif" alt="">
+                        <p>39+ Succesfull Projects</p>
+                    </div>
+                </div>
+            </div>
+            <div class="home-hero-image">
+                <img src="../static/images/stock/Portfolio.png" alt="Hero Image">
+                
+            </div>
+        </div>
+
+        <!--Blogs Is Staring From Here-->
+        <div class="all-container">
+            <div class="cards-header">
+                <h1>my blogs.</h1>
+                <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search Your Content">
+                    <button><img src="../static/images/icons/search.png" alt="searchicon"></button>
+                </div>
+                <div class="cards-sorting">
+                    <div class="cards-categories">
+                        <span class="category active" onclick="toggleCategory(this)">All Blogs</span>
+                        <span class="category" onclick="toggleCategory(this)">Tech</span>
+                        <span class="category" onclick="toggleCategory(this)">Job</span>
+                        <span class="category" onclick="toggleCategory(this)">Education</span>
+                        <span class="category" onclick="toggleCategory(this)">Smartphones</span>
+                        <span class="category" onclick="toggleCategory(this)">Vehicles</span>
+                        <span class="category" onclick="toggleCategory(this)">AI</span>
+                    </div>
+                    <div class="cards-sort">
+                        <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Blogs</button>
+                        <div class="sort-items" id="sort-items">
+                            <ul>
+                                <li onclick="changeSortOption(this)">Latest Blogs</li>
+                                <li onclick="changeSortOption(this)">Oldest Blogs</li>
+                                <li onclick="changeSortOption(this)">Most Liked Blogs</li>
+                                <li onclick="changeSortOption(this)">Least Liked Blogs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="ver-cards">
+                <div class="blogs-card">
+                    <div class="blogs-image">
+                        <img src="../static/assets/Projects/Project 1.jpg" alt="">
+                    </div>
+                    <div class="blogs-content">
+                        <div class="date">
+                            <img src="../static/assets/Icons/calendar (2).png" alt="">
+                            <p>2022-01-01</p>
+                            <p>. Read Time: 10 min</p>
+                        </div>
+                        <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
+                        <div class="skills">
+                            <p>Category : </p>
+                            <span>Technology</span>
+                            <span>Job</span>
+                        </div>
+                        <div class="blogs-links">
+                            <button class="outline-btn">Read More</button>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+            <div class="blogs-footer">
+                <button class="outline-btn">VIEW ALL THE BLOGS <img src="" alt=""></button>
+            </div>
+        </div>
+
+        <!--Skills Is Staring From Here-->
+        <div class="all-container">
+            <div class="cards-header">
+                <h1>my skills.</h1>
+                <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search Your Content">
+                    <button><img src="../static/images/icons/search.png" alt="searchicon"></button>
+                </div>
+                <div class="cards-sorting">
+                    <div class="cards-categories">
+                        <span class="category active" onclick="toggleCategory(this)">All Skills</span>
+                        <span class="category" onclick="toggleCategory(this)">Full Stack Skills</span>
+                        <span class="category" onclick="toggleCategory(this)">Frontend Skills</span>
+                        <span class="category" onclick="toggleCategory(this)">Backend Skills</span>
+                        <span class="category" onclick="toggleCategory(this)">Mobile App Development Skills</span>
+                        <span class="category" onclick="toggleCategory(this)">AI Skills</span>
+                        <span class="category" onclick="toggleCategory(this)">ML Skills</span>
+                        <span class="category" onclick="toggleCategory(this)">Data Analytics Skills</span>
+        
+                    </div>
+                    <div class="cards-sort">
+                        <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Skills</button>
+                        <div class="sort-items" id="sort-items">
+                            <ul>
+                                <li onclick="changeSortOption(this)">Latest Learned Skills</li>
+                                <li onclick="changeSortOption(this)">Oldest Learned Skills</li>
+                                <li onclick="changeSortOption(this)">Most Used Skills</li>
+                                <li onclick="changeSortOption(this)">Least Used Skills</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+            <div class="ver-cards">
+        
+                <div class="skills-card">
+                    <div class="top-content">
+                        <div class="skill-content">
+                            <div class="skill-image">
+                                <img src="../static/assets/skills/python.png" alt="">
+                            </div>
+                            <h3>Python</h3>
+                        </div>
+        
+                        <div class="progress-card">
+                            <span class="progress-tag1 ">Progress</span>
+                            <span class="progress-tag2 ">Done</span>
+                            <span class="progress-tag3 active">Expert</span>
+                        </div>
+                    </div>
+                    <div class="skills-content">
+                        <div class="progress-container" data-progress="90">
+                            <div class="progress"></div>
+                        </div>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati corrupti enim debitis ipsum cum tempora.</p>
+                        <div class="skills-links">
+                            <button class="outline-btn">View Certificate</button>
+                            <button class="outline-btn">Used Resources</button>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+            <div class="skills-footer">
+                <button class="outline-btn">VIEW ALL THE SKILLS <img src="" alt=""></button>
+            </div>
+        </div>  
+
+        <!--Projects Is Staring From Here-->
+        <div class="all-container">
+            <div class="cards-header">
+                <h1>my projects.</h1>
+                <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search Your Content">
+                    <button><img src="../static/images/icons/search.png" alt="searchicon"></button>
+                </div>
+                <div class="cards-sorting">
+                    <div class="cards-categories">
+                        <img src="../static/icons/search.png" alt="menu" id="menu-toggle">
+                        <ul id="menu-items">
+                            <li><span class="category active" onclick="toggleCategory(this)">All Projects</span></li>
+                            <li><span class="category" onclick="toggleCategory(this)">Full Stack Projects</span></li>
+                            <li><span class="category" onclick="toggleCategory(this)">Frontend Projects</span></li>
+                            <li><span class="category" onclick="toggleCategory(this)">Backend Projects</span></li>
+                            <li><span class="category" onclick="toggleCategory(this)">Mobile App Projects</span></li>
+                            <li><span class="category" onclick="toggleCategory(this)">Desktop App Projects</span></li>
+                            <li><span class="category" onclick="toggleCategory(this)">AI Projects</span></li>
+                        </ul>
+                    </div>
+                    <div class="cards-sort">
+                        <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Projects</button>
+                        <div class="sort-items" id="sort-items">
+                            <ul>
+                                <li onclick="changeSortOption(this)">Latest Project</li>
+                                <li onclick="changeSortOption(this)">Oldest Project</li>
+                                <li onclick="changeSortOption(this)">Most Liked Project</li>
+                                <li onclick="changeSortOption(this)">Least Liked Project</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+            <div class="ver-cards">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="../static/assets/Projects/Project 1.jpg" alt="">
+                    </div>
+                    <div class="project-content">
+                        <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
+                        <div class="skills">
+                            <p>Skills Used : </p>
+                            <span>HMTL</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>Python</span>
+                            <span>Django</span>
+                            <span>RestAPI</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="outline-btn">CODE</button>
+                            <button class="outline-btn">PREVIEW</button>
+                            <button class="outline-btn">DOCUMENTATION</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="project-footer">
+                <button class="outline-btn">VIEW ALL THE PROJECTS <img src="" alt=""></button>
+            </div>
+        </div>
+
+        <!--Experience Is Staring From Here-->  
+        <div class="all-container">
+            <div class="cards-header">
+                <h1>my experience.</h1>
+                <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search Your Content">
+                    <button><img src="../static/images/icons/search.png" alt="searchicon"></button>
+                </div>
+                <div class="cards-sorting">
+                    <div class="cards-categories">
+                        <span class="category active" onclick="toggleCategory(this)">All Educations</span>
+                        <span class="category" onclick="toggleCategory(this)">Professional Certificates</span>
+                        <span class="category" onclick="toggleCategory(this)">Skill Development</span>
+                        <span class="category" onclick="toggleCategory(this)">Academic Qualifications</span>
+                        <span class="category" onclick="toggleCategory(this)">Research and Academic</span>
+                    </div>
+                    <div class="cards-sort">
+                        <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Education</button>
+                        <div class="sort-items" id="sort-items">
+                            <ul>
+                                <li onclick="changeSortOption(this)">Latest Education</li>
+                                <li onclick="changeSortOption(this)">Oldest Education</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="hor-cards">
+                <div class="exp-card">
+                    <div class="top-content">
+                        <div class="exp-image">
+                            <img src="../static/assets/Experience/Amazon.png" alt="">
+                        </div>
+                        <h2>Sr. Software Engineer</h2>
+                        <div class="date">
+                            <p>Jan-2020</p>
+                            <p>Mar-2022</p>
+                        </div>
+                    </div>
+                    <div class="exp-content">
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non vero unde autem? Cum quo odio veritatis rem vero, repudiandae eum possimus ex quam excepturi eaque deleniti. Natus voluptatem animi quos enim nisi aut magnam, consequatur facilis iste accusamus incidunt dolores vitae ut amet consectetur mollitia sint! Dolore dicta ratione sapiente.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="exp-footer">
+                <button class="outline-btn">VIEW ALL THE EDUCATIONS <img src="" alt=""></button>
+            </div>
+        </div>
+
+
+        <!--Faq Is Staring From Here-->
+        <div class="all-container">
+            <div class="cards-header">
+                <h1>my faq's.</h1>
+                <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search Your Content">
+                    <button><img src="../static/images/icons/search.png" alt="searchicon"></button>
+                </div>
+                <div class="cards-sorting">
+                    <div class="cards-categories">
+                        <span class="category active" onclick="toggleCategory(this)">All FAQ's</span>
+                        <span class="category" onclick="toggleCategory(this)">Job FAQ's</span>
+                        <span class="category" onclick="toggleCategory(this)">Tech FAQ's</span>
+                        <span class="category" onclick="toggleCategory(this)">Freelance FAQ's</span>
+                    </div>
+                    <div class="cards-sort">
+                        <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort FAQ's</button>
+                        <div class="sort-items" id="sort-items">
+                            <ul>
+                                <li onclick="changeSortOption(this)">Most Viewed FAQ's</li>
+                                <li onclick="changeSortOption(this)">Least Viewed FAQ's</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hor-cards">
+                <div class="faq-card">
+                    <div class="faq-content">
+                        <h2>What is your girlfriend's name?</h2>
+                        <p class="answer">The answer is the same as you might not know her.</p>
+                    </div>
+                    <div class="btn-faq">
+                        <img class="faq-toggle" src="../static/assets/Icons/open.png" alt="Show FAQ">
+                    </div>
+                </div>
+                
+            </div>
+            <div class="project-footer">
+                <button class="outline-btn">VIEW ALL THE FAQ's <img src="" alt=""></button>
+            </div>
+        </div>
+
+
+        <!--Contact Is Staring From Here-->
+        <div class="all-container">
+            <div class="cards-header">
+                <h1>contact me.</h1>
+                <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+            </div>
+            <div class="mail-contact-card">
+
+                <div class="left-contact">
+                    <img src="../static/images/stock/Contact.jpg" alt="">
+                    <div class="contact-section">
+                        <div class="contact">
+                            <img src="../static/images/icons/g-mail.png" alt="">
+                            <p>iamroshandamor@gmail.com</p>
+                        </div>
+                        <div class="contact">
+                            <img src="../static/images/icons/rmail.png" alt="">
+                            <p>contact@roshandmaor.site</p>
+                        </div>
+                        <div class="contact">
+                            <img src="../static/images/icons/phone.png" alt="">
+                            <p>+91 1234567890</p>
+                        </div>
+                        <div class="contact">
+                            <img src="../static/images/icons/address.png" alt="">
+                            <p>Indore, Madhya Pradesh, India</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-contact">
+                    <div class="contact-form-card">
+                        <form action="#">
+                            <input type="text" placeholder="Name">
+                            <input type="email" placeholder="E-mail">
+                            <input type="text" placeholder="Subject">
+                            <textarea name="" id="" cols="30" rows="8" placeholder="Message"></textarea>
+                            <button class="contact-btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

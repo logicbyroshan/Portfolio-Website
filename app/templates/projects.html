@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Quicksand:wght@300..700&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>Roshan Portfolio |</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/all-page.css">
+    <link rel="stylesheet" href="../static/css/re-used.css">
+    <link rel="stylesheet" href="../static/css/projects.css">
+</head>
+<body>
+    
+<div class="all-container">
+    <div class="cards-header">
+        <h1>my projects.</h1>
+        <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Your Content">
+            <button><img src="../../static/assets/Icons/search.png" alt="searchicon"></button>
+        </div>
+        <div class="cards-sorting">
+            <div class="cards-categories">
+                <img src="../static/assets/Icons/interface.png" alt="menu" id="menu-toggle">
+                <ul id="menu-items">
+                    <li><span class="category active" onclick="toggleCategory(this)">All Projects</span></li>
+                    <li><span class="category" onclick="toggleCategory(this)">Full Stack Projects</span></li>
+                    <li><span class="category" onclick="toggleCategory(this)">Frontend Projects</span></li>
+                    <li><span class="category" onclick="toggleCategory(this)">Backend Projects</span></li>
+                    <li><span class="category" onclick="toggleCategory(this)">Mobile App Projects</span></li>
+                    <li><span class="category" onclick="toggleCategory(this)">Desktop App Projects</span></li>
+                    <li><span class="category" onclick="toggleCategory(this)">AI Projects</span></li>
+                </ul>
+            </div>
+            <div class="cards-sort">
+                <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Projects</button>
+                <div class="sort-items" id="sort-items">
+                    <ul>
+                        <li onclick="changeSortOption(this)">Latest Project</li>
+                        <li onclick="changeSortOption(this)">Oldest Project</li>
+                        <li onclick="changeSortOption(this)">Most Liked Project</li>
+                        <li onclick="changeSortOption(this)">Least Liked Project</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    <div class="ver-cards">
+        <div class="project-card">
+            <div class="project-image">
+                <img src="../static/assets/Projects/Project 1.jpg" alt="">
+            </div>
+            <div class="project-content">
+                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
+                <div class="skills">
+                    <p>Skills Used : </p>
+                    <span>HMTL</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>Python</span>
+                    <span>Django</span>
+                    <span>RestAPI</span>
+                </div>
+                <div class="project-links">
+                    <button class="outline-btn">CODE</button>
+                    <button class="outline-btn">PREVIEW</button>
+                    <button class="outline-btn">DOCUMENTATION</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-image">
+                <img src="../static/assets/Projects/Project 2.jpg" alt="">
+            </div>
+            <div class="project-content">
+                <h2>Modern Landing Page E-comm Project using Python-Django</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
+                <div class="skills">
+                    <p>Skills Used : </p>
+                    <span>HMTL</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>Python</span>
+                    <span>Django</span>
+                    <span>RestAPI</span>
+                </div>
+                <div class="project-links">
+                    <button class="outline-btn">CODE</button>
+                    <button class="outline-btn">PREVIEW</button>
+                    <button class="outline-btn">DOCUMENTATION</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-image">
+                <img src="../static/assets/Projects/Project 3.jpg" alt="">
+            </div>
+            <div class="project-content">
+                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
+                <div class="skills">
+                    <p>Skills Used : </p>
+                    <span>HMTL</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>Python</span>
+                    <span>Django</span>
+                    <span>RestAPI</span>
+                </div>
+                <div class="project-links">
+                    <button class="outline-btn">CODE</button>
+                    <button class="outline-btn">PREVIEW</button>
+                    <button class="outline-btn">DOCUMENTATION</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-image">
+                <img src="../static/assets/Projects/Project 3.jpg" alt="">
+            </div>
+            <div class="project-content">
+                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
+                <div class="skills">
+                    <p>Skills Used : </p>
+                    <span>HMTL</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>Python</span>
+                    <span>Django</span>
+                    <span>RestAPI</span>
+                </div>
+                <div class="project-links">
+                    <button class="outline-btn">CODE</button>
+                    <button class="outline-btn">PREVIEW</button>
+                    <button class="outline-btn">DOCUMENTATION</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-image">
+                <img src="../static/assets/Projects/Project 3.jpg" alt="">
+            </div>
+            <div class="project-content">
+                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
+                <div class="skills">
+                    <p>Skills Used : </p>
+                    <span>HMTL</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>Python</span>
+                    <span>Django</span>
+                    <span>RestAPI</span>
+                </div>
+                <div class="project-links">
+                    <button class="outline-btn">CODE</button>
+                    <button class="outline-btn">PREVIEW</button>
+                    <button class="outline-btn">DOCUMENTATION</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="project-footer">
+        <button class="outline-btn">VIEW ALL THE PROJECTS <img src="" alt=""></button>
+    </div>
+</div>    
+    <script src="../static/js/index.js"></script>
+</body>
+</html>
