@@ -3,7 +3,39 @@ from .models import Project, Blog, Skill, Experience, FAQ, Resume
 from django.http import FileResponse
 import os
 from django.conf import settings
+from django.http import JsonResponse
+from django.core.mail import send_mail
+from .forms import ContactForm
 
+def contact(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            full_message = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+
+            try:
+                send_mail(
+                    subject,
+                    full_message,
+                    email,  # Sender's email
+                    ['contact@roshandamor.site'],  # Receiver (your email)
+                    fail_silently=False,
+                )
+                return JsonResponse({"status": "success", "message": "Your message has been sent!"})
+            except:
+                return JsonResponse({"status": "error", "message": "Failed to send message. Try again later."})
+        else:
+            return JsonResponse({"status": "error", "message": "Invalid form data. Please check your inputs."})
+
+    return JsonResponse({"status": "error", "message": "Invalid request method."})
+
+# Download Resume
 def download_resume(request):
     resume_path = os.path.join(settings.MEDIA_ROOT, 'resume.pdf')  # Ensure this path is correct
     if os.path.exists(resume_path):

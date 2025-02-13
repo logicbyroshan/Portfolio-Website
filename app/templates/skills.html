@@ -42,7 +42,12 @@
                 <div class="top-content">
                     <div class="skill-content">
                         <div class="skill-image">
-                            <img src="{{ skill.icon.url }}" alt="{{ skill.name }}">
+                            {% if skill.icon %}
+                                <img src="{{ skill.icon.url }}" alt="{{ skill.name }}">
+                            {% else %}
+                                <img src="{% static 'images/icons/defoult.jpg' %}" alt="Default Icon">
+                            {% endif %}
+
                         </div>
                         <h3>{{ skill.name }}</h3>
                     </div>
