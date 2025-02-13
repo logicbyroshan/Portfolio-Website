@@ -1,166 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/re-used.css">
-    <link rel="stylesheet" href="../static/css/project-detail.css">
-</head>
-<body> 
+{% extends "portfolio-base.html" %}
+{% block title %} Roshan {% endblock %}
+{% load static %}
+
+{% block content %} 
     <div class="projects-container">
         <div class="project-detail-card">
+            <!-- Project Header -->
             <div class="project-header">
-                <p class="project-meg">Design</p>
-                <p class="project-meg">Published : <span>Jan 23, 2025</span></p>
-                <p class="project-meg">Read Time : <span>10 min</span></p>
+                <p class="project-meg">{{ project.category }}</p>
+                <p class="project-meg">Published: <span>{{ project.publication_date|date:"M d, Y" }}</span></p>
+                <p class="project-meg">Read Time: <span>10 min</span></p> <!-- Add read-time logic if needed -->
                 <div class="project-tags">
-                    <p class="project-meg">AI</p>
-                    <p class="project-meg">ML</p>
-                    <p class="project-meg">UX</p>
+                    {% for tag in project.tags.all %}
+                        <p class="project-meg">{{ tag.name }}</p>
+                    {% endfor %}
                 </div>
             </div>
-
+        
+            <!-- Image Slider -->
             <div class="hero-image-slider">
                 <div class="slider">
-                    <div class="slide"><img src="../static/images/others/Project Image1.jpg" alt="Slide 1"></div>
-                    <div class="slide"><img src="../static/images/others/Project Image 2.jpg" alt="Slide 2"></div>
-                    <div class="slide"><img src="../static/images/others/Project Image 3.jpg" alt="Slide 3"></div>
-                    <div class="slide"><img src="../static/images/others/Project Image 4.jpg" alt="Slide 4"></div>
-                    <div class="slide"><img src="../static/images/others/Project Image 5.jpg" alt="Slide 5"></div>
-                    <div class="slide"><img src="../static/images/others/Project Image 6.jpg" alt="slide 6"></div>
+                    {% for image in project.images.all %}
+                        <div class="slide"><img src="{{ image.image.url }}" alt="Project Image"></div>
+                    {% endfor %}
                 </div>
-                <img src="../static/images/icons/back.png" class="prev" onclick="prevSliderSlide()" alt="Previous">
-                <img src="../static/images/icons/next.png" class="next" onclick="nextSliderSlide()" alt="Next">
+                <img src="{% static 'images/icons/back.png' %}" class="prev" onclick="prevSliderSlide()" alt="Previous">
+                <img src="{% static 'images/icons/next.png' %}" class="next" onclick="nextSliderSlide()" alt="Next">
             </div>
-
+        
+            <!-- Project Brief -->
             <div class="project-brief">
-                <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, modi.</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis debitis deserunt repellat reprehenderit porro? Libero, commodi ratione omnis nisi animi accusantium facere. Quaerat modi iure illo harum id fugiat maiores nobis sapiente ducimus possimus corporis, quas quidem perspiciatis nisi odit odio autem, neque ratione eligendi inventore magni velit consequuntur rerum. Neque illum optio doloremque, mollitia asperiores consequatur iure excepturi eligendi. Natus aliquam inventore commodi, totam repudiandae esse quasi corporis at ut, nesciunt dolorem qui, veniam velit atque porro minima magnam maiores nihil labore modi. Repudiandae alias maxime dolorum sed temporibus, quae optio vitae ratione nobis sit. Debitis a molestiae ullam.</p>
+                <h1>{{ project.title }}</h1>
+                <p>{{ project.description }}</p>
             </div>
+        
+            <!-- Skills Used -->
             <div class="skills-used">
-                <h1>Skills Used :</h1>
+                <h1>Skills Used:</h1>
                 <div class="skill-cards">
-                    <div class="skill-card">
-                        <img src="../../static/assets/Skills/Adobe XD.png" alt="">
-                        <p>Adobe XD</p>
-                    </div>
-                    <div class="skill-card">
-                        <img src="../../static/assets/Skills/Adobe XD.png" alt="">
-                        <p>Adobe XD</p>
-                    </div>
-                    <div class="skill-card">
-                        <img src="../../static/assets/Skills/Adobe XD.png" alt="">
-                        <p>Adobe XD</p>
-                    </div>
-                    <div class="skill-card">
-                        <img src="../../static/assets/Skills/Adobe XD.png" alt="">
-                        <p>Adobe XD</p>
-                    </div>
+                    {% for skill in project.skills.all %}
+                        <div class="skill-card">
+                            {% if skill.icon %}
+                                <img src="{{ skill.icon.url }}" alt="{{ skill.name }}">
+                            {% else %}
+                                <img src="{% static 'images/icons/defoult.jpg' %}" alt="Default Icon">
+                            {% endif %}
+                            <p>{{ skill.name }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
-
+        
+            <!-- Project Features -->
             <div class="project-features">
                 <div class="heading">
-                    <img src="../static/images/icons/features.gif" alt="">
-                    <h1>Features :</h1>
-                </div>                
+                    <img src="{% static 'images/icons/features.gif' %}" alt="">
+                    <h1>Features:</h1>
+                </div>
                 <ul class="features-list">
-                    <li class="feature-card">
-                        <img src="" alt="">
-                        <div class="feature-content">
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, consequatur?</p>
-                        </div>
-                    </li>
-                    <li class="feature-card">
-                        <img src="" alt="">
-                        <div class="feature-content">
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, consequatur?</p>
-                        </div>
-                    </li>
-                    <li class="feature-card">
-                        <img src="" alt="">
-                        <div class="feature-content">
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, consequatur?</p>
-                        </div>
-                    </li>
-                    <li class="feature-card">
-                        <img src="" alt="">
-                        <div class="feature-content">
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, consequatur?</p>
-                        </div>
-                    </li>
-
+                    {% for feature in project.features.all %}
+                        <li class="feature-card">
+                            <img src="{{ feature.image.url }}" alt="">
+                            <div class="feature-content">
+                                <h3>{{ feature.title }}</h3>
+                                <p>{{ feature.description }}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
-
+        
+            <!-- Learnings -->
             <div class="project-learnings">
                 <div class="heading">
-                    <img src="../static/images/icons/book.gif" alt="">
-                    <h1>Learnings :</h1>
+                    <img src="{% static 'images/icons/book.gif' %}" alt="">
+                    <h1>Learnings:</h1>
                 </div>
                 <ul>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</li>
+                    {% for learning in project.learnings.all %}
+                        <li>{{ learning.paragraph }}</li>
+                    {% endfor %}
                 </ul>
             </div>
-
+        
+            <!-- Problem Statement -->
+            {% if project.problem_statement %}
             <div class="project-problem">
                 <div class="heading">
-                    <img src="../static/images/icons/strategic-consulting.gif" alt="">
-                    <h1>Problem Statement :</h1>
+                    <img src="{% static 'images/icons/strategic-consulting.gif' %}" alt="">
+                    <h1>Problem Statement:</h1>
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure delectus voluptas doloremque cupiditate porro aspernatur impedit, sed fuga alias distinctio! Possimus beatae sit ut ipsa doloribus repellat deleniti nemo alias, omnis voluptate aliquam sint delectus, consequuntur corrupti earum. Obcaecati, veritatis?</p>
+                <p>{{ project.problem_statement }}</p>
             </div>
-
+            {% endif %}
+        
+            <!-- Solution -->
+            {% if project.solution %}
             <div class="project-solution">
                 <div class="heading">
-                    <img src="../static/images/icons/solution.gif" alt="">
-                    <h1>Solution :</h1>
+                    <img src="{% static 'images/icons/solution.gif' %}" alt="">
+                    <h1>Solution:</h1>
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim debitis voluptatibus amet voluptas hic cupiditate incidunt eum rem recusandae magnam. Voluptate illum ratione praesentium nemo magni soluta distinctio mollitia iste. Autem et temporibus quo, deserunt eos iusto praesentium beatae recusandae!</p>
-
+                <p>{{ project.solution }}</p>
             </div>
-
+            {% endif %}
+        
+            <!-- Impact -->
+            {% if project.impact %}
             <div class="project-impact">
                 <div class="heading">
-                    <img src="../static/images/icons/meteorite.gif" alt="">
-                    <h1>Impact :</h1>
+                    <img src="{% static 'images/icons/meteorite.gif' %}" alt="">
+                    <h1>Impact:</h1>
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eveniet tenetur aperiam accusamus asperiores corporis repellat, error hic inventore voluptas architecto voluptate incidunt voluptatem ullam dicta consequuntur. Possimus nostrum alias molestias, pariatur, atque quod quis fuga rerum quo obcaecati eos?</p>
+                <p>{{ project.impact }}</p>
             </div>
-
+            {% endif %}
+        
+            <!-- Similar Projects -->
             <div class="project-suggestions">
                 <div class="heading">
-                    <img src="../static/images/icons/list.gif" alt="">
-                    <h1>Similar Projects :</h1>
-                </div> 
+                    <img src="{% static 'images/icons/list.gif' %}" alt="">
+                    <h1>Similar Projects:</h1>
+                </div>
                 <div class="projects-suggestions-cards">
-                    <div class="project-suggest">
-                        <img src="" alt="">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, unde.</h2>
-                    </div>
-                    <div class="project-suggest">
-                        <img src="" alt="">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, unde.</h2>
-                    </div>
-                    <div class="project-suggest">
-                        <img src="" alt="">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, unde.</h2>
-                    </div>
-                    <div class="project-suggest">
-                        <img src="" alt="">
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, unde.</h2>
-                    </div>
-                </div>               
+                    {% for similar_project in similar_projects %}
+                        <div class="project-suggest">
+                            <img src="{{ similar_project.images.first.image.url }}" alt="">
+                            <h2>{{ similar_project.title }}</h2>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <div class="project-side-card">
@@ -184,6 +153,4 @@
         </div>
     </div>
 
-    <script src="../static/js/index.js"></script>
-</body>
-</html>
+{% endblock %}

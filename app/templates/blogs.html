@@ -18,20 +18,14 @@
                     <div class="cards-categories">
                         <span class="category active" onclick="toggleCategory(this)">All Blogs</span>
                         <span class="category" onclick="toggleCategory(this)">Tech</span>
-                        <span class="category" onclick="toggleCategory(this)">Job</span>
-                        <span class="category" onclick="toggleCategory(this)">Education</span>
-                        <span class="category" onclick="toggleCategory(this)">Smartphones</span>
-                        <span class="category" onclick="toggleCategory(this)">Vehicles</span>
-                        <span class="category" onclick="toggleCategory(this)">AI</span>
+
                     </div>
                     <div class="cards-sort">
                         <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Blogs</button>
                         <div class="sort-items" id="sort-items">
                             <ul>
                                 <li onclick="changeSortOption(this)">Latest Blogs</li>
-                                <li onclick="changeSortOption(this)">Oldest Blogs</li>
-                                <li onclick="changeSortOption(this)">Most Liked Blogs</li>
-                                <li onclick="changeSortOption(this)">Least Liked Blogs</li>
+        
                             </ul>
                         </div>
                     </div>
@@ -58,7 +52,7 @@
                             {% endfor %}
                         </div>
                         <div class="blogs-links">
-                            <a href="{% url 'blog_detail' blog.id %}"></a>
+                            <a href="{% url 'blog_detail' slug=blog.slug %}">
                                 <button class="outline-btn">Read More</button>
                             </a>
                         </div>

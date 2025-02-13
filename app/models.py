@@ -4,38 +4,6 @@ import math
 import datetime
 
 
-class Resume(models.Model):
-    file = models.FileField(upload_to='resumes/')  # Stores in `media/resumes/`
-    uploaded_at = models.DateTimeField(auto_now_add=True)  # Optional, for tracking
-
-    def __str__(self):
-        return self.file.name  # Show filename in admin panel
-
-
-# Model for Skill
-class Skill(models.Model):
-    STATUS_CHOICES = [
-        ("Expert", "Expert"),
-        ("Learning", "Learning"),
-        ("Average", "Average"),
-    ]
-
-    name = models.CharField(max_length=100, unique=True)
-    icon = models.ImageField(upload_to="skills/icons/", blank=True, null=True)  # Allow skills without icons
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="Learning")
-    level = models.PositiveIntegerField(default=50)  # Skill level out of 100
-    description = models.TextField(max_length=500, blank=True)  # Make description optional
-    created_at = models.DateTimeField(auto_now_add=True)  # Track when a skill is added
-    updated_at = models.DateTimeField(auto_now=True)  # Track modifications
-
-    class Meta:
-        ordering = ["-level", "name"]  # Show highest-level skills first
-
-    def __str__(self):
-        return f"{self.name} ({self.level}%)"
-
-
-
 class Project(models.Model):
     title = models.CharField(max_length=255)
     category = models.CharField(max_length=100)
@@ -64,7 +32,6 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-
 class ProjectImage(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to="projects/images/")
@@ -89,24 +56,6 @@ class Learning(models.Model):
         return f"Learning for {self.project.title}"
 
 
-# Model for Experience
-class Experience(models.Model):
-    title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to="experience/")
-    start_date = models.DateField()
-    end_date = models.DateField(null=True, blank=True)  # Allow null for ongoing experiences
-    description = models.TextField()
-    
-    created_at = models.DateTimeField(auto_now_add=True)  # Automatically set on creation
-    updated_at = models.DateTimeField(auto_now=True)  # Automatically update on modification
-
-    class Meta:
-        ordering = ["-start_date"]  # Most recent experiences first
-
-    def __str__(self):
-        return self.title
-
-
 # Blog Model (Kept as it is)
 class Blog(models.Model):
     title = models.CharField(max_length=255)
@@ -117,12 +66,18 @@ class Blog(models.Model):
     
     categories = models.CharField(max_length=255, help_text="Separate categories with commas", default="Uncategorized")  # ✅ Multiple categories
     time_to_read = models.PositiveIntegerField(default=1, editable=False)  # ✅ Auto-calculated time
-
+    
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)  # Generate slug automatically
-        
-        self.time_to_read = self.calculate_reading_time()  # Auto-calculate reading time
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+            while Blog.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+
+        self.time_to_read = self.calculate_reading_time()
         super().save(*args, **kwargs)
 
     def calculate_reading_time(self):
@@ -155,3 +110,50 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+
+# Model for Experience
+class Experience(models.Model):
+    title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to="experience/")
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)  # Allow null for ongoing experiences
+    description = models.TextField()
+    
+    created_at = models.DateTimeField(auto_now_add=True)  # Automatically set on creation
+    updated_at = models.DateTimeField(auto_now=True)  # Automatically update on modification
+
+    class Meta:
+        ordering = ["-start_date"]  # Most recent experiences first
+
+    def __str__(self):
+        return self.title
+
+class Resume(models.Model):
+    file = models.FileField(upload_to='resumes/')  # Stores in `media/resumes/`
+    uploaded_at = models.DateTimeField(auto_now_add=True)  # Optional, for tracking
+
+    def __str__(self):
+        return self.file.name  # Show filename in admin panel
+
+
+# Model for Skill
+class Skill(models.Model):
+    STATUS_CHOICES = [
+        ("Expert", "Expert"),
+        ("Learning", "Learning"),
+        ("Average", "Average"),
+    ]
+
+    name = models.CharField(max_length=100, unique=True)
+    icon = models.ImageField(upload_to="skills/icons/", blank=True, null=True)  # Allow skills without icons
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="Learning")
+    level = models.PositiveIntegerField(default=50)  # Skill level out of 100
+    description = models.TextField(max_length=500, blank=True)  # Make description optional
+    created_at = models.DateTimeField(auto_now_add=True)  # Track when a skill is added
+    updated_at = models.DateTimeField(auto_now=True)  # Track modifications
+
+    class Meta:
+        ordering = ["-level", "name"]  # Show highest-level skills first
+
+    def __str__(self):
+        return f"{self.name} ({self.level}%)"

@@ -38,20 +38,14 @@
                     <div class="cards-categories">
                         <span class="category active" onclick="toggleCategory(this)">All Blogs</span>
                         <span class="category" onclick="toggleCategory(this)">Tech</span>
-                        <span class="category" onclick="toggleCategory(this)">Job</span>
-                        <span class="category" onclick="toggleCategory(this)">Education</span>
-                        <span class="category" onclick="toggleCategory(this)">Smartphones</span>
-                        <span class="category" onclick="toggleCategory(this)">Vehicles</span>
-                        <span class="category" onclick="toggleCategory(this)">AI</span>
+
                     </div>
                     <div class="cards-sort">
                         <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Blogs</button>
                         <div class="sort-items" id="sort-items">
                             <ul>
                                 <li onclick="changeSortOption(this)">Latest Blogs</li>
-                                <li onclick="changeSortOption(this)">Oldest Blogs</li>
-                                <li onclick="changeSortOption(this)">Most Liked Blogs</li>
-                                <li onclick="changeSortOption(this)">Least Liked Blogs</li>
+
                             </ul>
                         </div>
                     </div>
@@ -78,7 +72,7 @@
                             {% endfor %}
                         </div>
                         <div class="blogs-links">
-                            <a href="{% url 'blog_detail' blog.id %}"></a>
+                            <a href="{% url 'blog_detail' slug=blog.slug %}">
                                 <button class="outline-btn">Read More</button>
                             </a>
                         </div>
@@ -103,12 +97,6 @@
                     <div class="cards-categories">
                         <span class="category active" onclick="toggleCategory(this)">All Skills</span>
                         <span class="category" onclick="toggleCategory(this)">Full Stack Skills</span>
-                        <span class="category" onclick="toggleCategory(this)">Frontend Skills</span>
-                        <span class="category" onclick="toggleCategory(this)">Backend Skills</span>
-                        <span class="category" onclick="toggleCategory(this)">Mobile App Development Skills</span>
-                        <span class="category" onclick="toggleCategory(this)">AI Skills</span>
-                        <span class="category" onclick="toggleCategory(this)">ML Skills</span>
-                        <span class="category" onclick="toggleCategory(this)">Data Analytics Skills</span>
         
                     </div>
                     <div class="cards-sort">
@@ -116,9 +104,7 @@
                         <div class="sort-items" id="sort-items">
                             <ul>
                                 <li onclick="changeSortOption(this)">Latest Learned Skills</li>
-                                <li onclick="changeSortOption(this)">Oldest Learned Skills</li>
-                                <li onclick="changeSortOption(this)">Most Used Skills</li>
-                                <li onclick="changeSortOption(this)">Least Used Skills</li>
+
                             </ul>
                         </div>
                     </div>
@@ -179,11 +165,7 @@
                         <ul id="menu-items">
                             <li><span class="category active" onclick="toggleCategory(this)">All Projects</span></li>
                             <li><span class="category" onclick="toggleCategory(this)">Full Stack Projects</span></li>
-                            <li><span class="category" onclick="toggleCategory(this)">Frontend Projects</span></li>
-                            <li><span class="category" onclick="toggleCategory(this)">Backend Projects</span></li>
-                            <li><span class="category" onclick="toggleCategory(this)">Mobile App Projects</span></li>
-                            <li><span class="category" onclick="toggleCategory(this)">Desktop App Projects</span></li>
-                            <li><span class="category" onclick="toggleCategory(this)">AI Projects</span></li>
+
                         </ul>
                     </div>
                     <div class="cards-sort">
@@ -191,9 +173,6 @@
                         <div class="sort-items" id="sort-items">
                             <ul>
                                 <li onclick="changeSortOption(this)">Latest Project</li>
-                                <li onclick="changeSortOption(this)">Oldest Project</li>
-                                <li onclick="changeSortOption(this)">Most Liked Project</li>
-                                <li onclick="changeSortOption(this)">Least Liked Project</li>
                             </ul>
                         </div>
                     </div>
@@ -221,7 +200,7 @@
                             </div>
                 
                             <div class="project-links">
-                                <a href="{% url 'project_detail' project.slug %}">
+                                <a href="{% url 'project_detail' slug=project.slug %}">
                                     <button class="outline-btn">VIEW DETAILS</button>
                                 </a>
                             </div>
@@ -245,9 +224,6 @@
                     <div class="cards-categories">
                         <span class="category active" onclick="toggleCategory(this)">All Educations</span>
                         <span class="category" onclick="toggleCategory(this)">Professional Certificates</span>
-                        <span class="category" onclick="toggleCategory(this)">Skill Development</span>
-                        <span class="category" onclick="toggleCategory(this)">Academic Qualifications</span>
-                        <span class="category" onclick="toggleCategory(this)">Research and Academic</span>
                     </div>
                     <div class="cards-sort">
                         <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Education</button>

@@ -6,18 +6,25 @@
 <div class="blogs-container">
     <div class="blog-detail-card">
         <div class="blog-header">
-            <p class="blog-meg">Design</p>
-            <p class="blog-meg">Published : <span>Jan 23, 2025</span></p>
-            <p class="blog-meg">Read Time : <span>10 min</span></p>
+            <p class="blog-meg">{{ blog.get_category_list.0 }}</p>  {# Show first category #}
+            <p class="blog-meg">Published : <span>{{ blog.publication_date|date:"M d, Y" }}</span></p>
+            <p class="blog-meg">Read Time : <span>{{ blog.time_to_read }} min</span></p>
         </div>
-        <h1 class="blog-title">UX In The Age of AI/ML</h1>
-        <p class="blog-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt voluptas laboriosam qui nemo numquam voluptate.</p>
+        
+        <h1 class="blog-title">{{ blog.title }}</h1>
+        <p class="blog-description">{{ blog.content|truncatewords:30 }}</p>  {# Short description #}
+        
         <div class="blog-tags">
-            <span class="blog-tag">AI</span>
-            <span class="blog-tag">ML</span>
-            <span class="blog-tag">UX</span>
+            {% for category in blog.get_category_list %}
+                <span class="blog-tag">{{ category }}</span>
+            {% endfor %}
         </div>
-        <img src="../../static/assets/Books/Blog Image.png" alt="Titile Image" class="blog-image">
+        
+        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="blog-image">
+
+        <div class="blog-content">
+            {{ blog.content|safe }}  {# Render full content #}
+        </div>
     </div>
     <div class="blog-side-card">
         <div class="blog-side-card1">

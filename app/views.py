@@ -91,7 +91,7 @@ def project_list(request):
 
 def project_detail(request, slug):
     project = get_object_or_404(Project, slug=slug)
-    return render(request, 'project_detail.html', {'project': project})
+    return render(request, 'project-detail.html', {'project': project})
 
 # Blog Views
 def blog_list(request):
@@ -100,7 +100,7 @@ def blog_list(request):
 
 def blog_detail(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
-    return render(request, 'blog_detail.html', {'blog': blog})
+    return render(request, 'blog-detail.html', {'blog': blog})
 
 # Skill Views
 def skill_list(request):
