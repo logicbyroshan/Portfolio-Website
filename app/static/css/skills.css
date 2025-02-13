@@ -174,6 +174,23 @@
     background-color: #0d6b04;
     display: none;
 }
+/* Expert - Green */
+.progress-tag3.expert {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+/* Learning - Blue */
+.progress-tag3.learning {
+    background-color: #2196F3; /* Blue */
+    color: white;
+}
+
+/* Average - Orange */
+.progress-tag3.average {
+    background-color: #FF9800; /* Orange */
+    color: white;
+}
 
 .exp-image {
     width: 200px;

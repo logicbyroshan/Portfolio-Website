@@ -1,5 +1,6 @@
 {% extends "portfolio-base.html" %}
 {% block title %} Roshan {% endblock %}
+{% load static %}
 
 {% block content %}
     <div class="main-container">
@@ -10,25 +11,20 @@
                 <h1>Roshan Damor</h1>
                 <h4>I am a <span id="skill-text"></span></h4>
                 <p>GREETINGS, ALL DIGITAL EXPLORERS ! I AM ROSHAN, A PASSIONATE AMD INNOVATIVE DEVELOPER DEDICATED TO CRAFTING IMMERSIVE DIGITAL EXPERIENCE, WELCOME TO MY ONLINE WORLD ...</p>
-                <div class="home-btns">
-                    <a href="my-personal/"><button class="outline-btn">KNOW PERSONAL</button></a>
-                    <a href="my-video-resume/"><button class="outline-btn">VIDEO RESUME</button></a>
-                    <a href=""><button class="outline-btn">Refrances</button></a>
-                </div>
+            
                 <div class="success">
                     <div class="success-card">
-                        <img src="../static/images/icons/promotion.gif" alt="">
+                        <img src="{% static 'images/icons/promotion.gif' %}" alt="">
                         <p>2+ Year of Experience</p>
                     </div>
                     <div class="success-card">
-                        <img src="../static/images/icons/projects.gif" alt="">
+                        <img src="{% static 'images/icons/projects.gif' %}" alt="">
                         <p>39+ Succesfull Projects</p>
                     </div>
                 </div>
             </div>
             <div class="home-hero-image">
-                <img src="../static/images/stock/Portfolio.png" alt="Hero Image">
-                
+                <img src="{% static 'images/stock/Portfolio.png' %}" alt="Hero Image">
             </div>
         </div>
 
@@ -39,7 +35,7 @@
                 <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
                 <div class="search-bar">
                     <input type="text" placeholder="Search Your Content">
-                    <button><img src="../static/images/icons/search.png" alt="searchicon"></button>
+                    <button><img src="{% static 'images/icons/search.png' %}" alt="searchicon"></button>
                 </div>
                 <div class="cards-sorting">
                     <div class="cards-categories">
@@ -66,31 +62,39 @@
             </div>
         
             <div class="ver-cards">
+                {% for blog in blogs %}
                 <div class="blogs-card">
                     <div class="blogs-image">
-                        <img src="../static/assets/Projects/Project 1.jpg" alt="">
+                        <img src="{{ blog.image.url}}" alt="">
                     </div>
                     <div class="blogs-content">
                         <div class="date">
-                            <img src="../static/assets/Icons/calendar (2).png" alt="">
-                            <p>2022-01-01</p>
-                            <p>. Read Time: 10 min</p>
+                            <img src="{% static 'images/icons/calendar.png' %}" alt="">
+                            <p>{{ blog.publication_date|date:"F d, Y" }}</p>
+                            <p>. Read Time: {{ blog.time_to_read }} min</p>
                         </div>
-                        <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
+                        <h2>{{ blog.title }}</h2>
                         <div class="skills">
                             <p>Category : </p>
-                            <span>Technology</span>
-                            <span>Job</span>
+                            {% for category in blog.get_category_list %}
+                                <span>{{ category }}</span>
+                            {% endfor %}
                         </div>
                         <div class="blogs-links">
-                            <button class="outline-btn">Read More</button>
+                            <a href="{% url 'blog_detail' blog.id %}"></a>
+                                <button class="outline-btn">Read More</button>
+                            </a>
                         </div>
                     </div>
                 </div>
-        
+                {% empty %}
+                <p>No Blogs Found</p>
+                {% endfor %}
             </div>
             <div class="blogs-footer">
-                <button class="outline-btn">VIEW ALL THE BLOGS <img src="" alt=""></button>
+                <a href="{% url 'blog_list' %}"></a>
+                    <button class="outline-btn">VIEW ALL THE BLOGS <img src="" alt=""></button>
+                </a>
             </div>
         </div>
 
@@ -101,7 +105,7 @@
                 <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
                 <div class="search-bar">
                     <input type="text" placeholder="Search Your Content">
-                    <button><img src="../static/images/icons/search.png" alt="searchicon"></button>
+                    <button><img src="{% static 'images/icons/search.png' %}" alt="searchicon"></button>
                 </div>
                 <div class="cards-sorting">
                     <div class="cards-categories">
@@ -128,36 +132,43 @@
                     </div>
                 </div>
         
-            <div class="ver-cards">
-        
-                <div class="skills-card">
-                    <div class="top-content">
-                        <div class="skill-content">
-                            <div class="skill-image">
-                                <img src="../static/assets/skills/python.png" alt="">
+                <div class="ver-cards">
+                    {% for skill in skills %}
+                    <div class="skills-card">
+                        <div class="top-content">
+                            <div class="skill-content">
+                                <div class="skill-image">
+                                    <img src="{{ skill.icon.url }}" alt="{{ skill.name }}">
+                                </div>
+                                <h3>{{ skill.name }}</h3>
                             </div>
-                            <h3>Python</h3>
+                
+                            <div class="progress-card">
+                                <span class="progress-tag3 
+                                    {% if skill.status == 'Expert' %} expert 
+                                    {% elif skill.status == 'Learning' %} learning 
+                                    {% elif skill.status == 'Average' %} average 
+                                    {% endif %}">
+                                    {{ skill.status }} ({{ skill.status }}) <!-- Check what Django outputs -->
+                                </span>
+
+                            </div>
                         </div>
-        
-                        <div class="progress-card">
-                            <span class="progress-tag1 ">Progress</span>
-                            <span class="progress-tag2 ">Done</span>
-                            <span class="progress-tag3 active">Expert</span>
+                
+                        <div class="skills-content">
+                            <div class="progress-container" data-progress="{{ skill.level }}">
+                                <div class="progress"></div>
+                            </div>
+                            <p>{{ skill.description }}</p>
+                            <div class="skills-links">
+                                <button class="outline-btn">View Certificate</button>
+                                <button class="outline-btn">Used Resources</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="skills-content">
-                        <div class="progress-container" data-progress="90">
-                            <div class="progress"></div>
-                        </div>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati corrupti enim debitis ipsum cum tempora.</p>
-                        <div class="skills-links">
-                            <button class="outline-btn">View Certificate</button>
-                            <button class="outline-btn">Used Resources</button>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
-        
-            </div>
+                
             <div class="skills-footer">
                 <button class="outline-btn">VIEW ALL THE SKILLS <img src="" alt=""></button>
             </div>
@@ -170,7 +181,7 @@
                 <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
                 <div class="search-bar">
                     <input type="text" placeholder="Search Your Content">
-                    <button><img src="../static/images/icons/search.png" alt="searchicon"></button>
+                    <button><img src="{% static 'images/icons/search.png' %}" alt="searchicon"></button>
                 </div>
                 <div class="cards-sorting">
                     <div class="cards-categories">
@@ -235,7 +246,7 @@
                 <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
                 <div class="search-bar">
                     <input type="text" placeholder="Search Your Content">
-                    <button><img src="../static/images/icons/search.png" alt="searchicon"></button>
+                    <button><img src="{% static 'images/icons/search.png' %}" alt="searchicon"></button>
                 </div>
                 <div class="cards-sorting">
                     <div class="cards-categories">
@@ -284,45 +295,57 @@
         <div class="all-container">
             <div class="cards-header">
                 <h1>my faq's.</h1>
-                <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+                <p>Visit all my projects and see the code too; also view embedded preview as well.</p>
+                
                 <div class="search-bar">
                     <input type="text" placeholder="Search Your Content">
-                    <button><img src="../static/images/icons/search.png" alt="searchicon"></button>
+                    <button><img src="{% static 'images/icons/search.png' %}" alt="search icon"></button>
                 </div>
+        
                 <div class="cards-sorting">
                     <div class="cards-categories">
                         <span class="category active" onclick="toggleCategory(this)">All FAQ's</span>
-                        <span class="category" onclick="toggleCategory(this)">Job FAQ's</span>
-                        <span class="category" onclick="toggleCategory(this)">Tech FAQ's</span>
-                        <span class="category" onclick="toggleCategory(this)">Freelance FAQ's</span>
+                        {% for category in faq_categories %}
+                        <span class="category" onclick="toggleCategory(this)" data-category="{{ category }}">{{ category }} FAQ's</span>
+                        {% endfor %}
                     </div>
                     <div class="cards-sort">
                         <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort FAQ's</button>
                         <div class="sort-items" id="sort-items">
                             <ul>
-                                <li onclick="changeSortOption(this)">Most Viewed FAQ's</li>
-                                <li onclick="changeSortOption(this)">Least Viewed FAQ's</li>
+                                <li onclick="changeSortOption(this)">Latest FAQ's</li>
+                                <li onclick="changeSortOption(this)">Oldest FAQ's</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        
             <div class="hor-cards">
-                <div class="faq-card">
+                {% for faq in faqs %}
+                <div class="faq-card" data-category="{{ faq.category }}">
                     <div class="faq-content">
-                        <h2>What is your girlfriend's name?</h2>
-                        <p class="answer">The answer is the same as you might not know her.</p>
+                        <h2>{{ faq.question }}</h2>
+                        <p class="answer" style="display: none;">{{ faq.answer }}</p>
                     </div>
                     <div class="btn-faq">
-                        <img class="faq-toggle" src="../static/assets/Icons/open.png" alt="Show FAQ">
+                        <img class="faq-toggle" 
+                             src="{% static 'images/icons/open.png' %}" 
+                             alt="Show FAQ" 
+                             data-open-icon="{% static 'images/icons/close.png' %}" 
+                             data-closed-icon="{% static 'images/icons/open.png' %}">
                     </div>
                 </div>
-                
+                {% empty %}
+                <p>No FAQ's Found</p>
+                {% endfor %}
             </div>
+        
             <div class="project-footer">
                 <button class="outline-btn">VIEW ALL THE FAQ's <img src="" alt=""></button>
             </div>
         </div>
+        
 
 
         <!--Contact Is Staring From Here-->
