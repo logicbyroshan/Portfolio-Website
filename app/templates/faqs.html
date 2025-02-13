@@ -1,0 +1,65 @@
+{% extends "portfolio-base.html" %}
+{% block title %} Roshan {% endblock %}
+{% load static %}
+
+{% block content %}
+    <div class="main-container">
+        
+        <!--Faq Is Staring From Here-->
+        <div class="all-container">
+            <div class="cards-header">
+                <h1>my faq's.</h1>
+                <p>Visit all my projects and see the code too; also view embedded preview as well.</p>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Search Your Content">
+                    <button><img src="{% static 'images/icons/search.png' %}" alt="search icon"></button>
+                </div>
+        
+                <div class="cards-sorting">
+                    <div class="cards-categories">
+                        <span class="category active" onclick="toggleCategory(this)">All FAQ's</span>
+                        {% for category in faq_categories %}
+                        <span class="category" onclick="toggleCategory(this)" data-category="{{ category }}">{{ category }} FAQ's</span>
+                        {% endfor %}
+                    </div>
+                    <div class="cards-sort">
+                        <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort FAQ's</button>
+                        <div class="sort-items" id="sort-items">
+                            <ul>
+                                <li onclick="changeSortOption(this)">Latest FAQ's</li>
+                                <li onclick="changeSortOption(this)">Oldest FAQ's</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="hor-cards">
+                {% for faq in faqs %}
+                <div class="faq-card" data-category="{{ faq.category }}">
+                    <div class="faq-content">
+                        <h2>{{ faq.question }}</h2>
+                        <p class="answer" style="display: none;">{{ faq.answer }}</p>
+                    </div>
+                    <div class="btn-faq">
+                        <img class="faq-toggle" 
+                             src="{% static 'images/icons/open.png' %}" 
+                             alt="Show FAQ" 
+                             data-open-icon="{% static 'images/icons/close.png' %}" 
+                             data-closed-icon="{% static 'images/icons/open.png' %}">
+                    </div>
+                </div>
+                {% empty %}
+                <p>No FAQ's Found</p>
+                {% endfor %}
+            </div>
+        
+            <div class="project-footer">
+                <a href="faqs/"><button class="outline-btn">VIEW ALL THE EXPERIENCE</button></a>
+            </div>
+        </div>
+        
+
+    </div>
+{% endblock %}

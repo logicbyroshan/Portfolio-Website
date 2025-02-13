@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Project, Skill, Experience, Blog, ProjectImage, Feature, Learning, FAQ
+from .models import Project, Skill, Experience, Blog, ProjectImage, Feature, Learning, FAQ, Resume
+
+admin.site.register(Resume)
 
 class ProjectImageInline(admin.TabularInline):  # or admin.StackedInline
     model = ProjectImage

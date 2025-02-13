@@ -43,69 +43,25 @@
     </div>
 
     <div class="hor-cards">
+        {% for experience in experiences %}
         <div class="exp-card">
             <div class="top-content">
                 <div class="exp-image">
-                    <img src="../static/assets/Experience/Amazon.png" alt="">
+                    <img src="{{ experience.image.url }}" alt="{{ experience.title }}">
                 </div>
-                <h2>Sr. Software Engineer</h2>
+                <h2>{{ experience.title }}</h2>
                 <div class="date">
-                    <p>Jan-2020</p>
-                    <p>Mar-2022</p>
+                    <p>{{ experience.start_date|date:"M-Y" }}</p>
+                    <p>{{ experience.end_date|date:"M-Y" }}</p>
                 </div>
             </div>
             <div class="exp-content">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non vero unde autem? Cum quo odio veritatis rem vero, repudiandae eum possimus ex quam excepturi eaque deleniti. Natus voluptatem animi quos enim nisi aut magnam, consequatur facilis iste accusamus incidunt dolores vitae ut amet consectetur mollitia sint! Dolore dicta ratione sapiente.</p>
+                <p>{{ experience.description }}</p>
             </div>
         </div>
-
-        <div class="exp-card">
-            <div class="top-content">
-                <div class="exp-image">
-                    <img src="../static/assets/Experience/Amazon.png" alt="">
-                </div>
-                <h2>Sr. Software Engineer</h2>
-                <div class="date">
-                    <p>Jan-2020</p>
-                    <p>Mar-2022</p>
-                </div>
-            </div>
-            <div class="exp-content">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non vero unde autem? Cum quo odio veritatis rem vero, repudiandae eum possimus ex quam excepturi eaque deleniti. Natus voluptatem animi quos enim nisi aut magnam, consequatur facilis iste accusamus incidunt dolores vitae ut amet consectetur mollitia sint! Dolore dicta ratione sapiente.</p>
-            </div>
-        </div>
-
-        <div class="exp-card">
-            <div class="top-content">
-                <div class="exp-image">
-                    <img src="../static/assets/Experience/Amazon.png" alt="">
-                </div>
-                <h2>Sr. Software Engineer</h2>
-                <div class="date">
-                    <p>Jan-2020</p>
-                    <p>Mar-2022</p>
-                </div>
-            </div>
-            <div class="exp-content">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non vero unde autem? Cum quo odio veritatis rem vero, repudiandae eum possimus ex quam excepturi eaque deleniti. Natus voluptatem animi quos enim nisi aut magnam, consequatur facilis iste accusamus incidunt dolores vitae ut amet consectetur mollitia sint! Dolore dicta ratione sapiente.</p>
-            </div>
-        </div>
-
-        <div class="exp-card">
-            <div class="top-content">
-                <div class="exp-image">
-                    <img src="../static/assets/Experience/Amazon.png" alt="">
-                </div>
-                <h2>Sr. Software Engineer</h2>
-                <div class="date">
-                    <p>Jan-2020</p>
-                    <p>Mar-2022</p>
-                </div>
-            </div>
-            <div class="exp-content">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non vero unde autem? Cum quo odio veritatis rem vero, repudiandae eum possimus ex quam excepturi eaque deleniti. Natus voluptatem animi quos enim nisi aut magnam, consequatur facilis iste accusamus incidunt dolores vitae ut amet consectetur mollitia sint! Dolore dicta ratione sapiente.</p>
-            </div>
-        </div>
+        {% empty %}
+        <p>No Experience Found</p>
+        {% endfor %}
     </div>
     <div class="exp-footer">
         <button class="outline-btn">VIEW ALL THE EDUCATIONS <img src="" alt=""></button>

@@ -33,10 +33,7 @@
             <div class="cards-header">
                 <h1>my blogs.</h1>
                 <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search Your Content">
-                    <button><img src="{% static 'images/icons/search.png' %}" alt="searchicon"></button>
-                </div>
+
                 <div class="cards-sorting">
                     <div class="cards-categories">
                         <span class="category active" onclick="toggleCategory(this)">All Blogs</span>
@@ -92,9 +89,7 @@
                 {% endfor %}
             </div>
             <div class="blogs-footer">
-                <a href="{% url 'blog_list' %}"></a>
-                    <button class="outline-btn">VIEW ALL THE BLOGS <img src="" alt=""></button>
-                </a>
+                <a href="blogs/"><button class="outline-btn">VIEW ALL THE BLOGS</button></a>
             </div>
         </div>
 
@@ -103,10 +98,7 @@
             <div class="cards-header">
                 <h1>my skills.</h1>
                 <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search Your Content">
-                    <button><img src="{% static 'images/icons/search.png' %}" alt="searchicon"></button>
-                </div>
+
                 <div class="cards-sorting">
                     <div class="cards-categories">
                         <span class="category active" onclick="toggleCategory(this)">All Skills</span>
@@ -166,11 +158,13 @@
                             </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <p>No Skills Found</p>
                     {% endfor %}
                 </div>
                 
             <div class="skills-footer">
-                <button class="outline-btn">VIEW ALL THE SKILLS <img src="" alt=""></button>
+                <a href="skills/"><button class="outline-btn">VIEW ALL THE SKILLS</button></a>            
             </div>
         </div>  
 
@@ -179,10 +173,6 @@
             <div class="cards-header">
                 <h1>my projects.</h1>
                 <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search Your Content">
-                    <button><img src="{% static 'images/icons/search.png' %}" alt="searchicon"></button>
-                </div>
                 <div class="cards-sorting">
                     <div class="cards-categories">
                         <img src="../static/icons/search.png" alt="menu" id="menu-toggle">
@@ -209,34 +199,41 @@
                     </div>
                 </div>
         
-            <div class="ver-cards">
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="../static/assets/Projects/Project 1.jpg" alt="">
-                    </div>
-                    <div class="project-content">
-                        <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
-                        <div class="skills">
-                            <p>Skills Used : </p>
-                            <span>HMTL</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                            <span>Python</span>
-                            <span>Django</span>
-                            <span>RestAPI</span>
+                <div class="ver-cards">
+                    {% for project in projects %}
+                    <div class="project-card">
+                        <div class="project-image">
+                            {% if project.images.all %}
+                                <img src="{{ project.images.first.image.url }}" alt="{{ project.title }}">
+                            {% else %}
+                                <img src="/static/assets/default-project-image.jpg" alt="Default Image"> <!-- Fallback -->
+                            {% endif %}                       
                         </div>
-                        <div class="project-links">
-                            <button class="outline-btn">CODE</button>
-                            <button class="outline-btn">PREVIEW</button>
-                            <button class="outline-btn">DOCUMENTATION</button>
+                        <div class="project-content">
+                            <h2>{{ project.title }}</h2>
+                            <p>{{ project.description }}</p>
+                
+                            <div class="skills">
+                                <p>Skills Used:</p>
+                                {% for skill in project.skills.all %}
+                                    <span>{{ skill.name }}</span>
+                                {% endfor %}
+                            </div>
+                
+                            <div class="project-links">
+                                <a href="{% url 'project_detail' project.slug %}">
+                                    <button class="outline-btn">VIEW DETAILS</button>
+                                </a>
+                            </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <p>No Projects Found</p>
+                    {% endfor %}
                 </div>
-            </div>
+                
             <div class="project-footer">
-                <button class="outline-btn">VIEW ALL THE PROJECTS <img src="" alt=""></button>
-            </div>
+                <a href="projects/"><button class="outline-btn">VIEW ALL THE PROJECTS</button></a>            </div>
         </div>
 
         <!--Experience Is Staring From Here-->  
@@ -244,10 +241,6 @@
             <div class="cards-header">
                 <h1>my experience.</h1>
                 <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search Your Content">
-                    <button><img src="{% static 'images/icons/search.png' %}" alt="searchicon"></button>
-                </div>
                 <div class="cards-sorting">
                     <div class="cards-categories">
                         <span class="category active" onclick="toggleCategory(this)">All Educations</span>
@@ -269,24 +262,29 @@
             </div>
         
             <div class="hor-cards">
+                {% for experience in experiences %}
                 <div class="exp-card">
                     <div class="top-content">
                         <div class="exp-image">
-                            <img src="../static/assets/Experience/Amazon.png" alt="">
+                            <img src="{{ experience.image.url }}" alt="{{ experience.title }}">
                         </div>
-                        <h2>Sr. Software Engineer</h2>
+                        <h2>{{ experience.title }}</h2>
                         <div class="date">
-                            <p>Jan-2020</p>
-                            <p>Mar-2022</p>
+                            <p>{{ experience.start_date|date:"M-Y" }}</p>
+                            <p>{{ experience.end_date|date:"M-Y" }}</p>
                         </div>
                     </div>
                     <div class="exp-content">
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non vero unde autem? Cum quo odio veritatis rem vero, repudiandae eum possimus ex quam excepturi eaque deleniti. Natus voluptatem animi quos enim nisi aut magnam, consequatur facilis iste accusamus incidunt dolores vitae ut amet consectetur mollitia sint! Dolore dicta ratione sapiente.</p>
+                        <p>{{ experience.description }}</p>
                     </div>
                 </div>
+                {% empty %}
+                <p>No Experience Found</p>
+                {% endfor %}
             </div>
+            
             <div class="exp-footer">
-                <button class="outline-btn">VIEW ALL THE EDUCATIONS <img src="" alt=""></button>
+                <a href="experience/"><button class="outline-btn">VIEW ALL THE EXPERIENCE</button></a>
             </div>
         </div>
 
@@ -296,12 +294,6 @@
             <div class="cards-header">
                 <h1>my faq's.</h1>
                 <p>Visit all my projects and see the code too; also view embedded preview as well.</p>
-                
-                <div class="search-bar">
-                    <input type="text" placeholder="Search Your Content">
-                    <button><img src="{% static 'images/icons/search.png' %}" alt="search icon"></button>
-                </div>
-        
                 <div class="cards-sorting">
                     <div class="cards-categories">
                         <span class="category active" onclick="toggleCategory(this)">All FAQ's</span>
@@ -342,14 +334,14 @@
             </div>
         
             <div class="project-footer">
-                <button class="outline-btn">VIEW ALL THE FAQ's <img src="" alt=""></button>
+                <a href="faqs/"><button class="outline-btn">VIEW ALL THE FAQS</button></a>
             </div>
         </div>
         
 
 
         <!--Contact Is Staring From Here-->
-        <div class="all-container">
+        <div class="all-container" id="contact">
             <div class="cards-header">
                 <h1>contact me.</h1>
                 <p>Visit all my projects an see the code too also view embedded preview aswell.</p>

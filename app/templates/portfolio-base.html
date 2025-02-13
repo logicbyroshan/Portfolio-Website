@@ -10,13 +10,14 @@
     <link rel="icon" type="image/x-icon" href="{% static 'images/icons/favicon.ico' %}">
     
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/all-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/re-used.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="{% static 'css/projects.css' %}">
     <link rel="stylesheet" href="{% static 'css/blogs.css' %}">
     <link rel="stylesheet" href="{% static 'css/experiences.css' %}">
     <link rel="stylesheet" href="{% static 'css/skills.css' %}">
+    <link rel="stylesheet" href="{% static 'css/blogs-detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/project-detail.css' %}">
 
     {% block title %}Roshan Portfolio |{% endblock %}
 </head>
@@ -27,101 +28,112 @@
         <div class="navbar">
             <div class="logo">
                 <div class="hamburger">
-                    <img src="../static/assets/Icons/interface.png" alt="Hamburger Menu" id="hamburger-icon">
+                    <img src="{% static 'assets/Icons/interface.png' %}" alt="Hamburger Menu" id="hamburger-icon">
                     
                     <div class="hemburger-menu hidden" id="hamburger-menu">
                         <ul>
-                            <li><a href="/my-startup">Startup Sparks</a></li>
-                            <li><a href="/my-freelance">Freelance Flow</a></li>
-                            <li><a href="/my-hobbies">Hobbies Haven</a></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/projects">Projects</a></li>
+                            <li><a href="/skills">Skills</a></li>
+                            <li><a href="/blogs">Blogs</a></li>
+                            <li><a href="{% url 'home' %}#contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="logo-img">
-                    <a href="">
-                        <img src="../static/images/stock/Roshan Logo White.png" alt="logo">
-                        <p>portfolio</p>
+                    <a href="/">
+                        <img src="{% static 'images/stock/Roshan Logo White.png' %}" alt="logo">
+                        <p>Portfolio</p>
                     </a>
                 </div>
             </div>
         
             <div class="nav-items">
                 <a href="/">Home</a>
-                <a href="/my-freelance">Projects</a>
-                <a href="/my-hobbies">Skills</a>
-                <a href="/my-startup">Blogs</a>
-                <a href="/my-contact">Contact</a>
+                <a href="/projects">Projects</a>
+                <a href="/skills">Skills</a>
+                <a href="/blogs">Blogs</a>
+                <a href="{% url 'home' %}#contact">Contact</a>
             </div>
+
+            <!-- Updated Resume Button Section -->
             <div class="nav-btns">
-                <a href="#">
-                    <button class="outline-btn">Download Resume</button>
-                </a>
+                <a href="{% url 'download_resume' %}" class="outline-btn">Download Resume</a>
             </div>
         </div>
-        
+
         {% block content %}
         {% endblock %}
     
         <div class="footer">
-            <h1>thankyou to visit</h1>
+            <h1>Thank you for visiting</h1>
             <div class="footer-nav">
                 <div class="navigaiton-items">
                     <div class="foot-nav-head">
                         <h3>Links</h3>
-                        <img src="../static/assets/Icons/open.png" alt="" class="dropdown-toggle">
+                        <img src="{% static 'assets/Icons/open.png' %}" alt="" class="dropdown-toggle">
                     </div>
                     
                     <ul>
-                        <li><a href="#">Startup</a></li>
-                        <li><a href="#">Hobbies</a></li>
-                        <li><a href="#">Personal</a></li>
-                        <li><a href="#">Freelance</a></li>
-                        <li><a href="#">Achievment</a></li>
+                        <li><a href="https://www.startupindia.gov.in/">Startup</a></li>
+                        <li><a href="https://hobbyindia.store/">Hobbies</a></li>
+                        <li><a href="https://www.kickresume.com/en/">Personal</a></li>
+                        <li><a href="https://www.freelancer.in/">Freelance</a></li>
+                        <li><a href="https://www.trueachievements.com/">Achievement</a></li>
                     </ul>
                 </div>
 
                 <div class="navigaiton-items">
                     <div class="foot-nav-head">
                         <h3>Navigate</h3>
-                        <img src="../static/assets/Icons/open.png" alt="" class="dropdown-toggle">
+                        <img src="{% static 'assets/Icons/open.png' %}" alt="" class="dropdown-toggle">
                     </div>
                     
                     <ul>
-                        <li><a href="#">Skills</a></li>
-                        <li><a href="#">Blogs</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Experience</a></li>
-                        <li><a href="#">Contact Me</a></li>
+                        <li><a href="/skills">Skills</a></li>
+                        <li><a href="/blogs">Blogs</a></li>
+                        <li><a href="/projects">Projects</a></li>
+                        <li><a href="/experience">Experience</a></li>
+                        <li><a href="{% url 'home' %}#contact">Contact Me</a></li>
                     </ul>
                 </div>
 
                 <div class="navigaiton-items">
                     <div class="foot-nav-head">
                         <h3>Follow</h3>
-                        <img src="../static/assets/Icons/open.png" alt="" class="dropdown-toggle">
+                        <img src="{% static 'assets/Icons/open.png' %}" alt="" class="dropdown-toggle">
                     </div>
                     
                     <ul>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">GitHub</a></li>
-                        <li><a href="#">Youtube</a></li>
-                        <li><a href="#">Linkedin</a></li>
-                        <li><a href="#">Instagram</a></li>
+                        <li><a href="https://x.com/iamroshandamor">Twitter</a></li>
+                        <li><a href="https://github.com/logicbyroshan">GitHub</a></li>
+                        <li><a href="https://www.youtube.com/@logicbyroshan">YouTube</a></li>
+                        <li><a href="https://www.linkedin.com/in/iamroshandamor/">LinkedIn</a></li>
+                        <li><a href="https://www.instagram.com/logicbyroshan/">Instagram</a></li>
                     </ul>
                 </div>
 
                 <div class="navigaiton-items">
                     <div class="foot-nav-head">
                         <h3>Contact</h3>
-                        <img src="../static/assets/Icons/open.png" alt="" class="dropdown-toggle">
+                        <img src="{% static 'assets/Icons/open.png' %}" alt="" class="dropdown-toggle">
                     </div>
                     
                     <ul>
-                        <li><a href="#">E-mail</a></li>
-                        <li><a href="#">Find Me</a></li>
-                        <li><a href="#">Callback</a></li>
-                        <li><a href="#">Whatsapp</a></li>
-                        <li><a href="#">Community</a></li>
+                        <!-- Opens default email app with your email -->
+                        <li><a href="mailto:contact@roshandamor.site">Mail</a></li>
+
+                        <!-- Opens Google Maps with your location -->
+                        <li><a href="https://www.google.com/maps/search/?api=1&query=Patanjali+Parisar,+Abbas+Nagar,+Gandhinagar,+Bhopal,+MP" target="_blank">Find Me</a></li>
+
+                        <!-- Opens phone dialer with your number -->
+                        <li><a href="tel:+91XXXXXXXXXX">Callback</a></li>
+
+                        <!-- Opens WhatsApp chat with your number -->
+                        <li><a href="https://wa.me/91XXXXXXXXXX" target="_blank">WhatsApp</a></li>
+
+                        <!-- Opens your community forum -->
+                        <li><a href="https://yourcommunityforumlink.com" target="_blank">Community</a></li>
                     </ul>
                 </div>
                 
@@ -129,12 +141,11 @@
 
             <div class="copyright-items">
                 <p>© 2025 Roshan Damor. All Rights Reserved.</p>
-                <a href="/user-terms">User Terms and Conditions | @Privacy Policy.</a>
+                <a href="/user-terms">User Terms and Conditions | Privacy Policy</a>
             </div>
         </div>
     </div>
 
-    
     <script src="{% static 'js/index.js' %}"></script>
     <script src="{% static 'js/all-page.js' %}"></script>
 </body>

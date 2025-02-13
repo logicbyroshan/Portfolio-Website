@@ -1,0 +1,77 @@
+{% extends "portfolio-base.html" %}
+{% block title %} Roshan {% endblock %}
+{% load static %}
+
+{% block content %}
+    <div class="main-container">
+
+        <!--Blogs Is Staring From Here-->
+        <div class="all-container">
+            <div class="cards-header">
+                <h1>my blogs.</h1>
+                <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search Your Content">
+                    <button><img src="{% static 'images/icons/search.png' %}" alt="searchicon"></button>
+                </div>
+                <div class="cards-sorting">
+                    <div class="cards-categories">
+                        <span class="category active" onclick="toggleCategory(this)">All Blogs</span>
+                        <span class="category" onclick="toggleCategory(this)">Tech</span>
+                        <span class="category" onclick="toggleCategory(this)">Job</span>
+                        <span class="category" onclick="toggleCategory(this)">Education</span>
+                        <span class="category" onclick="toggleCategory(this)">Smartphones</span>
+                        <span class="category" onclick="toggleCategory(this)">Vehicles</span>
+                        <span class="category" onclick="toggleCategory(this)">AI</span>
+                    </div>
+                    <div class="cards-sort">
+                        <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Blogs</button>
+                        <div class="sort-items" id="sort-items">
+                            <ul>
+                                <li onclick="changeSortOption(this)">Latest Blogs</li>
+                                <li onclick="changeSortOption(this)">Oldest Blogs</li>
+                                <li onclick="changeSortOption(this)">Most Liked Blogs</li>
+                                <li onclick="changeSortOption(this)">Least Liked Blogs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="ver-cards">
+                {% for blog in blogs %}
+                <div class="blogs-card">
+                    <div class="blogs-image">
+                        <img src="{{ blog.image.url}}" alt="">
+                    </div>
+                    <div class="blogs-content">
+                        <div class="date">
+                            <img src="{% static 'images/icons/calendar.png' %}" alt="">
+                            <p>{{ blog.publication_date|date:"F d, Y" }}</p>
+                            <p>. Read Time: {{ blog.time_to_read }} min</p>
+                        </div>
+                        <h2>{{ blog.title }}</h2>
+                        <div class="skills">
+                            <p>Category : </p>
+                            {% for category in blog.get_category_list %}
+                                <span>{{ category }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="blogs-links">
+                            <a href="{% url 'blog_detail' blog.id %}"></a>
+                                <button class="outline-btn">Read More</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No Blogs Found</p>
+                {% endfor %}
+            </div>
+            <div class="blogs-footer">
+                <a href="blogs/"><button class="outline-btn">VIEW ALL THE BLOGS</button></a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

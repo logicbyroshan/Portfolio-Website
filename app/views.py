@@ -1,5 +1,15 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Project, Blog, Skill, Experience, FAQ
+from .models import Project, Blog, Skill, Experience, FAQ, Resume
+from django.http import FileResponse
+import os
+from django.conf import settings
+
+def download_resume(request):
+    resume_path = os.path.join(settings.MEDIA_ROOT, 'resume.pdf')  # Ensure this path is correct
+    if os.path.exists(resume_path):
+        return FileResponse(open(resume_path, 'rb'), as_attachment=True)
+    else:
+        raise Http404("Resume not found")
 
 # Home View - Shows limited content (6 items per section)
 def home(request):
@@ -23,10 +33,10 @@ def home(request):
     else:
         faqs = FAQ.objects.all()[:6]  # Default case (show 6 FAQs)
 
-    projects = Project.objects.all()[:6]
+    projects = Project.objects.prefetch_related("images").all()[:6]
     blogs = Blog.objects.all()[:6]
     skills = Skill.objects.all()[:6]
-    experiences = Experience.objects.all()[:6]
+    experiences = Experience.objects.all()[:3]
 
     categories = FAQ.objects.values_list('category', flat=True).distinct()  # Get unique categories
 
@@ -45,44 +55,33 @@ def home(request):
 # Project Views
 def project_list(request):
     projects = Project.objects.all()
-    return render(request, 'portfolio/project.html', {'projects': projects})
+    return render(request, 'projects.html', {'projects': projects})
 
 def project_detail(request, slug):
     project = get_object_or_404(Project, slug=slug)
-    return render(request, 'portfolio/project_detail.html', {'project': project})
+    return render(request, 'project_detail.html', {'project': project})
 
 # Blog Views
 def blog_list(request):
     blogs = Blog.objects.all()
-    return render(request, 'portfolio/blog.html', {'blogs': blogs})
+    return render(request, 'blogs.html', {'blogs': blogs})
 
 def blog_detail(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
-    return render(request, 'portfolio/blog_detail.html', {'blog': blog})
+    return render(request, 'blog_detail.html', {'blog': blog})
 
 # Skill Views
 def skill_list(request):
     skills = Skill.objects.all()
-    return render(request, 'portfolio/skill.html', {'skills': skills})
-
-def skill_detail(request, slug):
-    skill = get_object_or_404(Skill, slug=slug)
-    return render(request, 'portfolio/skill_detail.html', {'skill': skill})
+    return render(request, 'skills.html', {'skills': skills})
 
 # Experience Views
 def experience_list(request):
     experiences = Experience.objects.all()
-    return render(request, 'portfolio/experience_list.html', {'experiences': experiences})
-
-def experience_detail(request, slug):
-    experience = get_object_or_404(Experience, slug=slug)
-    return render(request, 'portfolio/experience_detail.html', {'experience': experience})
+    return render(request, 'experiences.html', {'experiences': experiences})
 
 # FAQs View
 def faq_list(request):
     faqs = FAQ.objects.all()
-    return render(request, 'portfolio/faq_list.html', {'faqs': faqs})
+    return render(request, 'faqs.html', {'faqs': faqs})
 
-def faq_detail(request, slug):
-    faq = get_object_or_404(FAQ, slug=slug)
-    return render(request, 'portfolio/faq_detail.html', {'faq': faq})

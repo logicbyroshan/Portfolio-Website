@@ -9,6 +9,12 @@
     border: 2px solid var(--main-outline-color);
 }
 
+.skills-card:hover {
+    background-color: var(--main-bg-color-2);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
 .skills-image {
     width: 100%;
     height: 350px;

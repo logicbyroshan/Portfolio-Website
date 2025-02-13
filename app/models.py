@@ -3,6 +3,15 @@ from django.utils.text import slugify
 import math
 import datetime
 
+
+class Resume(models.Model):
+    file = models.FileField(upload_to='resumes/')  # Stores in `media/resumes/`
+    uploaded_at = models.DateTimeField(auto_now_add=True)  # Optional, for tracking
+
+    def __str__(self):
+        return self.file.name  # Show filename in admin panel
+
+
 # Model for Skill
 class Skill(models.Model):
     STATUS_CHOICES = [

@@ -48,127 +48,39 @@
             </div>
         </div>
 
-    <div class="ver-cards">
-        <div class="project-card">
-            <div class="project-image">
-                <img src="../static/assets/Projects/Project 1.jpg" alt="">
-            </div>
-            <div class="project-content">
-                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
-                <div class="skills">
-                    <p>Skills Used : </p>
-                    <span>HMTL</span>
-                    <span>CSS</span>
-                    <span>JavaScript</span>
-                    <span>Python</span>
-                    <span>Django</span>
-                    <span>RestAPI</span>
+        <div class="ver-cards">
+            {% for project in projects %}
+            <div class="project-card">
+                <div class="project-image">
+                    {% if project.images.all %}
+                        <img src="{{ project.images.first.image.url }}" alt="{{ project.title }}">
+                    {% else %}
+                        <img src="/static/assets/default-project-image.jpg" alt="Default Image"> <!-- Fallback -->
+                    {% endif %}                       
                 </div>
-                <div class="project-links">
-                    <button class="outline-btn">CODE</button>
-                    <button class="outline-btn">PREVIEW</button>
-                    <button class="outline-btn">DOCUMENTATION</button>
+                <div class="project-content">
+                    <h2>{{ project.title }}</h2>
+                    <p>{{ project.description }}</p>
+        
+                    <div class="skills">
+                        <p>Skills Used:</p>
+                        {% for skill in project.skills.all %}
+                            <span>{{ skill.name }}</span>
+                        {% endfor %}
+                    </div>
+        
+                    <div class="project-links">
+                        <a href="{% url 'project_detail' project.slug %}">
+                            <button class="outline-btn">VIEW DETAILS</button>
+                        </a>
+                    </div>
                 </div>
             </div>
+            {% empty %}
+            <p>No Projects Found</p>
+            {% endfor %}
         </div>
-
-        <div class="project-card">
-            <div class="project-image">
-                <img src="../static/assets/Projects/Project 2.jpg" alt="">
-            </div>
-            <div class="project-content">
-                <h2>Modern Landing Page E-comm Project using Python-Django</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
-                <div class="skills">
-                    <p>Skills Used : </p>
-                    <span>HMTL</span>
-                    <span>CSS</span>
-                    <span>JavaScript</span>
-                    <span>Python</span>
-                    <span>Django</span>
-                    <span>RestAPI</span>
-                </div>
-                <div class="project-links">
-                    <button class="outline-btn">CODE</button>
-                    <button class="outline-btn">PREVIEW</button>
-                    <button class="outline-btn">DOCUMENTATION</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-image">
-                <img src="../static/assets/Projects/Project 3.jpg" alt="">
-            </div>
-            <div class="project-content">
-                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
-                <div class="skills">
-                    <p>Skills Used : </p>
-                    <span>HMTL</span>
-                    <span>CSS</span>
-                    <span>JavaScript</span>
-                    <span>Python</span>
-                    <span>Django</span>
-                    <span>RestAPI</span>
-                </div>
-                <div class="project-links">
-                    <button class="outline-btn">CODE</button>
-                    <button class="outline-btn">PREVIEW</button>
-                    <button class="outline-btn">DOCUMENTATION</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-image">
-                <img src="../static/assets/Projects/Project 3.jpg" alt="">
-            </div>
-            <div class="project-content">
-                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
-                <div class="skills">
-                    <p>Skills Used : </p>
-                    <span>HMTL</span>
-                    <span>CSS</span>
-                    <span>JavaScript</span>
-                    <span>Python</span>
-                    <span>Django</span>
-                    <span>RestAPI</span>
-                </div>
-                <div class="project-links">
-                    <button class="outline-btn">CODE</button>
-                    <button class="outline-btn">PREVIEW</button>
-                    <button class="outline-btn">DOCUMENTATION</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-image">
-                <img src="../static/assets/Projects/Project 3.jpg" alt="">
-            </div>
-            <div class="project-content">
-                <h2>Modern Landing Page E-commerce Project using Python-Django</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam culpa pariatur tempora provident molestias, suscipit necessitatibus, autem velit, sapiente nisi atque officiis sequi iure praesentium accusamus. Tempora blanditiis neque pariatur repellendus, vero dolorum. Amet, similique! Reprehenderit consectetur enim officiis inventore eos ipsam! Tenetur quaerat beatae natus provident assumenda quia.</p>
-                <div class="skills">
-                    <p>Skills Used : </p>
-                    <span>HMTL</span>
-                    <span>CSS</span>
-                    <span>JavaScript</span>
-                    <span>Python</span>
-                    <span>Django</span>
-                    <span>RestAPI</span>
-                </div>
-                <div class="project-links">
-                    <button class="outline-btn">CODE</button>
-                    <button class="outline-btn">PREVIEW</button>
-                    <button class="outline-btn">DOCUMENTATION</button>
-                </div>
-            </div>
-        </div>
-    </div>
+        
     <div class="project-footer">
         <button class="outline-btn">VIEW ALL THE PROJECTS <img src="" alt=""></button>
     </div>
