@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // Toggle answer visibility
           if (answer.style.display === "none" || !answer.style.display) {
               answer.style.display = "block"; // Show the answer
-              toggleIcon.src = "../static/assets/icons/close.png"; // Change to "hide" icon
+              toggleIcon.src = "../images/icons/close.png"; // Change to "hide" icon
               toggleIcon.alt = "Hide FAQ";
           } else {
               answer.style.display = "none"; // Hide the answer

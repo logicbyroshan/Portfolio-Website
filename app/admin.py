@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Skill, Experience, Blog, ProjectImage, Feature, Learning, FAQ
+from .models import Project, Skill, Experience, Blog, ProjectImage, Feature, Learning, FAQ, ContactMessage
 
 
 class ProjectImageInline(admin.TabularInline):  # or admin.StackedInline
@@ -34,4 +34,5 @@ class LearningAdmin(admin.ModelAdmin):
 admin.site.register(Skill)
 admin.site.register(Experience)
 admin.site.register(Blog)
-admin.site.register(FAQ) 
+admin.site.register(FAQ)
+admin.site.register(ContactMessage)

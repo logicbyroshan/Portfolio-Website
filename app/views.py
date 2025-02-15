@@ -1,6 +1,36 @@
 from django.shortcuts import render
 from .models import Project, Blog, Skill, Experience, FAQ
 from django.db.models import Q
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import ContactForm
+
+def contact_view(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact_message = form.save()
+
+            # ✅ Fix: Use your authorized email as sender
+            send_mail(
+                subject=contact_message.subject,
+                message=f"Message from {contact_message.name} ({contact_message.email}):\n\n{contact_message.message}",
+                from_email="contact@roshandamor.site",  # ✅ Use your actual email
+                recipient_list=["contact@roshandamor.site"],  # ✅ Ensure recipient is correct
+                fail_silently=False,
+            )
+
+            messages.success(request, "Your message has been sent successfully!")
+            return redirect("contact")
+
+    else:
+        form = ContactForm()
+
+    return render(request, "portfolio-landing-page.html", {"form": form})
+
+
+
 
 def get_unique_categories(queryset, field_name):
     """Extract unique categories from a given model field."""

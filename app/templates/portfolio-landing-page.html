@@ -87,7 +87,7 @@
                         {% if project.images.all %}
                             <img src="{{ project.images.first.image.url }}" alt="{{ project.title }}">
                         {% else %}
-                            <img src="/static/assets/default-project-image.jpg" alt="Default Image"> <!-- Fallback -->
+                            <img src="../static/images/others/Project Image1.jpg" alt="Default Image"> <!-- Fallback -->
                         {% endif %}                       
                     </div>
                     <div class="project-content">
@@ -230,52 +230,59 @@
             </div>
         </div>
 
-        <!--Contact Is Staring From Here-->
+        <!-- Contact Section Starts Here -->
         <div class="all-container" id="contact">
             <div class="cards-header">
                 <h1>contact me.</h1>
-                <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
+                <p>Visit all my projects and see the code too; also view embedded previews as well.</p>
             </div>
+            
             <div class="mail-contact-card">
-
+                <!-- Left Contact Information -->
                 <div class="left-contact">
-                    <img src="../static/images/stock/Contact.jpg" alt="">
+                    <img src="../static/images/stock/Contact.jpg" alt="Contact Image">
                     <div class="contact-section">
                         <div class="contact">
-                            <img src="../static/images/icons/g-mail.png" alt="">
+                            <img src="../static/images/icons/g-mail.png" alt="Email Icon">
                             <a href="mailto:iamroshandamor@gmail.com"><p>iamroshandamor@gmail.com</p></a>
                         </div>
                         <div class="contact">
-                            <img src="../static/images/icons/rmail.png" alt="">
-                            <a href="mailto:contact@roshandamor.site"><p>contact@roshandmaor.site</p></a>
+                            <img src="../static/images/icons/rmail.png" alt="Email Icon">
+                            <a href="mailto:contact@roshandamor.site"><p>contact@roshandamor.site</p></a>
                         </div>
                         <div class="contact">
-                            <img src="../static/images/icons/phone.png" alt="">
+                            <img src="../static/images/icons/phone.png" alt="Phone Icon">
                             <a href="tel:+91XXXXXXXXXX"><p>+91 1234567890</p></a>
                         </div>
                         <div class="contact">
-                            <img src="../static/images/icons/address.png" alt="">
-                            <a href="https://www.google.com/maps/search/?api=1&query=Patanjali+Parisar,+Abbas+Nagar,+Gandhinagar,+Bhopal,+MP"><p>Indore, Madhya Pradesh, India</p></a>
+                            <img src="../static/images/icons/address.png" alt="Address Icon">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Patanjali+Parisar,+Abbas+Nagar,+Gandhinagar,+Bhopal,+MP">
+                                <p>Indore, Madhya Pradesh, India</p>
+                            </a>
                         </div>
                     </div>
                 </div>
 
+                <!-- Right Contact Form -->
                 <div class="right-contact">
                     <div class="contact-form-card">
-                        <form id="contactForm">
-                            <input type="text" name="name" placeholder="Name" required>
-                            <input type="email" name="email" placeholder="E-mail" required>
-                            <input type="text" name="subject" placeholder="Subject" required>
-                            <textarea name="message" cols="30" rows="8" placeholder="Message" required></textarea>
+                        <form method="post" action="{% url 'contact' %}" id="contactForm">
+                            {% csrf_token %}
+                            {{ form.as_p }}
                             <button class="contact-btn" type="submit">Send Message</button>
                         </form>
-                        <p id="formMessage"></p>  <!-- This will show success/error messages -->
+
+                        <!-- Success Message Display -->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p style="color: green;">{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
-                
-
             </div>
         </div>
+        <!-- Contact Section Ends Here -->
 
     </div>
 

@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import (
     home, project_list, project_detail, blog_list, blog_detail, 
-    skill_list, experience_list, faq_list
+    skill_list, experience_list, faq_list, contact_view
 )
 
 urlpatterns = [
@@ -25,6 +25,9 @@ urlpatterns = [
 
     # FAQs (No detail page)
     path('faqs/', faq_list, name='faq_list'),
+
+    # Contact Form
+    path("contact/", contact_view, name="contact"),  # This URL will handle the form submission
 ]
 
 if settings.DEBUG:
