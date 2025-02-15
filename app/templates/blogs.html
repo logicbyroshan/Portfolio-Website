@@ -9,29 +9,9 @@
         <div class="all-container">
             <div class="cards-header">
                 <h1>my blogs.</h1>
-                <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search Your Content">
-                    <button><img src="{% static 'images/icons/search.png' %}" alt="searchicon"></button>
-                </div>
-                <div class="cards-sorting">
-                    <div class="cards-categories">
-                        <span class="category active" onclick="toggleCategory(this)">All Blogs</span>
-                        <span class="category" onclick="toggleCategory(this)">Tech</span>
-
-                    </div>
-                    <div class="cards-sort">
-                        <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Blogs</button>
-                        <div class="sort-items" id="sort-items">
-                            <ul>
-                                <li onclick="changeSortOption(this)">Latest Blogs</li>
-        
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <p>Here are some of my blogs that I have written. I hope you will find them helpful.</p>
             </div>
-        
+            {% include 'filters.html' %}
             <div class="ver-cards">
                 {% for blog in blogs %}
                 <div class="blogs-card">

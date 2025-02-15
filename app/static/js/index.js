@@ -79,138 +79,111 @@ document.addEventListener("DOMContentLoaded", () => {
     // Start the typing effect
     setTimeout(typeSkill, delayBetweenSkills);
   });
+
+
   
+// Function to toggle the active category within its container
+function toggleCategory(element) {
+    const container = element.closest('.cards-categories'); // Get the parent container
+    const categories = container.querySelectorAll('.category'); // Scope to this container
+  
+    // Remove active class from all categories in this container
+    categories.forEach(category => category.classList.remove('active'));
+  
+    // Add active class to clicked category
+    element.classList.add('active');
+  }
+  
+  
+  // sort button sort items
   document.addEventListener("DOMContentLoaded", () => {
-    // Toggle active category and fetch data
-    function toggleCategory(element) {
-        const container = element.closest('.cards-categories');
-        const categories = container.querySelectorAll('.category');
-
-        categories.forEach(category => category.classList.remove('active'));
-        element.classList.add('active');
-
-        updateSection(container);
-    }
-
-    // Sorting dropdown functionality
-    const sortButtons = document.querySelectorAll(".cards-sort .outline-btn");
-
-    sortButtons.forEach((button) => {
+      // Get all buttons and dropdowns
+      const sortButtons = document.querySelectorAll(".cards-sort .outline-btn");
+    
+      sortButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
-            const parent = event.target.closest(".cards-sort");
-            const dropdown = parent.querySelector(".sort-items");
-
-            // Close other dropdowns
-            document.querySelectorAll(".sort-items").forEach(menu => {
-                if (menu !== dropdown) menu.style.display = "none";
-            });
-
-            // Toggle current dropdown
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+          const parent = event.target.closest(".cards-sort");
+          const dropdown = parent.querySelector(".sort-items");
+    
+          // Close other open dropdowns
+          document.querySelectorAll(".sort-items").forEach((menu) => {
+            if (menu !== dropdown) {
+              menu.style.display = "none";
+            }
+          });
+    
+          // Toggle the visibility of the current dropdown
+          dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         });
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener("click", (event) => {
+      });
+    
+      // Close dropdowns when clicking outside
+      document.addEventListener("click", (event) => {
         if (!event.target.closest(".cards-sort")) {
-            document.querySelectorAll(".sort-items").forEach(menu => menu.style.display = "none");
+          document.querySelectorAll(".sort-items").forEach((menu) => {
+            menu.style.display = "none";
+          });
         }
+      });
     });
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      // Search Form
+      document.querySelector(".search-form").addEventListener("submit", function(event) {
+          event.preventDefault();
+          const searchInput = document.querySelector(".search-form input").value;
+          const url = new URL(window.location);
+          url.searchParams.set("search", searchInput);
+          window.location.href = url.toString();
+      });
+  
+      // Toggle Categories
+      document.querySelectorAll(".category").forEach(category => {
+          category.addEventListener("click", function() {
+              document.querySelectorAll(".category").forEach(cat => cat.classList.remove("active"));
+              this.classList.add("active");
+              const selectedCategory = this.dataset.category;
+  
+              const url = new URL(window.location);
+              url.searchParams.set("category", selectedCategory);
+              window.location.href = url.toString();
+          });
+      });
+  
+      // Sorting
+      document.querySelectorAll(".sort-items li").forEach(option => {
+          option.addEventListener("click", function() {
+              const sortValue = this.getAttribute("onclick").split("'")[1]; // Extract sort type
+              const url = new URL(window.location);
+              url.searchParams.set("sort", sortValue);
+              window.location.href = url.toString();
+          });
+      });
+  });
+  
+    
+// FAQ section
+document.addEventListener("DOMContentLoaded", () => {
+  const faqCards = document.querySelectorAll(".faq-card");
 
-    // Fetch data based on category & sorting selection
-    function updateSection(container) {
-        const section = container.getAttribute("data-section");
-        const selectedCategory = container.querySelector(".category.active").getAttribute("data-category") || "All";
-        const sortOrder = document.querySelector(`[data-section="${section}"] .sort-items li.active`)?.getAttribute("data-sort") || "latest";
+  faqCards.forEach((card) => {
+      const answer = card.querySelector(".answer");
+      const toggleIcon = card.querySelector(".faq-toggle");
 
-        fetch(`/?section=${section}&category=${selectedCategory}&sort=${sortOrder}`)
-            .then(response => response.text())
-            .then(data => {
-                let parser = new DOMParser();
-                let htmlDoc = parser.parseFromString(data, 'text/html');
-
-                // Update only the specific section
-                document.querySelector(`[data-section="${section}"] .content-container`).innerHTML =
-                    htmlDoc.querySelector(`[data-section="${section}"] .content-container`).innerHTML;
-
-                // Reapply event listeners after content update
-                reapplyToggleFunctionality(section);
-                reapplyCategorySelection();
-                reapplySortingSelection();
-            })
-            .catch(error => console.error("Error fetching updated section:", error));
-    }
-
-    // Apply FAQ toggle functionality after fetching
-    function reapplyToggleFunctionality(section) {
-        if (section === "faq") {
-            document.querySelectorAll(".faq-card").forEach((card) => {
-                const answer = card.querySelector(".answer");
-                const toggleIcon = card.querySelector(".faq-toggle");
-
-                toggleIcon.addEventListener("click", () => {
-                    const openIcon = toggleIcon.dataset.openIcon;
-                    const closedIcon = toggleIcon.dataset.closedIcon;
-
-                    if (answer.style.display === "none" || !answer.style.display) {
-                        answer.style.display = "block";
-                        toggleIcon.src = openIcon;
-                    } else {
-                        answer.style.display = "none";
-                        toggleIcon.src = closedIcon;
-                    }
-                });
-            });
-        }
-    }
-
-    // Reapply event listeners for category selection after fetching
-    function reapplyCategorySelection() {
-        document.querySelectorAll(".category").forEach(category => {
-            category.addEventListener("click", function () {
-                toggleCategory(this);
-            });
-        });
-    }
-
-    // Reapply event listeners for sorting selection after fetching
-    function reapplySortingSelection() {
-        document.querySelectorAll(".sort-items li").forEach(option => {
-            option.addEventListener("click", function () {
-                const parent = this.closest(".cards-sort");
-                parent.querySelectorAll(".sort-items li").forEach(opt => opt.classList.remove("active"));
-                this.classList.add("active");
-
-                updateSection(parent.closest(".cards-categories"));
-
-                // Close dropdown after selection
-                parent.querySelector(".sort-items").style.display = "none";
-            });
-        });
-    }
-
-    // Attach event listeners to categories
-    document.querySelectorAll(".category").forEach(category => {
-        category.addEventListener("click", function () {
-            toggleCategory(this);
-        });
-    });
-
-    // Attach event listeners to sorting options
-    document.querySelectorAll(".sort-items li").forEach(option => {
-        option.addEventListener("click", function () {
-            const parent = this.closest(".cards-sort");
-            parent.querySelectorAll(".sort-items li").forEach(opt => opt.classList.remove("active"));
-            this.classList.add("active");
-
-            updateSection(parent.closest(".cards-categories"));
-
-            // Close dropdown after selection
-            parent.querySelector(".sort-items").style.display = "none";
-        });
-    });
+      toggleIcon.addEventListener("click", () => {
+          // Toggle answer visibility
+          if (answer.style.display === "none" || !answer.style.display) {
+              answer.style.display = "block"; // Show the answer
+              toggleIcon.src = "../static/assets/icons/close.png"; // Change to "hide" icon
+              toggleIcon.alt = "Hide FAQ";
+          } else {
+              answer.style.display = "none"; // Hide the answer
+              toggleIcon.src = "../images/icons/open.png"; // Change to "show" icon
+              toggleIcon.alt = "Show FAQ";
+          }
+      });
+  });
 });
-
 
   //Progreess skill bar
   document.addEventListener("DOMContentLoaded", () => {

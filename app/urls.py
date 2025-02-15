@@ -3,15 +3,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import (
     home, project_list, project_detail, blog_list, blog_detail, 
-    skill_list, experience_list, faq_list, download_resume, contact
+    skill_list, experience_list, faq_list
 )
 
 urlpatterns = [
     path('', home, name='home'),
-
-    path('download-resume/', download_resume, name='download_resume'),
-
-    path('contact/', contact, name='contact'),  # ✅ Add this line
 
     # Projects URLs (with slug for detail view)
     path('projects/', project_list, name='project_list'),

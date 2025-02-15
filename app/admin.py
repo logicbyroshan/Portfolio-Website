@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Project, Skill, Experience, Blog, ProjectImage, Feature, Learning, FAQ, Resume
+from .models import Project, Skill, Experience, Blog, ProjectImage, Feature, Learning, FAQ
 
-admin.site.register(Resume)
 
 class ProjectImageInline(admin.TabularInline):  # or admin.StackedInline
     model = ProjectImage
@@ -17,7 +16,7 @@ class LearningInline(admin.TabularInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("title", "category", "publication_date", "slug")
+    list_display = ("title", "categories", "publication_date", "slug")
     inlines = [ProjectImageInline, FeatureInline, LearningInline]  # Embed related models
 
 @admin.register(ProjectImage)
@@ -31,6 +30,7 @@ class FeatureAdmin(admin.ModelAdmin):
 @admin.register(Learning)
 class LearningAdmin(admin.ModelAdmin):
     list_display = ("paragraph", "project")
+
 admin.site.register(Skill)
 admin.site.register(Experience)
 admin.site.register(Blog)

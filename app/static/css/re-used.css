@@ -15,6 +15,12 @@ img:hover {
     border-radius: 10px;
 }
 
+.outline-btn a {
+    text-decoration: none;
+    color: var(--main-text-color);
+    font-family: var(--secondary-font);
+}
+
 .outline-btn:hover {
     border-color: transparent;
     background: linear-gradient(to right, #12496d, #0e3070);
@@ -157,11 +163,16 @@ img:hover {
     width: 100%;
 }
 
+.cards-header .search-div {
+    display: flex;
+    align-items: center;
+    width: 1280px;
+}
 
 .cards-header .search-bar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 20px;
     background-color: #f8f9fa;
     padding: 10px 20px;
@@ -169,29 +180,38 @@ img:hover {
     width: 100%;
 }
 
+/* Adjust input field */
 .cards-header .search-bar input {
-    width: 100%;
+    flex: 1;  /* Takes available space */
     border: none;
     outline: none;
     background-color: transparent;
     font-size: 16px;
 }
 
+/* Placeholder color */
 .cards-header .search-bar input::placeholder {
     color: #6c757d;
 }
 
+/* Fix button alignment */
 .cards-header .search-bar button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
     background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
 }
 
+/* Button image size */
 .cards-header .search-bar button img {
     width: 20px;
-
+    height: 20px;
 }
+
 
 .cards-header h1 {
     font-size: 75px;

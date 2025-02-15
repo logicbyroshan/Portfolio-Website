@@ -59,6 +59,17 @@
     font-family: var(--secondary-font);
     color: var(--main-text-color);
     letter-spacing: 2px;
+
+    
+    /* Fallback for older browsers */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: block;
+    
+    /* Ensures the title does not exceed 2 lines */
+    line-height: 1.4;
+    height: 2.8em; /* Adjusted for 2 lines */
 }
 
 .project-content p {

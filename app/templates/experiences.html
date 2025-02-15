@@ -16,32 +16,10 @@
     
 <div class="all-container">
     <div class="cards-header">
-        <h1>my experience.</h1>
-        <p>Visit all my projects an see the code too also view embedded preview aswell.</p>
-        <div class="search-bar">
-            <input type="text" placeholder="Search Your Content">
-            <button><img src="../../static/assets/Icons/search.png" alt="searchicon"></button>
-        </div>
-        <div class="cards-sorting">
-            <div class="cards-categories">
-                <span class="category active" onclick="toggleCategory(this)">All Educations</span>
-                <span class="category" onclick="toggleCategory(this)">Professional Certificates</span>
-                <span class="category" onclick="toggleCategory(this)">Skill Development</span>
-                <span class="category" onclick="toggleCategory(this)">Academic Qualifications</span>
-                <span class="category" onclick="toggleCategory(this)">Research and Academic</span>
-            </div>
-            <div class="cards-sort">
-                <button class="outline-btn" id="sort-button" onclick="toggleDropdown()">Sort Education</button>
-                <div class="sort-items" id="sort-items">
-                    <ul>
-                        <li onclick="changeSortOption(this)">Latest Education</li>
-                        <li onclick="changeSortOption(this)">Oldest Education</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <h1>my experiences.</h1>
+        <p>Here are some of my blogs that I have written. I hope you will find them helpful.</p>
     </div>
-
+    {% include 'filters.html' %}
     <div class="hor-cards">
         {% for experience in experiences %}
         <div class="exp-card">
@@ -63,9 +41,7 @@
         <p>No Experience Found</p>
         {% endfor %}
     </div>
-    <div class="exp-footer">
-        <button class="outline-btn">VIEW ALL THE EDUCATIONS <img src="" alt=""></button>
-    </div>
+
 </div>
     <script src="../static/js/index.js"></script>
     <script src="../static/js/all-page.js"></script>

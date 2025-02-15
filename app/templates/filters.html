@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Quicksand:wght@300..700&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/icons/favicon.ico' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/re-used.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/projects.css' %}">
+    <link rel="stylesheet" href="{% static 'css/blogs.css' %}">
+    <link rel="stylesheet" href="{% static 'css/experiences.css' %}">
+    <link rel="stylesheet" href="{% static 'css/skills.css' %}">
+    <link rel="stylesheet" href="{% static 'css/blogs-detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/project-detail.css' %}">
+
+</head>
+{% block content %}
+<body>
+    <div class="cards-header">
+        
+        <form method="GET" class="search-bar">
+            <input type="text" name="search" placeholder="Search Your Content" value="{{ query }}">
+            <input type="hidden" name="category" value="{{ selected_category }}">
+            <input type="hidden" name="sort" value="{{ sort }}">
+            <button type="submit"><img src="{% static 'images/icons/search.png' %}" alt="searchicon"></button>
+        </form>
+        <div class="cards-sorting">
+            <div class="cards-categories">
+                <a href="?{% if query %}search={{ query }}&{% endif %}{% if sort %}sort={{ sort }}&{% endif %}">
+                    <span class="category {% if not selected_category %}active{% endif %}" onclick="toggleCategory(this)">All</span>
+                </a>
+                {% for cat in category_list %}
+                    <a href="?{% if query %}search={{ query }}&{% endif %}{% if sort %}sort={{ sort }}&{% endif %}category={{ cat }}">
+                        <span class="category {% if cat == selected_category %}active{% endif %}" onclick="toggleCategory(this)">{{ cat }}</span>
+                    </a>
+                {% endfor %}
+            </div>                    
+            
+            <div class="cards-sort">
+                <button class="outline-btn">Sort</button>
+                <div class="sort-items">
+                    <ul>
+                        <li>
+                            <a href="?{% if query %}search={{ query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=latest">Latest</a>
+                        </li>
+                        <li>
+                            <a href="?{% if query %}search={{ query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=oldest">Oldest</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>                    
+            
+        </div>
+    </div>
+</body>
+
+{% endblock %}

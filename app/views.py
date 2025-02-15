@@ -1,119 +1,207 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Project, Blog, Skill, Experience, FAQ, Resume
-from django.http import FileResponse
-import os
-from django.conf import settings
-from django.http import JsonResponse
-from django.core.mail import send_mail
-from .forms import ContactForm
+from django.shortcuts import render
+from .models import Project, Blog, Skill, Experience, FAQ
+from django.db.models import Q
 
-def contact(request):
-    if request.method == "POST":
-        form = ContactForm(request.POST)
+def get_unique_categories(queryset, field_name):
+    """Extract unique categories from a given model field."""
+    categories = set()
+    for obj in queryset.values_list(field_name, flat=True):
+        if obj:  # Ensure the category field is not empty or None
+            for cat in obj.split(","):  # Split comma-separated categories
+                clean_cat = cat.strip()
+                if clean_cat and clean_cat.lower() != "uncategorized":  # Exclude "Uncategorized"
+                    categories.add(clean_cat)
+    return sorted(categories)  # Return sorted distinct categories
 
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            subject = form.cleaned_data['subject']
-            message = form.cleaned_data['message']
-
-            full_message = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
-
-            try:
-                send_mail(
-                    subject,
-                    full_message,
-                    email,  # Sender's email
-                    ['contact@roshandamor.site'],  # Receiver (your email)
-                    fail_silently=False,
-                )
-                return JsonResponse({"status": "success", "message": "Your message has been sent!"})
-            except:
-                return JsonResponse({"status": "error", "message": "Failed to send message. Try again later."})
-        else:
-            return JsonResponse({"status": "error", "message": "Invalid form data. Please check your inputs."})
-
-    return JsonResponse({"status": "error", "message": "Invalid request method."})
-
-# Download Resume
-def download_resume(request):
-    resume_path = os.path.join(settings.MEDIA_ROOT, 'resume.pdf')  # Ensure this path is correct
-    if os.path.exists(resume_path):
-        return FileResponse(open(resume_path, 'rb'), as_attachment=True)
-    else:
-        raise Http404("Resume not found")
-
-# Home View - Shows limited content (6 items per section)
 def home(request):
-    section = request.GET.get("section", "faq")  # Default to FAQs
-    category = request.GET.get("category", "All")  # Default category filter
-    sort_order = request.GET.get("sort", "latest")  # Default sorting (latest)
+    sort_by = request.GET.get("sort", "-publication_date")  
+    category = request.GET.get("category", "")
 
+    # Fetch all data
+    projects = Project.objects.prefetch_related("images").all()
+    blogs = Blog.objects.all()
+    skills = Skill.objects.all()
+    experiences = Experience.objects.all()
     faqs = FAQ.objects.all()
-    
-    if section == "faq":
-        # Filter by category
-        if category != "All":
-            faqs = faqs.filter(category=category)
 
-        # Apply sorting
-        if sort_order == "oldest":
-            faqs = faqs.order_by("created_at")  # Oldest first
-        else:
-            faqs = faqs.order_by("-created_at")  # Newest first
+    # Apply filtering based on category
+    if category:
+        projects = projects.filter(Q(categories__icontains=category))
+        blogs = blogs.filter(Q(categories__icontains=category))
+        skills = skills.filter(Q(categories__icontains=category))
+        experiences = experiences.filter(Q(categories__icontains=category))
+        faqs = faqs.filter(Q(categories__icontains=category))
 
-    else:
-        faqs = FAQ.objects.all()[:6]  # Default case (show 6 FAQs)
+    # Apply sorting dynamically
+    projects = projects.order_by(sort_by)[:6]
+    blogs = blogs.order_by(sort_by)[:6]
+    skills = skills.order_by("-level")[:6]
+    experiences = experiences.order_by("-start_date")[:3]
+    faqs = faqs.order_by("-created_at")[:6]
 
-    projects = Project.objects.prefetch_related("images").all()[:6]
-    blogs = Blog.objects.all()[:6]
-    skills = Skill.objects.all()[:6]
-    experiences = Experience.objects.all()[:3]
+    # Get distinct categories for all sections
+    blog_categories = get_unique_categories(Blog.objects, "categories")
+    project_categories = get_unique_categories(Project.objects, "categories")
+    faq_categories = get_unique_categories(FAQ.objects, "categories")
+    skill_categories = get_unique_categories(Skill.objects, "categories")
+    experience_categories = get_unique_categories(Experience.objects, "categories")
 
-    categories = FAQ.objects.values_list('category', flat=True).distinct()  # Get unique categories
-
-    return render(request, 'portfolio-landing-page.html', {
-        'projects': projects,
-        'blogs': blogs,
-        'skills': skills,
-        'experiences': experiences,
-        'faqs': faqs,
-        'faq_categories': categories,  # Pass categories for filtering
-        'selected_category': category,  # Pass selected category for UI
-        'sort_order': sort_order,  # Pass selected sorting for UI
+    return render(request, "portfolio-landing-page.html", {
+        "projects": projects,
+        "blogs": blogs,
+        "skills": skills,
+        "experiences": experiences,
+        "faqs": faqs,
+        "selected_category": category,
+        "selected_sort": sort_by,
+        "blog_categories": blog_categories,
+        "project_categories": project_categories,
+        "faq_categories": faq_categories,
+        "skill_categories": skill_categories,
+        "experience_categories": experience_categories,
     })
 
-
-# Project Views
-def project_list(request):
-    projects = Project.objects.all()
-    return render(request, 'projects.html', {'projects': projects})
 
 def project_detail(request, slug):
     project = get_object_or_404(Project, slug=slug)
     return render(request, 'project-detail.html', {'project': project})
 
-# Blog Views
-def blog_list(request):
-    blogs = Blog.objects.all()
-    return render(request, 'blogs.html', {'blogs': blogs})
 
 def blog_detail(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
     return render(request, 'blog-detail.html', {'blog': blog})
 
+
+# Project Views
+def project_list(request):
+    query = request.GET.get('search', '')  # Fix for URL issue
+    category = request.GET.get('category', '')  # Category filter
+    sort_by = request.GET.get('sort', '-created_at')  # Default sorting by newest first
+
+    projects = Project.objects.all()
+    categories = Project.objects.values_list('categories', flat=True).distinct()  # ✅ Get all categories
+
+    if query:
+        projects = projects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+
+    if category and category != "all":  # ✅ Ensure "all" option works
+        projects = projects.filter(categories__icontains=category)
+
+    if sort_by == 'oldest':
+        projects = projects.order_by('created_at')
+    else:
+        projects = projects.order_by('-created_at')
+
+    return render(request, 'projects.html', {
+        'projects': projects, 'query': query, 'category': category, 'sort_by': sort_by, 'categories': categories
+    })
+
+
+# Blog Views
+def blog_list(request):
+    query = request.GET.get('search', '')  # Fix for URL issue
+    category = request.GET.get('category', '')  # Category filter
+    sort_by = request.GET.get('sort', '-publication_date')  
+
+    blogs = Blog.objects.all()
+    categories = Blog.objects.values_list('categories', flat=True).distinct()  # ✅ Get all categories
+
+    if query:
+        blogs = blogs.filter(
+            Q(title__icontains=query) | Q(content__icontains=query)
+        )
+
+    if category and category != "all":  
+        blogs = blogs.filter(categories__icontains=category)
+
+    if sort_by == 'oldest':
+        blogs = blogs.order_by('publication_date')
+    else:
+        blogs = blogs.order_by('-publication_date')
+
+    return render(request, 'blogs.html', {
+        'blogs': blogs, 'query': query, 'category': category, 'sort_by': sort_by, 'categories': categories
+    })
+
+
 # Skill Views
 def skill_list(request):
+    query = request.GET.get('search', '')  # Fix for URL issue
+    category = request.GET.get('category', '')  
+    sort_by = request.GET.get('sort', 'name')  
+
     skills = Skill.objects.all()
-    return render(request, 'skills.html', {'skills': skills})
+    categories = Skill.objects.values_list('categories', flat=True).distinct()  # ✅ Get all categories
+
+    if query:
+        skills = skills.filter(
+            Q(name__icontains=query) | Q(description__icontains=query)
+        )
+
+    if category and category != "all":  
+        skills = skills.filter(categories__icontains=category)
+
+    if sort_by == 'level':
+        skills = skills.order_by('-level')  
+    elif sort_by == 'name':
+        skills = skills.order_by('name')
+
+    return render(request, 'skills.html', {
+        'skills': skills, 'query': query, 'category': category, 'sort_by': sort_by, 'categories': categories
+    })
+
 
 # Experience Views
 def experience_list(request):
+    query = request.GET.get('search', '')  # Fix for URL issue
+    category = request.GET.get('category', '')
+    sort_by = request.GET.get('sort', '-start_date')  
+
     experiences = Experience.objects.all()
-    return render(request, 'experiences.html', {'experiences': experiences})
+    categories = Experience.objects.values_list('categories', flat=True).distinct()  # ✅ Get all categories
+
+    if query:
+        experiences = experiences.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+
+    if category and category != "all":  
+        experiences = experiences.filter(categories__icontains=category)
+
+    if sort_by == 'oldest':
+        experiences = experiences.order_by('start_date')
+    else:
+        experiences = experiences.order_by('-start_date')
+
+    return render(request, 'experiences.html', {
+        'experiences': experiences, 'query': query, 'category': category, 'sort_by': sort_by, 'categories': categories
+    })
+
 
 # FAQs View
 def faq_list(request):
-    faqs = FAQ.objects.all()
-    return render(request, 'faqs.html', {'faqs': faqs})
+    query = request.GET.get('search', '')
+    category = request.GET.get('category', '')
+    sort_by = request.GET.get('sort', '-created_at')  
 
+    faqs = FAQ.objects.all()
+    categories = FAQ.objects.values_list('categories', flat=True).distinct()
+
+    if query:
+        faqs = faqs.filter(
+            Q(question__icontains=query) | Q(answer__icontains=query)
+        )
+
+    if category and category != "all":  
+        faqs = faqs.filter(categories__icontains=category)
+
+    if sort_by == 'oldest':
+        faqs = faqs.order_by('created_at')
+    else:
+        faqs = faqs.order_by('-created_at')
+
+    return render(request, 'faqs.html', {
+        'faqs': faqs, 'query': query, 'category': category, 'sort_by': sort_by, 'categories': categories
+    })

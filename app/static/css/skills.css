@@ -159,43 +159,10 @@
     top: -12px;
     right: 0;
     width: fit-content;
-
 }
 
 .top-content .progress-card span.active {
     display: block;
-}
-
-.top-content .progress-card .progress-tag1 {
-    background-color: #ff6347;
-    display: none;
-}
-
-.top-content .progress-card .progress-tag2 {
-    background-color: #24a6af;
-    display: none;
-}
-
-.top-content .progress-card .progress-tag3 {
-    background-color: #0d6b04;
-    display: none;
-}
-/* Expert - Green */
-.progress-tag3.expert {
-    background-color: #4CAF50; /* Green */
-    color: white;
-}
-
-/* Learning - Blue */
-.progress-tag3.learning {
-    background-color: #2196F3; /* Blue */
-    color: white;
-}
-
-/* Average - Orange */
-.progress-tag3.average {
-    background-color: #FF9800; /* Orange */
-    color: white;
 }
 
 .exp-image {
@@ -203,7 +170,6 @@
     height: 50px;
     margin-bottom: 25px;
 }
-
 
 .skill-image {
     width: 50px;
