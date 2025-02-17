@@ -344,3 +344,51 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  let showFormBtn = document.getElementById("showFormBtn");
+  let contactForm = document.getElementById("contactForm");
+
+  showFormBtn.addEventListener("click", function () {
+      contactForm.style.display = "block";  // Show form
+      showFormBtn.style.display = "none";  // Hide the button
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("contactForm").addEventListener("submit", async function (event) {
+      event.preventDefault(); // Stop page reload
+
+      let formData = new FormData(this);
+      let responseMessage = document.getElementById("formMessage");
+
+      console.log("Form submitted!");
+
+      try {
+          let response = await fetch("/contact/", {
+              method: "POST",
+              body: formData,
+              headers: {
+                  "X-Requested-With": "XMLHttpRequest"
+              }
+          });
+
+          let result = await response.json();
+          console.log("Response received:", result);
+
+          if (result.success) {
+              responseMessage.textContent = "✅ Message sent successfully!";
+              responseMessage.style.color = "green";
+              this.reset(); // Clear form
+          } else {
+              responseMessage.textContent = "❌ Failed to send message.";
+              responseMessage.style.color = "red";
+          }
+      } catch (error) {
+          console.error("Error:", error);
+          responseMessage.textContent = "❌ An error occurred.";
+          responseMessage.style.color = "red";
+      }
+  });
+});

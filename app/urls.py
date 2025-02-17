@@ -27,7 +27,7 @@ urlpatterns = [
     path('faqs/', faq_list, name='faq_list'),
 
     # Contact Form
-    path("contact/", contact_view, name="contact"),  # This URL will handle the form submission
+    path("contact/", contact_view, name="contact"),
 ]
 
 if settings.DEBUG:

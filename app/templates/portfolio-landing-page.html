@@ -266,20 +266,31 @@
                 <!-- Right Contact Form -->
                 <div class="right-contact">
                     <div class="contact-form-card">
-                        <form method="post" action="{% url 'contact' %}" id="contactForm">
+                        <!-- Contact Form -->
+                        <form id="contactForm" method="post">
                             {% csrf_token %}
-                            {{ form.as_p }}
+                
+                            <!-- Name Field -->
+                            <input type="text" name="name" id="id_name" placeholder="Enter your name" required>
+                
+                            <!-- Email Field -->
+                            <input type="email" name="email" id="id_email" placeholder="Enter your email" required>
+                
+                            <!-- Subject Field -->
+                            <input type="text" name="subject" id="id_subject" placeholder="Enter the subject" required>
+                
+                            <!-- Message Field -->
+                            <textarea name="message" id="id_message" placeholder="Your message here" rows="8" required></textarea>
+                
+                            <!-- Submit Button -->
                             <button class="contact-btn" type="submit">Send Message</button>
+                
+                            <!-- Success/Error Messages -->
+                            <div id="formMessage"></div>
                         </form>
-
-                        <!-- Success Message Display -->
-                        {% if messages %}
-                            {% for message in messages %}
-                                <p style="color: green;">{{ message }}</p>
-                            {% endfor %}
-                        {% endif %}
                     </div>
                 </div>
+                
             </div>
         </div>
         <!-- Contact Section Ends Here -->

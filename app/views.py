@@ -1,35 +1,33 @@
-from django.shortcuts import render
 from .models import Project, Blog, Skill, Experience, FAQ
 from django.db.models import Q
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ContactForm
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt  # Temporarily disable CSRF for testing (secure it later)
 def contact_view(request):
     if request.method == "POST":
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            contact_message = form.save()
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
 
-            # ✅ Fix: Use your authorized email as sender
-            send_mail(
-                subject=contact_message.subject,
-                message=f"Message from {contact_message.name} ({contact_message.email}):\n\n{contact_message.message}",
-                from_email="contact@roshandamor.site",  # ✅ Use your actual email
-                recipient_list=["contact@roshandamor.site"],  # ✅ Ensure recipient is correct
-                fail_silently=False,
-            )
+        if name and email and message:
+            try:
+                send_mail(
+                    subject=f"New Contact Form Submission from {name}",
+                    message=f"Sender: {name}\nEmail: {email}\nMessage: {message}",
+                    from_email="contact@roshandamor.site",  # Update to match your settings
+                    recipient_list=["contact@roshandamor.site"],  # Replace with your email
+                    fail_silently=False,
+                )
+                return JsonResponse({"success": True})
+            except Exception as e:
+                return JsonResponse({"success": False, "error": str(e)})
 
-            messages.success(request, "Your message has been sent successfully!")
-            return redirect("contact")
-
-    else:
-        form = ContactForm()
-
-    return render(request, "portfolio-landing-page.html", {"form": form})
-
-
+    return JsonResponse({"success": False})
 
 
 def get_unique_categories(queryset, field_name):

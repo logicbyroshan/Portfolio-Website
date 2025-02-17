@@ -201,6 +201,7 @@
     margin: 0;
 }
 
+/* Contact Form Styling */
 .contact-form-card {
     display: flex;
     flex-direction: column;
@@ -212,18 +213,52 @@
     background-color: var(--main-outline-color);
 }
 
+/* Stack form elements vertically */
 .contact-form-card form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    width: 100%;
+    gap: 15px; /* Adds spacing between elements */
 }
 
-.contact-form-card form input, textarea {
-    padding: 10px;
+/* Make input, textarea, and button full width */
+.contact-form-card input,
+.contact-form-card textarea,
+.contact-form-card button {
+    width: 100%; /* Ensures full width */
+    padding: 12px;
     border-radius: 10px;
     border: 2px solid var(--secondary-text-color);
     font-family: var(--secondary-font);
-    font-size: 20px;
+    font-size: 18px;
     background: none;
     color: var(--main-text-color);
+}
+
+/* Adjust Textarea Size */
+.contact-form-card textarea {
+    resize: vertical; /* Allows vertical resizing */
+    min-height: 120px;
+}
+
+/* Button Styling */
+.contact-btn {
+    background-color: var(--secondary-text-color);
+    color: var(--main-text-color);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    border: none;
+}
+
+.contact-btn:hover {
+    background-color: var(--main-text-color);
+    color: var(--secondary-text-color);
+}
+
+/* Success/Error Message Display */
+#formMessage {
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
 }
