@@ -16,6 +16,7 @@ db.sqlite3-journal
 .env.staging
 .env.test
 .env.*
+!.env.example
 
 # Static files (production)
 staticfiles/

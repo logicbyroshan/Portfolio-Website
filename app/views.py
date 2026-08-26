@@ -3,37 +3,39 @@ from .models import Project, Blog, Skill, Experience, FAQ, Resume, ContactMessag
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.core.mail import send_mail
-from django.http import JsonResponse
-from django.http import FileResponse, HttpResponse
+from django.http import JsonResponse, FileResponse, HttpResponse
+from django.conf import settings
 import logging
+import os
 from django.utils import timezone
-
 
 logger = logging.getLogger(__name__)
 
 def get_client_ip(request):
+    """Safely extract the real client IP from HTTP headers"""
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
+        ip = x_forwarded_for.split(',')[0].strip()
     else:
-        ip = request.META.get('REMOTE_ADDR')
+        ip = request.META.get('REMOTE_ADDR', '127.0.0.1')
     return ip
 
 def handle_contact_submission(request):
-    """Handle contact form submission and save to database with rate limiting"""
+    """Handle contact form submission and save to database with IP rate limiting"""
     try:
-        # Rate Limiting: Max 3 requests per IP per day
         client_ip = get_client_ip(request)
         today = timezone.now() - timezone.timedelta(days=1)
+        
         recent_submissions = ContactMessage.objects.filter(
-            subject__endswith=f"[{client_ip}]", 
+            ip_address=client_ip, 
             created_at__gte=today
         ).count()
         
-        if recent_submissions >= 3:
+        max_allowed = 100 if settings.DEBUG else 10
+        if recent_submissions >= max_allowed:
             return JsonResponse({
                 "success": False, 
-                "error": "You have reached the maximum number of contact requests for today. Please try again tomorrow."
+                "error": "You have reached the maximum number of contact requests for today. Please try again later."
             }, status=429)
 
         name = request.POST.get("name", "").strip()
@@ -45,24 +47,25 @@ def handle_contact_submission(request):
         if not all([name, email, subject, message]):
             return JsonResponse({
                 "success": False, 
-                "error": "All fields are required"
+                "error": "All fields are required."
             }, status=400)
 
-        # Save to database (append IP to subject for tracking)
+        # Save to database
         contact_message = ContactMessage.objects.create(
-            name=name[:100],  # Hard limit size to prevent DB truncation errors
+            name=name[:100],
             email=email[:254],
-            subject=f"{subject[:150]} [{client_ip}]",
-            message=message[:5000] # Max 5000 chars
+            subject=subject[:255],
+            message=message[:5000],
+            ip_address=client_ip
         )
 
-        # Try to send email (optional, won't fail if email doesn't work)
+        # Send notification email if configured
         try:
             send_mail(
                 subject=f"New Contact Form: {subject}",
-                message=f"From: {name} ({email})\n\nMessage:\n{message}",
-                from_email="contact@roshandamor.site",
-                recipient_list=["contact@roshandamor.site"],
+                message=f"From: {name} ({email})\nIP: {client_ip}\n\nMessage:\n{message}",
+                from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'contact@roshandamor.site'),
+                recipient_list=[getattr(settings, 'DEFAULT_FROM_EMAIL', 'contact@roshandamor.site')],
                 fail_silently=True,
             )
             logger.info(f"Email sent successfully for contact ID: {contact_message.id}")
@@ -71,7 +74,7 @@ def handle_contact_submission(request):
 
         return JsonResponse({
             "success": True,
-            "message": "Your message has been sent successfully! We'll get back to you soon."
+            "message": "Your message has been sent successfully! I'll get back to you soon."
         })
         
     except Exception as e:
@@ -82,38 +85,48 @@ def handle_contact_submission(request):
         }, status=500)
 
 
-
 def latest_resume(request):
-    latest_resume = Resume.objects.order_by("-uploaded_at").first()
-    return {"resume": latest_resume}
-    
+    try:
+        latest = Resume.objects.order_by("-uploaded_at").first()
+    except Exception:
+        latest = None
+    return {"resume": latest}
+
+
 def get_resume(request):
-    latest_resume = Resume.objects.order_by("-uploaded_at").first()
-    if latest_resume:
-        return FileResponse(
-            latest_resume.file.open(),
-            content_type='application/pdf',
-            headers={'Content-Disposition': 'inline; filename="resume.pdf"'}
-        )
+    try:
+        latest = Resume.objects.order_by("-uploaded_at").first()
+        if latest and latest.file:
+            if hasattr(latest.file, 'path') and os.path.exists(latest.file.path):
+                return FileResponse(
+                    latest.file.open(),
+                    content_type='application/pdf',
+                    headers={'Content-Disposition': 'inline; filename="Roshan_Damor_Resume.pdf"'}
+                )
+    except Exception as e:
+        logger.error(f"Failed to retrieve resume: {e}")
     return HttpResponse("No resume found", status=404)
 
-def download_resume(request):
-    latest_resume = Resume.objects.order_by("-uploaded_at").first()
-    
-    if latest_resume and latest_resume.file: 
-        latest_resume.file.open() 
-        response = FileResponse(latest_resume.file, as_attachment=True, filename=latest_resume.file.name)
-        return response
 
+def download_resume(request):
+    try:
+        latest = Resume.objects.order_by("-uploaded_at").first()
+        if latest and latest.file:
+            if hasattr(latest.file, 'path') and os.path.exists(latest.file.path):
+                filename = os.path.basename(latest.file.name) or "Roshan_Damor_Resume.pdf"
+                return FileResponse(latest.file.open(), as_attachment=True, filename=filename)
+    except Exception as e:
+        logger.error(f"Failed to download resume: {e}")
     return HttpResponse("No resume available", status=404)
+
 
 def user_terms_view(request):
     return render(request, "user-terms.html")
 
+
 def get_unique_categories(queryset, field_name):
     """Extract unique categories from a given model field optimally."""
     categories = set()
-    # Fetch only the non-empty categories strings directly from DB
     raw_cats = queryset.exclude(**{f"{field_name}__isnull": True}).exclude(**{f"{field_name}__exact": ""}).values_list(field_name, flat=True)
     for obj in raw_cats:
         for cat in obj.split(","):
@@ -121,6 +134,7 @@ def get_unique_categories(queryset, field_name):
             if clean_cat and clean_cat.lower() != "uncategorized":
                 categories.add(clean_cat)
     return sorted(categories)
+
 
 def home(request):
     if request.method == "POST" and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -149,12 +163,6 @@ def home(request):
     experiences = experiences.order_by("-start_date")[:3]
     faqs = faqs.order_by("-created_at")[:5]
 
-    blog_categories = get_unique_categories(Blog.objects, "categories")
-    project_categories = get_unique_categories(Project.objects, "categories")
-    faq_categories = get_unique_categories(FAQ.objects, "categories")
-    skill_categories = get_unique_categories(Skill.objects, "categories")
-    experience_categories = get_unique_categories(Experience.objects, "categories")
-
     return render(request, "portfolio-landing-page.html", {
         "projects": projects,
         "blogs": blogs,
@@ -163,20 +171,21 @@ def home(request):
         "faqs": faqs,
         "selected_category": category,
         "selected_sort": sort_by,
-        "blog_categories": blog_categories,
-        "project_categories": project_categories,
-        "faq_categories": faq_categories,
-        "skill_categories": skill_categories,
-        "experience_categories": experience_categories,
     })
+
 
 def project_detail(request, slug):
     project = get_object_or_404(Project.objects.prefetch_related('images', 'features', 'learnings', 'skills'), slug=slug)
 
     category_list = project.get_category_list()
-    similar_projects = Project.objects.prefetch_related("images", "skills").filter(
-        categories__iregex=r'(' + '|'.join(category_list) + ')'
-    ).exclude(id=project.id)[:3]
+    similar_query = Q()
+    for cat in category_list:
+        similar_query |= Q(categories__icontains=cat)
+
+    if category_list:
+        similar_projects = Project.objects.prefetch_related("images", "skills").filter(similar_query).exclude(id=project.id)[:3]
+    else:
+        similar_projects = Project.objects.none()
 
     latest_projects = Project.objects.prefetch_related("images", "skills").exclude(id=project.id).order_by('-created_at')[:3]
 
@@ -186,13 +195,19 @@ def project_detail(request, slug):
         'latest_projects': latest_projects
     })
 
+
 def blog_detail(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
 
-    category_list = [cat.strip() for cat in blog.categories.split(",") if cat.strip()]
-    similar_blogs = Blog.objects.filter(
-        categories__iregex=r'(' + '|'.join(category_list) + ')'
-    ).exclude(id=blog.id)[:3]
+    category_list = blog.get_category_list()
+    similar_query = Q()
+    for cat in category_list:
+        similar_query |= Q(categories__icontains=cat)
+
+    if category_list:
+        similar_blogs = Blog.objects.filter(similar_query).exclude(id=blog.id)[:3]
+    else:
+        similar_blogs = Blog.objects.none()
 
     latest_blogs = Blog.objects.exclude(id=blog.id).order_by('-created_at')[:3]
 
@@ -205,9 +220,9 @@ def blog_detail(request, slug):
 
 # Project Views
 def project_list(request):
-    query = request.GET.get('search', '')  
-    category = request.GET.get('category', '')  
-    sort_by = request.GET.get('sort', 'latest')  
+    query = request.GET.get('search', '').strip()
+    category = request.GET.get('category', '').strip()
+    sort_by = request.GET.get('sort', 'latest').strip()
 
     projects = Project.objects.prefetch_related('images', 'skills').all()
     category_list = get_unique_categories(Project.objects, "categories")
@@ -216,7 +231,8 @@ def project_list(request):
         projects = projects.filter(
             Q(title__icontains=query) | 
             Q(description__icontains=query) |
-            Q(categories__icontains=query)
+            Q(categories__icontains=query) |
+            Q(tags__icontains=query)
         ).distinct()
 
     if category and category != "all":  
@@ -244,9 +260,9 @@ def project_list(request):
 
 # Blog Views
 def blog_list(request):
-    query = request.GET.get('search', '')  
-    category = request.GET.get('category', '')  
-    sort_by = request.GET.get('sort', 'latest')  
+    query = request.GET.get('search', '').strip()
+    category = request.GET.get('category', '').strip()
+    sort_by = request.GET.get('sort', 'latest').strip()
 
     blogs = Blog.objects.all()
     category_list = get_unique_categories(Blog.objects, "categories")
@@ -282,9 +298,9 @@ def blog_list(request):
 
 # Skill Views
 def skill_list(request):
-    query = request.GET.get('search', '')  
-    category = request.GET.get('category', '')  
-    sort_by = request.GET.get('sort', 'latest')  
+    query = request.GET.get('search', '').strip()
+    category = request.GET.get('category', '').strip()
+    sort_by = request.GET.get('sort', 'latest').strip()
 
     skills = Skill.objects.all()
     category_list = get_unique_categories(Skill.objects, "categories")
@@ -302,7 +318,7 @@ def skill_list(request):
     if sort_by == 'oldest':
         skills = skills.order_by('created_at')
     elif sort_by == 'level':
-        skills = skills.order_by('-level')  
+        skills = skills.order_by('-level', 'name')
     elif sort_by == 'name':
         skills = skills.order_by('name')
     else:  # latest
@@ -324,16 +340,18 @@ def skill_list(request):
 
 # Experience Views
 def experience_list(request):
-    query = request.GET.get('search', '')
-    category = request.GET.get('category', '')
-    sort_by = request.GET.get('sort', '-start_date')  
+    query = request.GET.get('search', '').strip()
+    category = request.GET.get('category', '').strip()
+    sort_by = request.GET.get('sort', '-start_date').strip()
 
     experiences = Experience.objects.all()
     category_list = get_unique_categories(Experience.objects, "categories")
 
     if query:
         experiences = experiences.filter(
-            Q(title__icontains=query) | Q(description__icontains=query) | Q(categories__icontains=query)
+            Q(title__icontains=query) | 
+            Q(description__icontains=query) | 
+            Q(categories__icontains=query)
         ).distinct()
 
     if category and category != "all":  
@@ -352,21 +370,19 @@ def experience_list(request):
         'experiences': page_obj, 
         'page_obj': page_obj,
         'query': query, 
-        'category': category, 
-        'sort_by': sort_by, 
-        'categories': category_list
+        'selected_category': category, 
+        'sort': sort_by, 
+        'category_list': category_list
     })
 
 
 # FAQs View
 def faq_list(request):
-    query = request.GET.get('search', '')
-    category = request.GET.get('category', '')
-    sort_by = request.GET.get('sort', 'latest')
+    query = request.GET.get('search', '').strip()
+    category = request.GET.get('category', '').strip()
+    sort_by = request.GET.get('sort', 'latest').strip()
 
     faqs = FAQ.objects.all()
-    
-    # FAQ uses 'categories' now to match others based on models.py
     category_list = get_unique_categories(FAQ.objects, "categories")
 
     if query:

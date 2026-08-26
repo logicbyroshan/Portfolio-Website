@@ -29,11 +29,23 @@ else:
 
 # Allowed hosts configuration
 if PRODUCTION:
-    # Production - use environment variable or empty list for security
-    ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS', '').split(',') if host.strip()]
+    if os.getenv('ALLOWED_HOSTS'):
+        ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS', '').split(',') if host.strip()]
+    else:
+        ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.roshandamor.site']
 else:
-    # Development - allow localhost and 127.0.0.1 for local development
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '*']
+    ALLOWED_HOSTS = ['*']
+
+ADMIN_URL = os.getenv('ADMIN_URL', 'dash-admin/').strip('/') + '/'
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://*.localhost:8000',
+    'http://*.nip.io:8000',
+    'http://*.127.0.0.1.nip.io:8000',
+    'https://*.roshandamor.site',
+]
 
 
 # Application definition
@@ -46,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'tinymce',
     'django_cleanup.apps.CleanupConfig',
     'app',
@@ -67,7 +80,7 @@ ROOT_URLCONF = 'myportfolio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [BASE_DIR / 'app' / 'templates', BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,8 +88,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'app.context_processors.latest_resume',  # Add this line
-
+                'app.context_processors.latest_resume',
             ],
         },
     },
@@ -165,21 +177,17 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Static files configuration based on environment
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'app/static'),
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 if PRODUCTION:
-    # Production static files configuration
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    # Use WhiteNoise for static file serving in production
+    # Production static files configuration with WhiteNoise
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    STATICFILES_DIRS = []
     print(" Production static files configuration loaded")
 else:
-    # Development static files configuration
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'app/static'),
-    ]
-    # Use default static files storage for development
-    # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
     print("Development static files configuration loaded")
 
 MEDIA_URL = '/media/'
@@ -238,7 +246,7 @@ CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdn.tin
 CSP_IMG_SRC = ("'self'", "data:", "https://*")
 CSP_FONT_SRC = ("'self'", "https://fonts.gstatic.com", "data:")
 CSP_CONNECT_SRC = ("'self'",)
-CSP_FRAME_SRC = ("'self'", "https://www.youtube.com", "https://player.vimeo.com")
+CSP_FRAME_SRC = ("'self'", "https://www.youtube.com", "https://youtube.com", "https://www.youtube-nocookie.com", "https://player.vimeo.com")
 
 if PRODUCTION:
     # Production Security Settings
@@ -269,73 +277,7 @@ else:
     SECURE_REFERRER_POLICY = 'same-origin'
     print(" Development security settings (relaxed for local development)")
 
-# Django Jazzmin Settings (Admin Panel UI)
-JAZZMIN_SETTINGS = {
-    "site_title": "Roshan Admin",
-    "site_header": "Portfolio Admin",
-    "site_brand": "Roshan's Desk",
-    "site_logo_classes": "img-circle",
-    "site_icon": None,
-    "welcome_sign": "Welcome back, Boss! Time to update the portfolio.",
-    "copyright": "Roshan Damor",
-    "search_model": ["app.Project", "app.Blog"],
-    "user_avatar": None,
-    "topmenu_links": [
-        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "View Live Site", "url": "/", "new_window": True},
-    ],
-    "show_sidebar": True,
-    "navigation_expanded": True,
-    "icons": {
-        "auth": "fas fa-users-cog",
-        "auth.user": "fas fa-user",
-        "auth.Group": "fas fa-users",
-        "app.Project": "fas fa-briefcase",
-        "app.Blog": "fas fa-pen-nib",
-        "app.Skill": "fas fa-star",
-        "app.Experience": "fas fa-history",
-        "app.FAQ": "fas fa-question-circle",
-        "app.ContactMessage": "fas fa-envelope",
-    },
-    "default_icon_parents": "fas fa-folder",
-    "default_icon_children": "fas fa-circle",
-    "related_modal_active": True,
-    "custom_css": None,
-    "custom_js": None,
-    "show_ui_builder": False,
-}
 
-JAZZMIN_UI_TWEAKS = {
-    "navbar_small_text": False,
-    "footer_small_text": False,
-    "body_small_text": False,
-    "brand_small_text": False,
-    "brand_colour": "navbar-dark",
-    "accent": "accent-primary",
-    "navbar": "navbar-dark",
-    "no_navbar_border": False,
-    "navbar_fixed": True,
-    "layout_boxed": False,
-    "footer_fixed": False,
-    "sidebar_fixed": True,
-    "sidebar": "sidebar-dark-primary",
-    "sidebar_nav_small_text": False,
-    "sidebar_disable_expand": False,
-    "sidebar_nav_child_indent": True,
-    "sidebar_nav_compact_style": False,
-    "sidebar_nav_legacy_style": False,
-    "sidebar_nav_flat_style": False,
-    "theme": "darkly",
-    "dark_mode_theme": "darkly",
-    "button_classes": {
-        "primary": "btn-outline-primary",
-        "secondary": "btn-outline-secondary",
-        "info": "btn-outline-info",
-        "warning": "btn-outline-warning",
-        "danger": "btn-outline-danger",
-        "success": "btn-outline-success"
-    }
-}
 
 
 # Logging Configuration

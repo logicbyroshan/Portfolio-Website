@@ -1,45 +1,53 @@
 from django.db import models
 from django.utils.text import slugify
+from django.core.exceptions import ValidationError
 import math
+import logging
 from tinymce.models import HTMLField
 from django.core.validators import FileExtensionValidator
 from io import BytesIO
 from PIL import Image
 from django.core.files.base import ContentFile
 
-def optimize_image_field(image_field, high_quality=False):
+logger = logging.getLogger(__name__)
+
+def optimize_image_field(image_field, high_quality=True):
+    """Automatically compress and convert any uploaded image to optimized WebP format"""
     if not image_field or not image_field.name:
         return
         
     ext = image_field.name.split('.')[-1].lower()
-    if ext in ['webp', 'svg', 'pdf', 'ico']:
+    if ext in ['svg', 'pdf', 'ico']:
         return
 
-    if ext in ['png', 'jpg', 'jpeg', 'gif']:
-        try:
-            image_field.file.seek(0)
-            img = Image.open(image_field.file)
-            
-            if ext != 'gif':
-                if img.mode in ('RGBA', 'P') and ext != 'png':
-                    img = img.convert('RGB')
-                # Aggressive resizing: HD for high quality, tiny (800x800 max) for icons/thumbnails
-                max_size = (1920, 1080) if high_quality else (800, 800)
-                img.thumbnail(max_size, Image.Resampling.LANCZOS)
+    try:
+        image_field.file.seek(0)
+        img = Image.open(image_field.file)
+        
+        # Determine maximum bounding box
+        max_size = (1600, 1200) if high_quality else (300, 300)
+        quality = 85 if high_quality else 80
 
-            output = BytesIO()
-            quality = 85 if high_quality else 60
-            
-            if ext == 'gif':
-                img.save(output, format='WEBP', save_all=True, optimize=True, quality=quality)
-            else:
-                img.save(output, format='WEBP', quality=quality, optimize=True)
-                
-            output.seek(0)
-            new_name = image_field.name.rsplit('.', 1)[0] + '.webp'
-            image_field.save(new_name, ContentFile(output.read()), save=False)
-        except Exception as e:
+        # Resize if larger than max_size
+        if img.width > max_size[0] or img.height > max_size[1]:
+            img.thumbnail(max_size, Image.Resampling.LANCZOS)
+
+        # Convert RGBA to RGB for JPEG-origin files if needed, or preserve alpha for transparent webp
+        if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
             pass
+        elif img.mode != 'RGB':
+            img = img.convert('RGB')
+
+        output = BytesIO()
+        img.save(output, format='WEBP', quality=quality, optimize=True)
+        output.seek(0)
+
+        # Set new .webp filename
+        base_name = image_field.name.rsplit('.', 1)[0]
+        new_name = f"{base_name}.webp"
+        image_field.save(new_name, ContentFile(output.read()), save=False)
+    except Exception as e:
+        logger.warning(f"Image optimization skipped for {image_field.name}: {e}")
 
 def validate_file_size(value):
     limit = 5 * 1024 * 1024  # 5MB
@@ -54,26 +62,26 @@ class Resume(models.Model):
             validate_file_size
         ]
     )
-    uploaded_at = models.DateTimeField(auto_now=True)
+    uploaded_at = models.DateTimeField(auto_now=True, db_index=True)
 
 
 # Project Model
 class Project(models.Model):
     title = models.CharField(max_length=255, db_index=True)
     categories = models.CharField(max_length=255, help_text="Separate categories with commas", default="Uncategorized", db_index=True)
-    publication_date = models.DateTimeField(auto_now_add=True)
+    publication_date = models.DateTimeField(auto_now_add=True, db_index=True)
     tags = models.CharField(max_length=255)
     description = models.TextField(max_length=500)
     skills = models.ManyToManyField("Skill", related_name="project_skills")
     slug = models.SlugField(unique=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     problem_statement = models.TextField(max_length=500, null=True, blank=True)
     solution = models.TextField(max_length=500, null=True, blank=True)
     impact = models.TextField(max_length=500, null=True, blank=True)
 
-    # New fields for GitHub and Live Project link
+    # Fields for GitHub and Live Project link
     github_link = models.URLField(max_length=500, null=True, blank=True, help_text="GitHub repository link")
     live_link = models.URLField(max_length=500, null=True, blank=True, help_text="Live project link")
 
@@ -90,6 +98,11 @@ class Project(models.Model):
 
     def get_category_list(self):
         return [cat.strip() for cat in self.categories.split(",") if cat.strip()]
+
+    def get_tag_list(self):
+        if not self.tags:
+            return []
+        return [tag.strip() for tag in self.tags.split(",") if tag.strip()]
 
     def __str__(self):
         return self.title
@@ -134,13 +147,13 @@ class Learning(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=255, db_index=True)
-    content = HTMLField()  # Now using TinyMCE for rich-text content
+    content = HTMLField()  # Using TinyMCE for rich-text content
     image = models.ImageField(upload_to="blogs/")
-    publication_date = models.DateTimeField(auto_now_add=True)
+    publication_date = models.DateTimeField(auto_now_add=True, db_index=True)
     slug = models.SlugField(unique=True, blank=True)
     categories = models.CharField(max_length=255, help_text="Separate categories with commas", default="Uncategorized", db_index=True)
     time_to_read = models.PositiveIntegerField(default=1, editable=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
@@ -173,11 +186,11 @@ class Blog(models.Model):
 class Experience(models.Model):
     title = models.CharField(max_length=255, db_index=True)
     image = models.ImageField(upload_to="experience/")
-    start_date = models.DateField()
+    start_date = models.DateField(db_index=True)
     end_date = models.DateField(null=True, blank=True)
     description = models.TextField()
     categories = models.CharField(max_length=255, help_text="Separate categories with commas", default="Uncategorized", db_index=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -199,7 +212,7 @@ class FAQ(models.Model):
     question = models.CharField(max_length=300, db_index=True)
     answer = models.TextField()
     categories = models.CharField(max_length=255, help_text="Separate categories with commas", default="Uncategorized", db_index=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
         ordering = ['-created_at']
@@ -222,12 +235,12 @@ class Skill(models.Model):
     name = models.CharField(max_length=100, unique=True, db_index=True)
     icon = models.ImageField(upload_to="skills/icons/", blank=True, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="Learning")
-    level = models.PositiveIntegerField(default=50)
+    level = models.PositiveIntegerField(default=50, db_index=True)
     description = models.TextField(max_length=500, blank=True)
     categories = models.CharField(max_length=255, help_text="Separate categories with commas", default="Uncategorized", db_index=True)
     certificate = models.FileField(upload_to="skills/certificates/", blank=True, null=True, help_text="Upload a certificate image, PDF, or DOC file")
     resource_links = models.TextField(blank=True, help_text="Enter resource links separated by commas (YouTube, PDFs, Docs, Images)")
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -252,7 +265,8 @@ class ContactMessage(models.Model):
     email = models.EmailField()
     subject = models.CharField(max_length=255)
     message = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True, help_text="Sender IP address")
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):
         return f"{self.name} - {self.subject}"
