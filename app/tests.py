@@ -227,3 +227,33 @@ class ComprehensivePortfolioTests(TestCase):
         self.assertContains(response, 'User-agent: *')
         self.assertContains(response, 'Sitemap:')
         self.assertContains(response, 'sitemap.xml')
+
+    def test_custom_404_page(self):
+        with self.settings(DEBUG=False):
+            response = self.client.get('/non-existent-random-endpoint/')
+            self.assertEqual(response.status_code, 404)
+            self.assertContains(response, "404", status_code=404)
+            self.assertContains(response, "Page Not Found", status_code=404)
+
+    def test_custom_error_views_direct_render(self):
+        from django.test import RequestFactory
+        from app.views import custom_404_view, custom_500_view, custom_403_view, custom_400_view
+        
+        factory = RequestFactory()
+        req = factory.get('/')
+        
+        # Test 404
+        r404 = custom_404_view(req)
+        self.assertEqual(r404.status_code, 404)
+        
+        # Test 500
+        r500 = custom_500_view(req)
+        self.assertEqual(r500.status_code, 500)
+        
+        # Test 403
+        r403 = custom_403_view(req)
+        self.assertEqual(r403.status_code, 403)
+        
+        # Test 400
+        r400 = custom_400_view(req)
+        self.assertEqual(r400.status_code, 400)

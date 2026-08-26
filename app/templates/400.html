@@ -1,20 +1,20 @@
 {% extends "portfolio-base.html" %}
 {% load static %}
 
-{% block title %}404 - Page Not Found | Roshan Damor{% endblock %}
-{% block meta_title %}404 - Page Not Found | Roshan Damor{% endblock %}
-{% block meta_description %}The requested page could not be found on Roshan Damor's developer portfolio.{% endblock %}
+{% block title %}400 - Bad Request | Roshan Damor{% endblock %}
+{% block meta_title %}400 - Bad Request | Roshan Damor{% endblock %}
+{% block meta_description %}The server could not understand the request due to malformed syntax on Roshan Damor's developer portfolio.{% endblock %}
 
 {% block content %}
 <div class="error-page-container">
-    <div class="error-card">
+    <div class="error-card warning">
         <div class="error-badge-wrapper">
-            <h1 class="error-code">404</h1>
+            <h1 class="error-code">400</h1>
         </div>
         
-        <h2 class="error-title">Page Not Found</h2>
+        <h2 class="error-title">Bad Request</h2>
         <p class="error-description">
-            The digital coordinates you navigated to do not exist, may have been moved, or are temporarily unavailable. Let's redirect you back into the grid.
+            The server was unable to understand or process your request due to invalid parameters, malformed syntax, or payload size limits.
         </p>
 
         <div class="error-actions">
@@ -36,14 +36,12 @@
         </div>
 
         <div class="error-quick-links">
-            <span>Quick Navigation:</span>
+            <span>Explore Site:</span>
             <a href="{% url 'project_list' %}">Projects</a>
             <span class="divider">•</span>
-            <a href="{% url 'blog_list' %}">Tech Blogs</a>
+            <a href="{% url 'blog_list' %}">Blogs</a>
             <span class="divider">•</span>
-            <a href="{% url 'skill_list' %}">Skills</a>
-            <span class="divider">•</span>
-            <a href="{% url 'home' %}#contact">Contact</a>
+            <a href="{% url 'home' %}#contact">Contact Support</a>
         </div>
     </div>
 </div>

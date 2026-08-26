@@ -1,20 +1,20 @@
 {% extends "portfolio-base.html" %}
 {% load static %}
 
-{% block title %}404 - Page Not Found | Roshan Damor{% endblock %}
-{% block meta_title %}404 - Page Not Found | Roshan Damor{% endblock %}
-{% block meta_description %}The requested page could not be found on Roshan Damor's developer portfolio.{% endblock %}
+{% block title %}403 - Access Forbidden | Roshan Damor{% endblock %}
+{% block meta_title %}403 - Access Forbidden | Roshan Damor{% endblock %}
+{% block meta_description %}Access is forbidden for the requested resource on Roshan Damor's developer portfolio.{% endblock %}
 
 {% block content %}
 <div class="error-page-container">
-    <div class="error-card">
+    <div class="error-card warning">
         <div class="error-badge-wrapper">
-            <h1 class="error-code">404</h1>
+            <h1 class="error-code">403</h1>
         </div>
         
-        <h2 class="error-title">Page Not Found</h2>
+        <h2 class="error-title">Access Forbidden</h2>
         <p class="error-description">
-            The digital coordinates you navigated to do not exist, may have been moved, or are temporarily unavailable. Let's redirect you back into the grid.
+            You do not have administrative clearance or permissions to access this endpoint, or your security token has expired.
         </p>
 
         <div class="error-actions">
@@ -36,12 +36,10 @@
         </div>
 
         <div class="error-quick-links">
-            <span>Quick Navigation:</span>
+            <span>Explore Other Sections:</span>
             <a href="{% url 'project_list' %}">Projects</a>
             <span class="divider">•</span>
-            <a href="{% url 'blog_list' %}">Tech Blogs</a>
-            <span class="divider">•</span>
-            <a href="{% url 'skill_list' %}">Skills</a>
+            <a href="{% url 'blog_list' %}">Blogs</a>
             <span class="divider">•</span>
             <a href="{% url 'home' %}#contact">Contact</a>
         </div>

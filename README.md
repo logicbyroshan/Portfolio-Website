@@ -1,446 +1,298 @@
 <div align="center">
 
-# 🌟 DevMeet - Responsive Personal Portfolio
+# 🌟 DevMeet - Production-Grade Personal Portfolio & CMS
 
-<img src="stock-images/Portfolio Thumb.webp" alt="Portfolio Cover" width="600" style="border-radius: 15px; box-shadow: 0 8px 30px rgba(0,0,0,0.3);" />
+<img src="app/static/images/stock/Portfolio.webp" alt="DevMeet Portfolio Cover" width="650" style="border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.5);" />
 
-### 🚀 **Live Demo:** [devsathi.rkdapp.site](https://devmeet.rkdapp.site)
+### 🚀 **Live Production:** [roshandamor.site](https://roshandamor.site) | [devmeet.rkdapp.site](https://devmeet.rkdapp.site)
 
-![Django](https://img.shields.io/badge/Django-5.2.5-092E20?style=for-the-badge&logo=django&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-5.2-092E20?style=for-the-badge&logo=django&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-**A modern, fully responsive portfolio website built with Django featuring dynamic content management, interactive UI, and comprehensive admin dashboard.**
+**A high-performance, responsive personal portfolio CMS and developer showcase platform for Roshan Damor. Built with Django 5.2, TinyMCE, Jazzmin Admin, WhiteNoise, automated WebP media optimization, and complete Schema.org JSON-LD SEO infrastructure.**
 
 </div>
 
 ---
 
-## ✨ Features
-
-### 🎨 **Frontend Features**
-- **Premium Dark Mode Aesthetic** - Stunning dark blue/green linear gradients for a futuristic, deep-UI feel
-- **Custom 1280px Grid System** - Mathematically perfect alignment across all pages (Terms, Projects, Blogs)
-- **Advanced UI Interactions** - Dynamic JavaScript typewriter effects and custom blinking cursors
-- **Flawless Sticky Navbar** - Seamless scrolling with `overflow-x: clip` to prevent layout breakage
-- **Interactive Animations** - Smooth transitions, hover effects, and modern Glassmorphism UI
-- **Fully Responsive Design** - Mobile-first approach with customized hamburger overlay menus
-
-### 🔧 **Backend Features**
-- **Django 5.2.5 Framework** - Latest Django with enhanced security and performance
-- **Custom Jazzmin Admin Dashboard** - A completely customized, dark-mode themed CMS for managing all portfolio content natively
-- **MySQL Database** - Robust relational database management
-- **REST API Integration** - Django REST Framework backend architecture
-- **Dynamic File System** - Secure upload management for Resumes, Blog Covers, and Project features
-- **Email Integration** - Contact form with console/SMTP functionality
-
-### 🛡️ **Security Features**
-- **Environment Variables** - Secure credential management with python-dotenv
-- **HTTPS Enforcement** - SSL/TLS configuration for production
-- **CSRF Protection** - Cross-site request forgery protection
-- **XSS Prevention** - Cross-site scripting security measures
-- **Secure Headers** - Security headers for enhanced protection
-- **Input Validation** - Comprehensive form validation and sanitization
-
-### 📊 **Content Management**
-- **Dynamic Projects** - Showcase projects with images, descriptions, and links
-- **Blog System** - Full-featured blog with categories and rich text editor
-- **Skills Management** - Interactive skills display with proficiency levels
-- **Experience Timeline** - Professional experience with company details
-- **FAQ Section** - Expandable FAQ system with categories
-- **Resume Management** - PDF upload and display functionality
+## 📑 Table of Contents
+1. [Key Features](#-key-features)
+2. [Tech Stack & Architecture](#-tech-stack--architecture)
+3. [Quick Start & Local Setup](#-quick-start--local-setup)
+4. [Environment Configuration](#-environment-configuration)
+5. [Database Schema & Models](#-database-schema--models)
+6. [Media Optimization Pipeline](#-media-optimization-pipeline)
+7. [SEO & Search Engine Optimization](#-seo--search-engine-optimization)
+8. [Management Commands](#-management-commands)
+9. [Error Pages](#-custom-error-pages)
+10. [Automated Testing](#-automated-testing)
+11. [Production Deployment](#-production-deployment)
+12. [License & Author](#-license--author)
 
 ---
 
-## 📱 Screenshots
+## ✨ Key Features
 
-<div align="center">
+### 🎨 **Frontend & UI/UX Excellence**
+- **Futuristic Glassmorphism Aesthetic** - Refined dark palette (`#070b14`, `#0d1322`, `#6366f1`) with glowing borders and subtle micro-interactions.
+- **Modular Component Architecture** - Cleanly separated partials (`navbar.html`, `footer.html`, `filters.html`, `resume_modal.html`, `skill_popups.html`, `pagination.html`).
+- **Interactive Typewriter Hero** - Custom JavaScript typewriter animation featuring a single focused role title: `Software Engineer`.
+- **Dynamic Image Sliders & Tech Grids** - Smooth carousel navigation on project detail pages with interactive feature breakdowns.
+- **Glassmorphic Filter Toolbar** - Real-time client-side search, category filter pills, and custom animated sort dropdowns.
+- **Custom Error Pages** - Fully responsive, branded error templates for `404`, `500`, `403`, and `400` with quick recovery routes.
 
-### 🏠 Hero Section & Skills
-<table>
-<tr>
-<td><img src="stock-images/heross.webp" alt="Hero Section" width="400"/></td>
-<td><img src="stock-images/skillss.webp" alt="Skills Section" width="400"/></td>
-</tr>
-</table>
+### 🔧 **Backend & Core Engineering**
+- **Django 5.2 Framework** - Clean Model-View-Template architecture with ORM parameterization.
+- **High-Performance Querying** - Relational models leverage `prefetch_related` to completely eliminate N+1 database queries.
+- **Automated WebP Image Compression** - Media upload pipeline automatically optimizes and converts uploaded PNG/JPG files to lightweight WebP format.
+- **IP-Based Contact Rate Limiting** - Contact form enforces client IP rate limiting (10 submissions/day in production) to prevent spam abuse.
+- **Jazzmin Dark Admin CMS** - Tailored Django administration dashboard with inline project images, features, learnings, and TinyMCE rich-text editor.
+- **Dynamic Resume Delivery** - Safe PDF file streaming (`/resume/` inline view and `/resume/download/`) with disk existence verification.
 
-### 📝 Blog System & Contact Form  
-<table>
-<tr>
-<td><img src="stock-images/blogsss.webp" alt="Blog System" width="400"/></td>
-<td><img src="stock-images/contactss.webp" alt="Contact Form" width="400"/></td>
-</tr>
-</table>
-
-</div>
-
----
-
-## 🛠️ Tech Stack
-
-### **Backend**
-- **Framework:** Django 5.2.5
-- **Language:** Python 3.8+
-- **Database:** MySQL 8.0
-- **ORM:** Django ORM
-- **API:** Django REST Framework
-- **Authentication:** Django Auth System
-
-### **Frontend**
-- **Languages:** HTML5, CSS3, JavaScript (ES6+)
-- **Styling:** Custom CSS with CSS Grid & Flexbox
-- **Icons:** Font Awesome, Custom SVGs
-- **Animations:** CSS Transitions & Keyframes
-- **Responsive:** Mobile-first responsive design
-
-### **DevOps & Deployment**
-- **Web Server:** WhiteNoise for static files
-- **Database:** MySQL with mysqlclient
-- **Environment:** python-dotenv for configuration
-- **Deployment:** cPanel hosting
-- **Version Control:** Git & GitHub
-
-### **Additional Tools**
-- **Rich Text Editor:** TinyMCE for blog content
-- **Email Backend:** SMTP integration
-- **File Handling:** Django file upload system
-- **Security:** CSRF, XSS protection, secure headers
+### 🛡️ **Security & Production Hardening**
+- **Content Security Policy (CSP)** - Configured with `django-csp` to protect against cross-site scripting (XSS) and iframe injection.
+- **CSRF Token Verification** - Strict CSRF verification across all AJAX POST contact requests.
+- **Input Sanitization & Boundary Capping** - Hard character limits across all form fields (`name[:100]`, `email[:254]`, `subject[:255]`, `message[:5000]`).
+- **Dynamic Admin URL** - Configurable admin endpoint path via environment variables to mitigate automated scanner bots.
+- **Orphan Media Cleanup** - Integrated `django-cleanup` automatically purges obsolete files when model instances are updated or deleted.
 
 ---
 
-## 🚀 Installation & Setup
+## 🛠️ Tech Stack & Architecture
 
-### **Prerequisites**
+| Layer | Technology |
+| :--- | :--- |
+| **Backend Framework** | Django 5.2 (Python 3.10+) |
+| **Databases** | SQLite3 (Development) / MySQL 8.0 (Production) |
+| **Static & Media Delivery** | WhiteNoise with Brotli/Gzip compression, Pillow (PIL) WebP engine |
+| **Rich Text Editor** | TinyMCE |
+| **Admin Dashboard** | Jazzmin Admin (Dark UI Theme) |
+| **Frontend Technologies** | Semantic HTML5, Vanilla CSS3 (Custom Design System), Modern ES6+ JavaScript |
+| **SEO & Schemas** | JSON-LD (Person, WebSite, SoftwareSourceCode, BlogPosting, FAQPage, BreadcrumbList), XML Sitemaps |
+| **Testing** | Django TestCase with isolated temporary media environment |
+
+---
+
+## 🚀 Quick Start & Local Setup
+
+### 1. Clone Repository
 ```bash
-- Python 3.8 or higher
-- pip (Python package installer)
-- MySQL 8.0 or higher
-- Git
+git clone https://github.com/logicbyroshan/devmeet-portfolio.git
+cd devmeet-portfolio
 ```
 
-### **1. Clone Repository**
+### 2. Create and Activate Virtual Environment
 ```bash
-git clone https://github.com/logicbyroshan/portfolio-v1.0.git
-cd portfolio-v1.0
-```
-
-### **2. Create Virtual Environment**
-```bash
-# Windows
+# Windows (PowerShell)
 python -m venv venv
 venv\Scripts\activate
 
-# macOS/Linux
+# Linux / macOS
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-### **3. Install Dependencies**
+### 3. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### **4. Environment Configuration**
+### 4. Configure Environment Variables
 ```bash
-# Copy environment template
 cp .env.example .env
-
-# Generate secure secret key
-python generate_secret_key.py
-
-# Edit .env file with your configurations
 ```
+*(Optionally modify `.env` values for custom ports, database credentials, or email SMTP).*
 
-### **5. Database Setup**
+### 5. Apply Database Migrations
 ```bash
-# Create MySQL database
-mysql -u root -p
-CREATE DATABASE portfolio_db;
-CREATE USER 'portfolio_user'@'localhost' IDENTIFIED BY 'your_password';
-GRANT ALL PRIVILEGES ON portfolio_db.* TO 'portfolio_user'@'localhost';
-FLUSH PRIVILEGES;
-
-# Run migrations
+python manage.py makemigrations
 python manage.py migrate
-
-# Create superuser (optional)
-python manage.py createsuperuser
 ```
 
-### **6. Collect Static Files**
+### 6. (Optional) Seed Sample Portfolio Data
 ```bash
-python manage.py collectstatic
+python manage.py seed_data
 ```
 
-### **7. Run Development Server**
+### 7. Run Local Development Server
 ```bash
-python manage.py runserver
+python manage.py runserver 0.0.0.0:8000
 ```
-
-Visit `http://127.0.0.1:8000/` in your browser.
+Open **[http://127.0.0.1:8000](http://127.0.0.1:8000)** in your web browser.
 
 ---
 
-## 📁 Project Structure
+## 🔐 Environment Configuration (`.env`)
+
+| Variable | Default | Description |
+| :--- | :--- | :--- |
+| `PRODUCTION` | `False` | Toggle between development (SQLite, console email) and production (MySQL, SMTP) |
+| `DEBUG` | `True` | Django debug mode flag |
+| `SECRET_KEY` | `django-insecure-...` | Secret cryptographic key |
+| `ALLOWED_HOSTS` | `localhost,127.0.0.1` | Comma-separated list of authorized domains |
+| `ADMIN_URL` | `dash-admin/` | Custom administration portal route |
+| `DB_NAME` | `portfolio_db` | MySQL database name |
+| `DB_USER` | `root` | MySQL user |
+| `DB_PASSWORD` | `password` | MySQL password |
+| `DB_HOST` | `127.0.0.1` | Database host |
+| `DB_PORT` | `3306` | Database port |
+| `EMAIL_HOST` | `smtp.gmail.com` | SMTP host for contact messages |
+| `EMAIL_HOST_USER` | `contact@roshandamor.site`| Sender email address |
+| `EMAIL_HOST_PASSWORD` | `app_password` | SMTP App password |
+
+---
+
+## 📊 Database Schema & Models
 
 ```
-portfolio-v1.0/
-├── 📁 myportfolio/                 # Django project settings
-│   ├── __init__.py
-│   ├── asgi.py                     # ASGI configuration
-│   ├── settings.py                 # Django settings (production-ready)
-│   ├── urls.py                     # Main URL configuration
-│   └── wsgi.py                     # WSGI configuration
-├── 📁 app/                         # Main Django application
-│   ├── 📁 migrations/              # Database migrations
-│   │   ├── 0001_initial.py
-│   │   ├── 0002_remove_project_features...
-│   │   └── ...
-│   ├── 📁 static/                  # Static files (CSS, JS, Images)
-│   │   ├── 📁 css/
-│   │   │   ├── style.css           # Main stylesheet
-│   │   │   ├── admin_custom.css    # Jazzmin Dark Mode UI Overrides
-│   │   │   ├── index.css           # Homepage styles
-│   │   │   ├── blogs.css           # Blog-specific styles
-│   │   │   └── ...
-│   │   ├── 📁 js/
-│   │   │   ├── index.js            # Main JavaScript functionality
-│   │   │   └── contact.js          # Contact form handling
-│   │   └── 📁 images/              # Static images
-│   │       ├── 📁 icons/
-│   │       ├── 📁 others/
-│   │       └── 📁 stock/
-│   ├── 📁 templates/               # HTML templates
-│   │   ├── portfolio-base.html     # Base template
-│   │   ├── portfolio-landing-page.html  # Homepage
-│   │   ├── blogs.html              # Blog listing
-│   │   ├── blog-detail.html        # Blog detail page
-│   │   ├── projects.html           # Projects showcase
-│   │   ├── project-detail.html     # Project detail page
-│   │   ├── skills.html             # Skills page
-│   │   ├── experiences.html        # Experience timeline
-│   │   ├── faqs.html              # FAQ page
-│   │   └── filters.html           # Reusable filter component
-│   ├── admin.py                    # Django admin configuration
-│   ├── apps.py                     # App configuration
-│   ├── context_processors.py       # Template context processors
-│   ├── forms.py                    # Django forms
-│   ├── models.py                   # Database models
-│   ├── urls.py                     # App URL patterns
-│   └── views.py                    # View functions
-├── 📁 media/                       # User uploaded files
-│   ├── 📁 blogs/                   # Blog images
-│   ├── 📁 projects/                # Project images
-│   │   ├── 📁 images/
-│   │   └── 📁 features/
-│   ├── 📁 skills/                  # Skill icons & certificates
-│   │   ├── 📁 icons/
-│   │   └── 📁 certificates/
-│   ├── 📁 experience/              # Company logos
-│   └── 📁 resumes/                 # Resume PDFs
-├── 📁 staticfiles/                 # Collected static files (production)
-├── 📁 stock-images/                # Demo screenshots & assets
-│   ├── Portfolio Thumb.jpg         # Cover image
-│   ├── heross.png                  # Hero section screenshot
-│   ├── skillss.png                 # Skills section screenshot
-│   ├── blogsss.png                 # Blog page screenshot
-│   └── contactss.png               # Contact form screenshot
-├── 📁 logs/                        # Application logs
-│   └── .gitkeep
-├── 📄 manage.py                    # Django management script
-├── 📄 requirements.txt             # Python dependencies
-├── 📄 .env.example                 # Environment variables template
-├── 📄 .gitignore                   # Git ignore rules
-├── 📄 generate_secret_key.py       # Secret key generator utility
-├── 📄 DEPLOYMENT.md                # Deployment instructions
-└── 📄 README.md                    # Project documentation
+┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+│     Project     │◄──────┤  ProjectImage   │       │      Skill      │
+├─────────────────┤1     *├─────────────────┤       ├─────────────────┤
+│ title (index)   │       │ image (WebP)    │       │ name (unique)   │
+│ categories      │       │ created_at      │       │ level (0-100)   │
+│ description     │       └─────────────────┘       │ status          │
+│ slug (unique)   │◄──────┐                         │ icon (WebP)     │
+│ publication_date│1     *│                         └────────┬────────┘
+│ created_at      │       │     Feature     │                │
+│ github_link     │       ├─────────────────┤                │
+│ live_link       │       │ title           │                │
+└────────┬────────┘       │ description     │                │
+         │                │ image (WebP)    │                │
+         │                └─────────────────┘                │
+         │                ┌─────────────────┐                │
+         │1              *│    Learning     │                │
+         ├───────────────►├─────────────────┤                │
+         │                │ paragraph       │                │
+         │                └─────────────────┘                │
+         │*                                                 *│
+         └─────────────────── M2M Relation ──────────────────┘
+```
+
+- **`Project`**: Core showcase model supporting image carousels, feature cards, key learnings, and GitHub/Live links.
+- **`Blog`**: Technical insights with TinyMCE rich text, automatic reading time computation, and cover images.
+- **`Skill`**: Interactive skill bars with level percentages, status badges, and resource link popups.
+- **`Experience`**: Career history and company milestones ordered chronologically.
+- **`FAQ`**: Frequently asked questions with structured category filtering.
+- **`Resume`**: PDF resume uploads with single active file delivery.
+- **`ContactMessage`**: Contact form inquiries with client IP address logging for rate limiting.
+
+---
+
+## 🖼️ Media Optimization Pipeline
+
+All image uploads are automatically intercepted and processed using the `optimize_image_field` helper in [app/models.py](app/models.py):
+1. Detects file format (bypasses vectors like `.svg` and documents).
+2. Resizes large images using high-fidelity `LANCZOS` downsampling.
+3. Automatically converts RGB/RGBA color spaces into optimized `.webp` format (85% quality).
+4. Results in **70% to 90% reduction in file size** while maintaining visual quality.
+
+---
+
+## 🔍 SEO & Search Engine Optimization
+
+DevMeet is engineered for top Google ranking across primary target search queries (`roshan`, `roshan damor`, `roshan software engineer`, `roshan uit rgpv`, `roshan damor portfolio`):
+
+1. **Dynamic XML Sitemap (`/sitemap.xml`)**:
+   - Indexes all public views plus all individual project and blog detail pages.
+2. **Search Engine Crawler Directives (`/robots.txt`)**:
+   - Permits complete crawling while disallowing private admin directories.
+3. **Structured Data (JSON-LD Schemas)**:
+   - `Person` & `WebSite` entity graph (Roshan Damor, UIT RGPV, Indore MP, social channels).
+   - `SoftwareSourceCode` schema on project detail pages.
+   - `BlogPosting` schema on technical blog articles.
+   - `FAQPage` schema for rich snippet Q&A cards in Google search.
+   - `BreadcrumbList` navigation across all subpages.
+4. **Social Sharing**:
+   - Full OpenGraph (`og:`) and Twitter Card (`twitter:`) tags with canonical URLs.
+
+---
+
+## ⚙️ Management Commands
+
+### Optimize Existing Media to WebP
+Compresses and converts all existing images in `media/` and `app/static/images/` to WebP:
+```bash
+python manage.py optimize_all_media
+```
+
+### Seed Initial Portfolio Data
+Populates the database with skills, projects, blog articles, experiences, and FAQs:
+```bash
+python manage.py seed_data
 ```
 
 ---
 
-## 🔧 Configuration
+## 🚫 Custom Error Pages
 
-### **Environment Variables (.env)**
+Custom styled error templates matching the dark glassmorphism design:
+
+| HTTP Status | Template | Trigger Condition |
+| :--- | :--- | :--- |
+| **404 Not Found** | [404.html](app/templates/404.html) | Invalid route or missing project/blog slug |
+| **500 Server Error** | [500.html](app/templates/500.html) | Unhandled backend exception or internal crash |
+| **403 Forbidden** | [403.html](app/templates/403.html) | Permission denied or CSRF token failure |
+| **400 Bad Request** | [400.html](app/templates/400.html) | Malformed HTTP request or invalid parameters |
+
+---
+
+## 🧪 Automated Testing
+
+Exhaustive test suite in [app/tests.py](app/tests.py) covering all views, edge cases, special character queries, rate limiting, and sitemaps:
+
 ```bash
-# Django Configuration
-SECRET_KEY=your-secure-secret-key-here
+python manage.py test
+```
+
+### Test Suite Output:
+```
+Ran 16 tests in 0.563s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+---
+
+## 🌐 Production Deployment
+
+### 1. Configure Production Settings (`.env`)
+```ini
+PRODUCTION=True
 DEBUG=False
-ALLOWED_HOSTS=portfoliov1.roshanproject.site,www.roshanproject.site
-
-# Database Configuration
-DB_NAME=portfolio_db
-DB_USER=portfolio_user
-DB_PASSWORD=your_secure_password
-DB_HOST=localhost
+SECRET_KEY=your_long_random_production_secret_key
+ALLOWED_HOSTS=roshandamor.site,www.roshandamor.site,devmeet.rkdapp.site
+DB_NAME=portfolio_production_db
+DB_USER=production_user
+DB_PASSWORD=your_secure_db_password
+DB_HOST=127.0.0.1
 DB_PORT=3306
-
-# Email Configuration
-EMAIL_HOST=smtp.yourdomain.com
-EMAIL_PORT=465
-EMAIL_USE_SSL=True
-EMAIL_HOST_USER=contact@yourdomain.com
-EMAIL_HOST_PASSWORD=your_email_password
-DEFAULT_FROM_EMAIL=contact@yourdomain.com
-
-# Security Settings
-SECURE_SSL_REDIRECT=True
-SESSION_COOKIE_SECURE=True
-CSRF_COOKIE_SECURE=True
 ```
 
-### **Key Features Configuration**
-
-#### **Database Models**
-- **Project:** Showcase portfolio projects with images and descriptions
-- **Blog:** Full-featured blog system with categories and content
-- **Skill:** Technical skills with proficiency levels and certificates  
-- **Experience:** Professional experience timeline
-- **FAQ:** Frequently asked questions with categories
-- **ContactMessage:** Contact form submissions storage
-
-#### **Admin Interface**
-Access at `/dash-admin/` with superuser credentials:
-- **Jazzmin Powered:** Completely customized dark-mode CMS tailored to the portfolio's aesthetics
-- Content management for all models seamlessly mapped to the UI
-- Rich text editor embedded for blog posts
-- Centralized file upload management for resumes and visual assets
-- User and permission management
-
----
-
-## 🌐 Deployment
-
-The application is deployed on **cPanel hosting** at [portfoliov1.roshanproject.site](https://portfoliov1.roshanproject.site)
-
-### **Production Features**
-- **SSL/HTTPS Encryption** - Secure data transmission
-- **MySQL Database** - Production-grade database
-- **Static File Optimization** - Compressed and cached assets
-- **Error Logging** - Comprehensive error tracking
-- **Email Functionality** - Working contact form notifications
-
-### **Deployment Steps**
-1. **Prepare Environment** - Configure `.env` with production values
-2. **Database Migration** - Set up MySQL and run migrations  
-3. **Static Files** - Collect and optimize static assets
-4. **cPanel Configuration** - Configure Python app settings
-5. **SSL Setup** - Enable HTTPS certificate
-6. **Testing** - Verify all functionality works correctly
-
-📖 **Detailed Guide:** See [DEPLOYMENT.md](DEPLOYMENT.md) for complete instructions.
-
----
-
-## 📖 API Documentation
-
-### **Available Endpoints**
+### 2. Collect Static Files
 ```bash
-# Main Pages
-/                          # Homepage with all sections
-/projects/                 # Projects showcase
-/projects/<int:id>/        # Project detail page
-/blogs/                    # Blog listing
-/blogs/<int:id>/           # Blog detail page
-/skills/                   # Skills showcase  
-/experiences/              # Experience timeline
-/faqs/                     # FAQ page
-
-# Admin Interface
-/admin/                    # Django admin dashboard
-/tinymce/                  # Rich text editor assets
-
-# Media Files
-/media/<path:path>         # User uploaded files
-/static/<path:path>        # Static assets
+python manage.py collectstatic --noinput
 ```
 
-### **Form Handling**
-- **Contact Form:** AJAX-powered with email notifications
-- **Search & Filter:** Dynamic content filtering across pages
-- **File Uploads:** Resume and image upload functionality
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-### **Getting Started**
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
-3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** to the branch (`git push origin feature/AmazingFeature`)
-5. **Open** a Pull Request
-
-### **Development Guidelines**
-- Follow PEP 8 Python style guidelines
-- Write meaningful commit messages
-- Test your changes thoroughly
-- Update documentation as needed
-- Ensure mobile responsiveness
-
-### **Areas for Contribution**
-- 🐛 Bug fixes and improvements
-- ✨ New features and enhancements  
-- 📱 Mobile optimization
-- 🎨 UI/UX improvements
-- 📚 Documentation updates
-- 🔒 Security enhancements
-
----
-
-## 📞 Contact
-
-<div align="center">
-
-**Roshan Damor** - Full Stack Developer
-
-[![Website](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=google-chrome&logoColor=white)](https://portfoliov1.roshanproject.site)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:contact@roshanproject.site)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/logicbyroshan)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/roshandamor)
-
-</div>
-
----
-
-## 📄 License
-
-```
-MIT License
-
-Copyright (c) 2025 Roshan Damor
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+### 3. Run Production Security Verification
+```bash
+python manage.py check --deploy
 ```
 
 ---
 
-<div align="center">
+## 👨‍💻 Author & License
 
-### 🌟 **Star this repository if you found it helpful!** 🌟
+- **Developer:** **Roshan Damor**
+- **Degree / College:** University Institute of Technology, RGPV (UIT RGPV Bhopal)
+- **Portfolio Website:** [roshandamor.site](https://roshandamor.site)
+- **GitHub:** [@logicbyroshan](https://github.com/logicbyroshan)
+- **LinkedIn:** [iamroshandamor](https://www.linkedin.com/in/iamroshandamor/)
+- **Twitter / X:** [@iamroshandamor](https://x.com/iamroshandamor)
 
-**Made with ❤️ by [Roshan Damor](https://github.com/logicbyroshan)**
-
-*Last Updated: October 2025*
-
-</div>
+*Licensed under the [MIT License](LICENSE).*
