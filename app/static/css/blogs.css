@@ -142,3 +142,41 @@
     border-top: 1px solid var(--card-outline-color);
     margin-top: auto;
 }
+
+/* ==========================================================================
+   Responsive Overrides
+   ========================================================================== */
+@media (max-width: 480px) {
+    .blog-card, .blogs-card {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .blog-image, .blogs-image {
+        height: 170px;
+    }
+
+    .blog-card h2.card-title,
+    .blogs-card h2.card-title {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .blog-card, .blogs-card {
+        padding: 12px;
+    }
+
+    .blog-image, .blogs-image {
+        height: 150px;
+    }
+
+    .blog-card-actions, .blogs-links {
+        width: 100%;
+    }
+
+    .blog-card-actions a, .blogs-links a {
+        width: 100%;
+        text-align: center;
+    }
+}

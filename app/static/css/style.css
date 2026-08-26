@@ -49,6 +49,8 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
+    max-width: 100vw;
 }
 
 body {
@@ -57,6 +59,7 @@ body {
     font-family: var(--secondary-font);
     min-height: 100vh;
     width: 100%;
+    max-width: 100vw;
     overflow-x: hidden;
     line-height: 1.6;
     display: flex;
@@ -67,8 +70,9 @@ body {
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 16px;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 /* ==========================================================================
@@ -78,51 +82,56 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 22px;
+    padding: 14px 20px;
     margin: 12px auto 0 auto;
     position: sticky;
     top: 12px;
     z-index: 1000;
     width: 100%;
     max-width: 1280px;
-    background: rgba(10, 15, 29, 0.9);
+    background: rgba(10, 15, 29, 0.92);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--card-outline-color);
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transition: var(--transition);
+    box-sizing: border-box;
 }
 
 .navbar .logo {
     display: flex;
     align-items: center;
+    min-width: 0;
 }
 
 .logo .logo-img {
     display: flex;
     align-items: center;
+    min-width: 0;
 }
 
 .logo .logo-img a {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     text-decoration: none;
     color: var(--heading-text-color);
     font-family: var(--main-font);
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     transition: var(--transition);
+    white-space: nowrap;
 }
 
 .logo .logo-img a img {
-    height: 36px;
+    height: 32px;
     width: auto;
     object-fit: contain;
     filter: drop-shadow(0 2px 8px rgba(99, 102, 241, 0.3));
     transition: var(--transition);
+    flex-shrink: 0;
 }
 
 .logo .logo-img a:hover img {
@@ -728,10 +737,68 @@ body.popup-open {
 }
 
 @media (max-width: 768px) {
+    .main-container {
+        padding: 0 12px;
+    }
+
+    .navbar {
+        top: 8px;
+        margin-top: 8px;
+        padding: 10px 14px;
+        border-radius: 8px;
+    }
+
+    .logo .logo-img a {
+        font-size: 17px;
+        gap: 8px;
+    }
+
+    .logo .logo-img a img {
+        height: 28px;
+    }
+
+    .navbar .nav-mob-actions {
+        gap: 6px;
+    }
+
+    .navbar .nav-mob-resume-btn {
+        padding: 6px 11px;
+        font-size: 12px;
+        gap: 4px;
+    }
+
+    .navbar .nav-mob-btn {
+        width: 34px;
+        height: 34px;
+    }
+
     .footer-top-brand {
         flex-direction: column;
         align-items: flex-start;
     }
+
+@media (max-width: 360px) {
+    .main-container {
+        padding: 0 6px;
+    }
+
+    .navbar {
+        padding: 8px 8px;
+    }
+
+    .logo .logo-img a span {
+        font-size: 14.5px;
+    }
+
+    .logo .logo-img a img {
+        height: 22px;
+    }
+
+    .navbar .nav-mob-resume-btn {
+        padding: 5px 7px;
+        font-size: 11px;
+    }
+}
     
     .footer-tagline-card {
         align-items: flex-start;

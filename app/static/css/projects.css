@@ -157,3 +157,47 @@
     color: #ffffff;
     transform: translateY(-2px);
 }
+
+/* ==========================================================================
+   Responsive Overrides
+   ========================================================================== */
+@media (max-width: 480px) {
+    .project-card, .projects-card {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .project-image, .projects-image {
+        height: 170px;
+    }
+
+    .project-card h2.card-title,
+    .projects-card h2.card-title {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .project-card, .projects-card {
+        padding: 12px;
+    }
+
+    .project-image, .projects-image {
+        height: 150px;
+    }
+
+    .project-card-footer, .project-links, .projects-links {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .project-detail-btn {
+        width: 100%;
+    }
+
+    .project-icon-actions {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
