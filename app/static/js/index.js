@@ -1,187 +1,222 @@
+/**
+ * Antigravity Core Portfolio JavaScript Module
+ * Clean, centralized event listeners and interactive controllers
+ */
+
 document.addEventListener("DOMContentLoaded", function () {
-  // Mobile Navigation
-  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-  const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
-  const closeMobileMenu = document.getElementById('close-mobile-menu');
-  const body = document.body;
+    // --------------------------------------------------------------------------
+    // 1. Mobile Navigation Drawer Controls
+    // --------------------------------------------------------------------------
+    const mobileToggle = document.getElementById("mobile-toggle");
+    const mobilePanel = document.getElementById("mobile-panel");
+    const mobileOverlay = document.getElementById("mobile-overlay");
 
-  // Open mobile menu
-  if (mobileMenuToggle) {
-    mobileMenuToggle.addEventListener('click', () => {
-      mobileNavOverlay.classList.add('active');
-      mobileMenuToggle.classList.add('active');
-      body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
-    });
-  }
+    window.toggleMobileNav = function () {
+        if (!mobilePanel || !mobileOverlay) return;
+        const isOpen = mobilePanel.classList.toggle("active");
+        mobileOverlay.classList.toggle("active", isOpen);
+        document.body.classList.toggle("popup-open", isOpen);
+    };
 
-  // Close mobile menu
-  if (closeMobileMenu) {
-    closeMobileMenu.addEventListener('click', closeMobileNavigation);
-  }
-
-  // Close menu when clicking overlay
-  if (mobileNavOverlay) {
-    mobileNavOverlay.addEventListener('click', (e) => {
-      if (e.target === mobileNavOverlay) {
-        closeMobileNavigation();
-      }
-    });
-  }
-
-  // Close mobile navigation function
-  function closeMobileNavigation() {
-    mobileNavOverlay.classList.remove('active');
-    mobileMenuToggle.classList.remove('active');
-    body.style.overflow = ''; // Restore scrolling
-  }
-
-  // Close menu when clicking on nav links
-  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-  mobileNavLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      setTimeout(closeMobileNavigation, 100); // Small delay for smooth transition
-    });
-  });
-
-  // Slider functionality
-  let sliderIndex = 0;
-  const slides = document.querySelectorAll(".slide");
-  const slider = document.querySelector(".slider");
-
-  function showSliderSlide(index) {
-    sliderIndex = (index + slides.length) % slides.length;
-    slider.style.transform = `translateX(-${sliderIndex * 960}px)`;
-  }
-
-  document.querySelector(".next")?.addEventListener("click", () => showSliderSlide(sliderIndex + 1));
-  document.querySelector(".prev")?.addEventListener("click", () => showSliderSlide(sliderIndex - 1));
-  setInterval(() => showSliderSlide(sliderIndex + 1), 5000);
-
-  // Typing effect
-  const skillText = document.getElementById("skill-text");
-  const skills = ["Python Developer", "Web Developer", "Creative Thinker", "Innovative Coder"];
-  let currentSkill = 0, charIndex = 0;
-
-  function typeSkill() {
-    if (charIndex < skills[currentSkill].length) {
-      skillText.textContent += skills[currentSkill][charIndex++];
-      setTimeout(typeSkill, 100);
-    } else {
-      setTimeout(eraseSkill, 1500);
+    if (mobileToggle) {
+        mobileToggle.addEventListener("click", window.toggleMobileNav);
     }
-  }
-
-  function eraseSkill() {
-    if (charIndex > 0) {
-      skillText.textContent = skills[currentSkill].substring(0, --charIndex);
-      setTimeout(eraseSkill, 50);
-    } else {
-      currentSkill = (currentSkill + 1) % skills.length;
-      setTimeout(typeSkill, 100);
-    }
-  }
-
-  setTimeout(typeSkill, 1500);
-
-  // FAQ Toggle
-  document.querySelectorAll(".faq-card").forEach(card => {
-    const answer = card.querySelector(".answer");
-    const toggleIcon = card.querySelector(".faq-toggle");
-    const btnFaq = card.querySelector(".btn-faq");
-
-    // Check if required elements exist
-    if (!answer || !toggleIcon) {
-      console.warn("FAQ elements not found in card:", card);
-      return;
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener("click", window.toggleMobileNav);
     }
 
-    // Fetching correct paths from attributes
-    const openIcon = toggleIcon.getAttribute("data-closed-icon");  
-    const closeIcon = toggleIcon.getAttribute("data-open-icon");   
+    // --------------------------------------------------------------------------
+    // 2. Global Resume PDF Modal Controls
+    // --------------------------------------------------------------------------
+    window.openPopup = function () {
+        const popup = document.getElementById("popup");
+        if (popup) {
+            popup.style.display = "block";
+            document.body.classList.add("popup-open");
+        }
+    };
 
-    // Make entire card clickable
-    card.addEventListener("click", (e) => {
-        e.preventDefault();
-        
-        answer.classList.toggle("visible");
-        
-        // Visual feedback for the entire card
-        if (answer.classList.contains("visible")) {
-          // Card is opening
-          toggleIcon.classList.add("rotated");
-          if (btnFaq) {
-            btnFaq.style.background = 'var(--main-bg-color-2)';
-            btnFaq.style.transform = 'scale(1.1)';
-          }
-          card.style.background = 'var(--main-bg-color-2)';
-          
-          // Update icon
-          if (closeIcon) {
-            toggleIcon.src = closeIcon + "?v=" + new Date().getTime();
-          }
-        } else {
-          // Card is closing
-          toggleIcon.classList.remove("rotated");
-          if (btnFaq) {
-            btnFaq.style.background = 'rgba(255, 255, 255, 0.1)';
-            btnFaq.style.transform = 'scale(1)';
-          }
-          card.style.background = 'rgb(25, 25, 25)';
-          
-          // Update icon
-          if (openIcon) {
-            toggleIcon.src = openIcon + "?v=" + new Date().getTime();
-          }
+    window.closePopup = function () {
+        const popup = document.getElementById("popup");
+        if (popup) {
+            popup.style.display = "none";
+            document.body.classList.remove("popup-open");
+        }
+    };
+
+    // --------------------------------------------------------------------------
+    // 3. Skill Popups (Certificates & Video Resources)
+    // --------------------------------------------------------------------------
+    window.showSkillPopup = function (popupId) {
+        const popup = document.getElementById(popupId);
+        if (popup) {
+            popup.style.display = "block";
+            document.body.classList.add("popup-open");
+        }
+    };
+
+    window.closeSkillPopup = function (popupId) {
+        const popup = document.getElementById(popupId);
+        if (popup) {
+            popup.style.display = "none";
+            document.body.classList.remove("popup-open");
+        }
+    };
+
+    // --------------------------------------------------------------------------
+    // 4. Outside-Click and Escape-Key Dismissal Listeners
+    // --------------------------------------------------------------------------
+    window.addEventListener("click", function (e) {
+        // Resume Modal Backdrop Click
+        const resumePopup = document.getElementById("popup");
+        if (resumePopup && e.target === resumePopup) {
+            window.closePopup();
+        }
+
+        // Skill Modal Backdrops Click
+        document.querySelectorAll(".skill-popup-overlay").forEach(overlay => {
+            if (e.target === overlay) {
+                window.closeSkillPopup(overlay.id);
+            }
+        });
+
+        // Custom Sort Dropdown Outside Click
+        const sortDropdown = document.getElementById("sortDropdown");
+        const sortBtn = document.getElementById("sortBtn") || document.querySelector(".sort-trigger-btn") || document.querySelector(".sort-btn");
+        if (sortDropdown && sortBtn && !sortBtn.contains(e.target) && !sortDropdown.contains(e.target)) {
+            sortDropdown.style.display = "none";
+            sortBtn.classList.remove("active");
         }
     });
-  });
 
-  // Progress bar animation
-  document.querySelectorAll(".progress-container").forEach(container => {
-    const progressBar = container.querySelector(".progress");
-    const progressValue = container.dataset.progress;
-
-    if (!isNaN(progressValue) && progressValue >= 0 && progressValue <= 100) {
-      progressBar.style.width = `${progressValue}%`;
-    }
-  });
-
-  // Sorting dropdown toggle
-  document.querySelectorAll(".cards-sort .outline-btn").forEach(button => {
-    button.addEventListener("click", event => {
-      const dropdown = event.target.closest(".cards-sort").querySelector(".sort-items");
-      document.querySelectorAll(".sort-items").forEach(menu => menu !== dropdown && menu.classList.remove("open"));
-      dropdown.classList.toggle("open");
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+            window.closePopup();
+            document.querySelectorAll('.skill-popup-overlay[style*="block"]').forEach(p => {
+                window.closeSkillPopup(p.id);
+            });
+            const sortDropdown = document.getElementById("sortDropdown");
+            if (sortDropdown) sortDropdown.style.display = "none";
+        }
     });
-  });
 
-  document.addEventListener("click", event => {
-    if (!event.target.closest(".cards-sort")) {
-      document.querySelectorAll(".sort-items").forEach(menu => menu.classList.remove("open"));
+    // --------------------------------------------------------------------------
+    // 5. Search & Sort Filter Actions
+    // --------------------------------------------------------------------------
+    window.toggleSortDropdown = function () {
+        const dropdown = document.getElementById("sortDropdown");
+        const sortBtn = document.getElementById("sortBtn") || document.querySelector(".sort-trigger-btn") || document.querySelector(".sort-btn");
+        if (!dropdown) return;
+        const isVisible = dropdown.style.display === "block";
+        dropdown.style.display = isVisible ? "none" : "block";
+        sortBtn?.classList.toggle("active", !isVisible);
+    };
+
+    window.clearSearch = function () {
+        const searchInput = document.querySelector(".search-input");
+        const form = document.querySelector(".search-form") || searchInput?.closest("form");
+        if (searchInput) searchInput.value = "";
+        form?.submit();
+    };
+
+    // --------------------------------------------------------------------------
+    // 6. Typing Effect on Hero Section (Software Engineer only)
+    // --------------------------------------------------------------------------
+    const skillText = document.getElementById("skill-text");
+    if (skillText) {
+        const textToType = "Software Engineer";
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeSkill() {
+            if (!skillText) return;
+            if (!isDeleting && charIndex <= textToType.length) {
+                skillText.textContent = textToType.substring(0, charIndex++);
+                setTimeout(typeSkill, 90);
+            } else if (!isDeleting && charIndex > textToType.length) {
+                setTimeout(() => { isDeleting = true; typeSkill(); }, 3000);
+            } else if (isDeleting && charIndex >= 0) {
+                skillText.textContent = textToType.substring(0, charIndex--);
+                setTimeout(typeSkill, 45);
+            } else {
+                isDeleting = false;
+                charIndex = 0;
+                setTimeout(typeSkill, 600);
+            }
+        }
+
+        skillText.textContent = "";
+        setTimeout(typeSkill, 400);
     }
-  });
 
-  // Search form handling
-  document.querySelector(".search-form")?.addEventListener("submit", event => {
-    event.preventDefault();
-    const searchInput = document.querySelector(".search-form input").value;
-    if (searchInput) {
-      const url = new URL(window.location);
-      url.searchParams.set("search", searchInput);
-      window.location.href = url.toString();
-    }
-  });
+    // --------------------------------------------------------------------------
+    // 7. Interactive Accordion for FAQs
+    // --------------------------------------------------------------------------
+    document.querySelectorAll(".faq-card").forEach(card => {
+        const answer = card.querySelector(".answer") || card.querySelector(".card-desc");
+        const toggleIcon = card.querySelector(".faq-toggle");
 
-  // Footer dropdown
-  document.querySelectorAll(".navigaiton-items .foot-nav-head img").forEach(toggleButton => {
-    toggleButton.addEventListener("click", function () {
-      this.closest(".navigaiton-items").querySelector("ul").classList.toggle("active");
+        if (!answer || !toggleIcon) return;
+
+        const openIcon = toggleIcon.dataset.openIcon || toggleIcon.src;
+        const closeIcon = toggleIcon.dataset.closedIcon || toggleIcon.src;
+
+        card.addEventListener("click", function () {
+            const isVisible = answer.classList.toggle("visible");
+            card.classList.toggle("active", isVisible);
+            
+            if (isVisible) {
+                toggleIcon.classList.add("rotated");
+                if (closeIcon) toggleIcon.src = closeIcon;
+            } else {
+                toggleIcon.classList.remove("rotated");
+                if (openIcon) toggleIcon.src = openIcon;
+            }
+        });
     });
-  });
 
-  // Contact form toggle
-  document.getElementById("showFormBtn")?.addEventListener("click", () => {
-    document.getElementById("contactForm").style.display = "block";
-    document.getElementById("showFormBtn").style.display = "none";
-  });
+    // --------------------------------------------------------------------------
+    // 8. Progress Bars Initialization
+    // --------------------------------------------------------------------------
+    document.querySelectorAll(".progress-container").forEach(container => {
+        const progressBar = container.querySelector(".progress") || container.querySelector(".skill-progress-fill");
+        const progressValue = container.dataset.progress;
+
+        if (progressBar && !isNaN(progressValue) && progressValue >= 0 && progressValue <= 100) {
+            progressBar.style.width = `${progressValue}%`;
+        }
+    });
+
+    // --------------------------------------------------------------------------
+    // 9. Mobile Footer Accordion Toggles
+    // --------------------------------------------------------------------------
+    document.querySelectorAll(".foot-nav-head").forEach(header => {
+        header.addEventListener("click", function () {
+            const list = this.parentElement.querySelector("ul");
+            const toggle = this.querySelector(".dropdown-toggle");
+            list?.classList.toggle("active");
+            toggle?.classList.toggle("active");
+        });
+    });
+
+    // --------------------------------------------------------------------------
+    // 10. Project Showcase Image Slider
+    // --------------------------------------------------------------------------
+    let currentSlideIndex = 0;
+    
+    window.nextSliderSlide = function () {
+        const slider = document.querySelector(".hero-image-slider .slider");
+        const slides = document.querySelectorAll(".hero-image-slider .slide");
+        if (!slider || slides.length <= 1) return;
+        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+        slider.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+    };
+
+    window.prevSliderSlide = function () {
+        const slider = document.querySelector(".hero-image-slider .slider");
+        const slides = document.querySelectorAll(".hero-image-slider .slide");
+        if (!slider || slides.length <= 1) return;
+        currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+        slider.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+    };
 });

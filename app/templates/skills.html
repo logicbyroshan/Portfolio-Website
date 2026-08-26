@@ -1,34 +1,54 @@
 {% extends "portfolio-base.html" %}
-{% block title %} Roshan {% endblock %}
 {% load static %}
+
+{% block title %}Technical Skills & Stack Architecture | Roshan Damor - Software Engineer{% endblock %}
+{% block meta_title %}Technical Skills & Architecture Stack | Roshan Damor - Software Engineer{% endblock %}
+{% block meta_description %}Discover the core technical skills, programming languages, backend frameworks, and cloud proficiencies of Roshan Damor (Python, Django, PostgreSQL, Docker, AWS).{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ request.scheme }}://{{ request.get_host }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Skills",
+      "item": "{{ request.build_absolute_uri }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <div class="all-container">
     <div class="cards-header">
         <h1>my skills.</h1>
-        <p>Here are all my technical skills and expertise areas.</p>
-        {% if query or selected_category %}
-        <div class="filter-status">
-            <p>
-                {% if query %}Showing results for: "<strong>{{ query }}</strong>"{% endif %}
-                {% if selected_category %}{% if query %} | {% endif %}Category: <strong>{{ selected_category }}</strong>{% endif %}
-                <a href="{% url 'skill_list' %}" class="clear-filters">Clear all filters</a>
-            </p>
-        </div>
-        {% endif %}
+        <p>Core programming languages, frameworks, cloud services, and database proficiencies.</p>
     </div>
-    {% include 'filters.html' %}
+    
+    {% include 'components/filters.html' %}
+    
     <div class="ver-cards">
         {% for skill in skills %}
-                {% include "components/skill_card.html" with skill=skill %}
-                {% empty %}
+            {% include "components/skill_card.html" with skill=skill %}
+        {% empty %}
             <div class="no-results">
                 <h3>No Skills Found</h3>
                 <p>Try adjusting your search criteria or browse all skills.</p>
-                <a href="{% url 'skill_list' %}"><button class="outline-btn">View All Skills</button></a>
+                <a href="{% url 'skill_list' %}" class="outline-btn">View All Skills</a>
             </div>
         {% endfor %}
     </div>
+    
     {% include "components/pagination.html" %}
 </div>
 

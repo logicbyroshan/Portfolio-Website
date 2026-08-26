@@ -1,0 +1,113 @@
+{% load static %}
+<!-- Modern Premium Footer -->
+<footer class="footer">
+    <div class="footer-top-brand">
+        <div class="footer-brand-info">
+            <a href="{% url 'home' %}" class="footer-logo">
+                <img src="{% static 'images/stock/Roshan_Logo_White.webp' %}" alt="Roshan Logo">
+                <span>Roshan Damor</span>
+            </a>
+            <p class="footer-brand-bio">
+                Full-Stack Software Engineer & UIT RGPV graduate specializing in Python, Django, scalable cloud architectures, and modern web applications in Indore, India.
+            </p>
+        </div>
+
+        <div class="footer-tagline-card">
+            <h2 id="footer-typing-text"></h2>
+            <p class="footer-status-pill">🟢 Open for Work & Collaborations</p>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const text = "Building software with precision & passion";
+            const el = document.getElementById("footer-typing-text");
+            if (!el) return;
+            let i = 0;
+            function typeWriter() {
+                if (i < text.length) {
+                    el.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                } else {
+                    setTimeout(function() {
+                        el.innerHTML = "";
+                        i = 0;
+                        typeWriter();
+                    }, 4000);
+                }
+            }
+            setTimeout(typeWriter, 500);
+        })();
+    </script>
+
+    <div class="footer-divider-line"></div>
+
+    <div class="footer-nav">
+        <div class="navigation-col navigaiton-items">
+            <div class="foot-nav-head">
+                <h3>📌 Navigation</h3>
+                <img src="{% static 'images/icons/open.webp' %}" alt="" class="dropdown-toggle">
+            </div>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'project_list' %}">Projects</a></li>
+                <li><a href="{% url 'skill_list' %}">Technical Skills</a></li>
+                <li><a href="{% url 'blog_list' %}">Blog Articles</a></li>
+                <li><a href="{% url 'experience_list' %}">Work Experience</a></li>
+                <li><a href="{% url 'faq_list' %}">FAQs</a></li>
+            </ul>
+        </div>
+
+        <div class="navigation-col navigaiton-items">
+            <div class="foot-nav-head">
+                <h3>🔗 Quick Links</h3>
+                <img src="{% static 'images/icons/open.webp' %}" alt="" class="dropdown-toggle">
+            </div>
+            <ul>
+                <li><a href="https://www.startupindia.gov.in/" target="_blank" rel="noopener noreferrer">Startup India</a></li>
+                <li><a href="https://hobbyindia.store/" target="_blank" rel="noopener noreferrer">Hobbies & DIY</a></li>
+                <li><a href="https://www.kickresume.com/en/" target="_blank" rel="noopener noreferrer">Resume Builder</a></li>
+                <li><a href="https://www.freelancer.in/" target="_blank" rel="noopener noreferrer">Freelance Portal</a></li>
+                <li><a href="https://www.trueachievements.com/" target="_blank" rel="noopener noreferrer">Achievements</a></li>
+            </ul>
+        </div>
+
+        <div class="navigation-col navigaiton-items">
+            <div class="foot-nav-head">
+                <h3>✔️ Connect</h3>
+                <img src="{% static 'images/icons/open.webp' %}" alt="" class="dropdown-toggle">
+            </div>
+            <ul>
+                <li><a href="https://github.com/logicbyroshan" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/iamroshandamor/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://x.com/iamroshandamor" target="_blank" rel="noopener noreferrer">Twitter / X</a></li>
+                <li><a href="https://www.youtube.com/@logicbyroshan" target="_blank" rel="noopener noreferrer">YouTube Channel</a></li>
+                <li><a href="https://www.instagram.com/logicbyroshan/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            </ul>
+        </div>
+
+        <div class="navigation-col navigaiton-items">
+            <div class="foot-nav-head">
+                <h3>🚀 Direct Contact</h3>
+                <img src="{% static 'images/icons/open.webp' %}" alt="" class="dropdown-toggle">
+            </div>
+            <ul>
+                <li><a href="mailto:contact@roshandamor.site">contact@roshandamor.site</a></li>
+                <li><a href="mailto:iamroshandamor@gmail.com">iamroshandamor@gmail.com</a></li>
+                <li><a href="tel:+911234567890">+91 1234567890</a></li>
+                <li><a href="https://wa.me/911234567890" target="_blank" rel="noopener noreferrer">WhatsApp Chat</a></li>
+                <li><a href="{% url 'home' %}#contact">Send Direct Message</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="copyright-bar copyright-items">
+        <p>© 2026 Roshan Damor. All Rights Reserved.</p>
+        <div class="legal-links">
+            <a href="{% url 'user_terms' %}">Terms of Service</a>
+            <span>•</span>
+            <a href="{% url 'user_terms' %}">Privacy Policy</a>
+        </div>
+    </div>
+</footer>

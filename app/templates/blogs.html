@@ -1,35 +1,54 @@
 {% extends "portfolio-base.html" %}
-{% block title %} Roshan {% endblock %}
 {% load static %}
 
+{% block title %}Technical Blogs & Engineering Insights | Roshan Damor{% endblock %}
+{% block meta_title %}Technical Blogs & Engineering Insights | Roshan Damor - Software Engineer{% endblock %}
+{% block meta_description %}Read technical articles on Python, Django, database optimization, clean architecture, and distributed systems written by Roshan Damor (UIT RGPV).{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ request.scheme }}://{{ request.get_host }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blogs",
+      "item": "{{ request.build_absolute_uri }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
+
 {% block content %}
-        <!--Blogs Is Staring From Here-->
-        <div class="all-container">
-            <div class="cards-header">
-                <h1>my blogs.</h1>
-                <p>Here are some of my blogs that I have written. I hope you will find them helpful.</p>
-                {% if query or selected_category %}
-                <div class="filter-status">
-                    <p>
-                        {% if query %}Showing results for: "<strong>{{ query }}</strong>"{% endif %}
-                        {% if selected_category %}{% if query %} | {% endif %}Category: <strong>{{ selected_category }}</strong>{% endif %}
-                        <a href="{% url 'blog_list' %}" class="clear-filters">Clear all filters</a>
-                    </p>
-                </div>
-                {% endif %}
+<div class="all-container">
+    <div class="cards-header">
+        <h1>my blogs.</h1>
+        <p>Technical articles, architectural breakdowns, and engineering best practices.</p>
+    </div>
+    
+    {% include 'components/filters.html' %}
+    
+    <div class="ver-cards">
+        {% for blog in blogs %}
+            {% include "components/blog_card.html" with blog=blog %}
+        {% empty %}
+            <div class="no-results">
+                <h3>No Blogs Found</h3>
+                <p>Try adjusting your search criteria or browse all articles.</p>
+                <a href="{% url 'blog_list' %}" class="outline-btn">View All Blogs</a>
             </div>
-            {% include 'filters.html' %}
-            <div class="ver-cards">
-                {% for blog in blogs %}
-                {% include "components/blog_card.html" with blog=blog %}
-                {% empty %}
-                <div class="no-results">
-                    <h3>No Blogs Found</h3>
-                    <p>Try adjusting your search criteria or browse all blogs.</p>
-                    <a href="{% url 'blog_list' %}"><button class="outline-btn">View All Blogs</button></a>
-                </div>
-                {% endfor %}
-            </div>
-            {% include "components/pagination.html" %}
-        </div>
+        {% endfor %}
+    </div>
+    
+    {% include "components/pagination.html" %}
+</div>
 {% endblock %}

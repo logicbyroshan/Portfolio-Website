@@ -1,585 +1,152 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
+    <!-- Essential Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Primary SEO Metadata -->
+    <title>{% block title %}Roshan Damor | Full-Stack Software Engineer & Python Developer{% endblock %}</title>
+    <meta name="title" content="{% block meta_title %}Roshan Damor | Full-Stack Software Engineer & Python Developer{% endblock %}">
+    <meta name="description" content="{% block meta_description %}Official portfolio of Roshan Damor - Full-Stack Software Engineer, Python Developer, and UIT RGPV alumnus. Explore production projects, technical blogs, and engineering architecture.{% endblock %}">
+    <meta name="keywords" content="Roshan, Roshan Damor, Roshan Software Engineer, Roshan UIT RGPV, Roshan Damor Portfolio, Roshan Damor Website, Roshan Damor Engineer, Roshan Damor Developer, Roshan Damor Full Stack, Roshan Python Django, Roshan RGPV, Software Engineer Indore, Python Developer India">
+    <meta name="author" content="Roshan Damor">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="theme-color" content="#070b14">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:site_name" content="Roshan Damor | Software Engineer Portfolio">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{% block og_title %}Roshan Damor | Full-Stack Software Engineer & Python Developer{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Explore projects, architecture case studies, and engineering blogs by Roshan Damor, Full-Stack Software Engineer and UIT RGPV graduate.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/stock/Portfolio.webp' %}{% endblock %}">
+    <meta property="og:image:alt" content="Roshan Damor - Software Engineer Portfolio Cover">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@iamroshandamor">
+    <meta name="twitter:creator" content="@iamroshandamor">
+    <meta name="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta name="twitter:title" content="{% block twitter_title %}Roshan Damor | Full-Stack Software Engineer & Python Developer{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Explore projects, architecture case studies, and engineering blogs by Roshan Damor, Full-Stack Software Engineer and UIT RGPV graduate.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/stock/Portfolio.webp' %}{% endblock %}">
+
+    <!-- Preconnect & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Quicksand:wght@300..700&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Montserrat:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{% static 'images/icons/favicon.ico' %}">
     
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.7">
-    <link rel="stylesheet" href="{% static 'css/re-used.css' %}?v=1.7">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}?v=1.7">
-    <link rel="stylesheet" href="{% static 'css/projects.css' %}?v=1.7">
-    <link rel="stylesheet" href="{% static 'css/blogs.css' %}?v=1.7">
-    <link rel="stylesheet" href="{% static 'css/experiences.css' %}?v=1.7">
-    <link rel="stylesheet" href="{% static 'css/skills.css' %}?v=1.7">
-    <link rel="stylesheet" href="{% static 'css/blogs-detail.css' %}?v=1.7">
-    <link rel="stylesheet" href="{% static 'css/project-detail.css' %}?v=1.7">
+    <!-- Core Design System & Component Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.1">
+    <link rel="stylesheet" href="{% static 'css/re-used.css' %}?v=5.1">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}?v=5.1">
+    <link rel="stylesheet" href="{% static 'css/projects.css' %}?v=5.1">
+    <link rel="stylesheet" href="{% static 'css/blogs.css' %}?v=5.1">
+    <link rel="stylesheet" href="{% static 'css/experiences.css' %}?v=5.1">
+    <link rel="stylesheet" href="{% static 'css/skills.css' %}?v=5.1">
+    <link rel="stylesheet" href="{% static 'css/blogs-detail.css' %}?v=5.1">
+    <link rel="stylesheet" href="{% static 'css/project-detail.css' %}?v=5.1">
 
-    <title>{% block title %}Roshan Portfolio |{% endblock %}</title>
+    <!-- Global JSON-LD Schema (Person & WebSite) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "{{ request.scheme }}://{{ request.get_host }}/#person",
+          "name": "Roshan Damor",
+          "alternateName": ["Roshan", "RoshanDamor", "iamroshandamor", "Roshan Damor UIT RGPV", "Roshan Damor Engineer"],
+          "givenName": "Roshan",
+          "familyName": "Damor",
+          "jobTitle": "Full-Stack Software Engineer",
+          "description": "Full-Stack Software Engineer and Python Developer specializing in Django, scalable backend systems, and modern web architectures.",
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "University Institute of Technology, RGPV",
+            "alternateName": "UIT RGPV Bhopal",
+            "sameAs": "https://www.uitrgpv.ac.in/"
+          },
+          "url": "{{ request.scheme }}://{{ request.get_host }}/",
+          "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/stock/Roshan_Logo_White.webp' %}",
+          "sameAs": [
+            "https://github.com/logicbyroshan",
+            "https://www.linkedin.com/in/iamroshandamor/",
+            "https://x.com/iamroshandamor"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Indore",
+            "addressRegion": "Madhya Pradesh",
+            "addressCountry": "IN"
+          },
+          "knowsAbout": [
+            "Software Engineering",
+            "Python Programming",
+            "Django Web Framework",
+            "Full-Stack Development",
+            "REST API Design",
+            "Database Architecture",
+            "PostgreSQL",
+            "MySQL",
+            "Redis",
+            "WebSockets",
+            "Docker",
+            "AWS Cloud Architecture",
+            "JavaScript",
+            "React.js"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "{{ request.scheme }}://{{ request.get_host }}/#website",
+          "url": "{{ request.scheme }}://{{ request.get_host }}/",
+          "name": "Roshan Damor | Software Engineer Portfolio",
+          "description": "Official website and engineering portfolio of Roshan Damor, Software Engineer & UIT RGPV alumnus.",
+          "publisher": {
+            "@id": "{{ request.scheme }}://{{ request.get_host }}/#person"
+          },
+          "inLanguage": "en-US"
+        }
+      ]
+    }
+    </script>
+    
+    {% block schema %}{% endblock %}
+    {% block extra_css %}{% endblock %}
 </head>
 
 <body>
     <div class="main-container">
-
-        <div class="navbar">
-            <div class="logo">
-                <div class="logo-img">
-                    <a href="/">
-                        <img src="{% static 'images/stock/Roshan_Logo_White.webp' %}" alt="logo">
-                        <p>Portfolio</p>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Mobile Hamburger Menu -->
-            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-            </div>
-
-            <!-- Mobile Navigation Overlay -->
-            <div class="mobile-nav-overlay" id="mobile-nav-overlay">
-                <div class="mobile-nav-content">
-                    <div class="mobile-nav-header">
-                        <div class="mobile-logo">
-                            <img src="{% static 'images/stock/Roshan Logo White.webp' %}" alt="logo">
-                            <p>Portfolio</p>
-                        </div>
-                        <button class="close-mobile-menu" id="close-mobile-menu">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <nav class="mobile-nav-links">
-                        <a href="/" class="mobile-nav-link">
-                            <span class="nav-icon">🏠</span>
-                            Home
-                        </a>
-                        <a href="/projects" class="mobile-nav-link">
-                            <span class="nav-icon">💼</span>
-                            Projects
-                        </a>
-                        <a href="/skills" class="mobile-nav-link">
-                            <span class="nav-icon">⚡</span>
-                            Skills
-                        </a>
-                        <a href="/blogs" class="mobile-nav-link">
-                            <span class="nav-icon">📝</span>
-                            Blogs
-                        </a>
-                        <a href="{% url 'home' %}#contact" class="mobile-nav-link">
-                            <span class="nav-icon">📧</span>
-                            Contact
-                        </a>
-                    </nav>
-                    <div class="mobile-nav-footer">
-                        <button class="mobile-resume-btn" onclick="showPopup()">
-                            Download Resume
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <!-- Reusable Navigation Bar Component -->
+        {% include "components/navbar.html" %}
         
-            <div class="nav-items">
-                <a href="/">Home</a>
-                <a href="/projects">Projects</a>
-                <a href="/skills">Skills</a>
-                <a href="/blogs">Blogs</a>
-                <a href="{% url 'home' %}#contact">Contact</a>
-            </div>
+        <!-- Main Page View Content -->
+        <main id="main-content">
+            {% block content %}{% endblock %}
+        </main>
 
-                        <!-- Resume Download Button -->
-            <div class="nav-btns">
-                <button class="outline-btn" onclick="showPopup()">Download Resume</button>
-            </div>
-        </div>
-        
-        {% block content %}
-        {% endblock %}
-
-
-
-        <div class="footer">
-            <h1 id="footer-typing-text"></h1>
-            <script>
-                (function() {
-                    const text = "Thank you for visiting";
-                    const el = document.getElementById("footer-typing-text");
-                    let i = 0;
-                    function typeWriter() {
-                        if (i < text.length) {
-                            el.innerHTML += text.charAt(i);
-                            i++;
-                            setTimeout(typeWriter, 120);
-                        } else {
-                            setTimeout(function() {
-                                el.innerHTML = "";
-                                i = 0;
-                                typeWriter();
-                            }, 3000);
-                        }
-                    }
-                    setTimeout(typeWriter, 500);
-                })();
-            </script>
-            <div class="footer-nav">
-                <div class="navigaiton-items">
-                    <div class="foot-nav-head">
-                        <h3>🔗Links</h3>
-                        <img src="{% static 'images/icons/open.webp' %}" alt="" class="dropdown-toggle">
-                    </div>
-                    
-                    <ul>
-                        <li><a href="https://www.startupindia.gov.in/">Startup</a></li>
-                        <li><a href="https://hobbyindia.store/">Hobbies</a></li>
-                        <li><a href="https://www.kickresume.com/en/">Personal</a></li>
-                        <li><a href="https://www.freelancer.in/">Freelance</a></li>
-                        <li><a href="https://www.trueachievements.com/">Achievement</a></li>
-                    </ul>
-                </div>
-
-                <div class="navigaiton-items">
-                    <div class="foot-nav-head">
-                        <h3>📌Navigate</h3>
-                        <img src="{% static 'images/icons/open.webp' %}" alt="" class="dropdown-toggle">
-                    </div>
-                    
-                    <ul>
-                        <li><a href="/skills">Skills</a></li>
-                        <li><a href="/blogs">Blogs</a></li>
-                        <li><a href="/projects">Projects</a></li>
-                        <li><a href="/experience">Experience</a></li>
-                        <li><a href="{% url 'home' %}#contact">Contact Me</a></li>
-                    </ul>
-                </div>
-
-                <div class="navigaiton-items">
-                    <div class="foot-nav-head">
-                        <h3>✔️Follow</h3>
-                        <img src="{% static 'images/icons/open.webp' %}" alt="" class="dropdown-toggle">
-                    </div>
-                    
-                    <ul>
-                        <li><a href="https://x.com/iamroshandamor">Twitter</a></li>
-                        <li><a href="https://github.com/logicbyroshan">GitHub</a></li>
-                        <li><a href="https://www.youtube.com/@logicbyroshan">YouTube</a></li>
-                        <li><a href="https://www.linkedin.com/in/iamroshandamor/">LinkedIn</a></li>
-                        <li><a href="https://www.instagram.com/logicbyroshan/">Instagram</a></li>
-                    </ul>
-                </div>
-
-                <div class="navigaiton-items">
-                    <div class="foot-nav-head">
-                        <h3>🚀Contact</h3>
-                        <img src="{% static 'images/icons/open.webp' %}" alt="" class="dropdown-toggle">
-                    </div>
-                    
-                    <ul>
-                        <!-- Opens default email app with your email -->
-                        <li><a href="mailto:contact@roshandamor.site">Mail</a></li>
-
-                        <!-- Opens Google Maps with your location -->
-                        <li><a href="https://www.google.com/maps/search/?api=1&query=Patanjali+Parisar,+Abbas+Nagar,+Gandhinagar,+Bhopal,+MP" target="_blank">Find Me</a></li>
-
-                        <!-- Opens phone dialer with your number -->
-                        <li><a href="tel:+91XXXXXXXXXX">Callback</a></li>
-
-                        <!-- Opens WhatsApp chat with your number -->
-                        <li><a href="https://wa.me/91XXXXXXXXXX" target="_blank">WhatsApp</a></li>
-
-                        <!-- Opens your community forum -->
-                        <li><a href="https://yourcommunityforumlink.com" target="_blank">Community</a></li>
-                    </ul>
-                </div>
-                
-            </div>
-
-            <div class="copyright-items">
-                <p>© 2025 Roshan Damor. All Rights Reserved.</p>
-                <a href="/user-terms">User Terms and Conditions | Privacy Policy</a>
-            </div>
-        </div>
+        <!-- Reusable Modern Footer Component -->
+        {% include "components/footer.html" %}
     </div>
 
-    <!-- Resume Popup - Outside main container for proper layering -->
-    <div id="popup" class="popup-overlay">
-        <div class="popup-content">
-            <div class="popup-header">
-                <h3>Resume Preview</h3>
-                <span class="close-btn" onclick="closePopup()" title="Close">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
-            </div>
-            
-            <div class="popup-body">
-                {% if resume and resume.file %}
-                    <div class="iframe-container">
-                        <object data="{{ resume.file.url }}" type="application/pdf" width="100%" height="100%">
-                            <embed src="{{ resume.file.url }}" type="application/pdf" width="100%" height="100%" />
-                            <p>Your browser doesn't have a PDF plugin. <a href="{{ resume.file.url }}">Click here to download the PDF</a></p>
-                        </object>
-                    </div>
-                    
-                    <div class="popup-actions">
-                        <a href="{{ resume.file.url }}" download class="download-link">
-                            <button class="download-btn">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                Download Resume
-                            </button>
-                        </a>
-                        <button class="cancel-btn" onclick="closePopup()">Cancel</button>
-                    </div>
-                {% else %}
-                    <div class="no-resume">
-                        <p>No resume available at the moment.</p>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+    <!-- Reusable Resume PDF Preview Modal -->
+    {% include "components/resume_modal.html" %}
 
-    <script src="{% static 'js/index.js' %}"></script>
-    <script src="{% static 'js/contact.js' %}"></script>
-    <script>
-        function showPopup() {
-            console.log("Opening popup...");
-            
-            const popup = document.getElementById("popup");
-            const body = document.body;
-            
-            if (!popup) {
-                console.error("Popup element not found!");
-                return;
-            }
-            
-            // Simple display toggle
-            popup.style.display = "block";
-            body.classList.add("popup-open");
-            
-            console.log("Popup opened successfully");
-        }
-
-        function closePopup() {
-            console.log("Closing popup...");
-            
-            const popup = document.getElementById("popup");
-            const body = document.body;
-            
-            if (popup) {
-                popup.style.display = "none";
-                body.classList.remove("popup-open");
-            }
-            
-            console.log("Popup closed successfully");
-        }
-
-        // Skill Popup Functions (Global)
-        window.showSkillPopup = function(id) {
-            console.log("Opening skill popup:", id);
-            
-            const popup = document.getElementById(id);
-            const body = document.body;
-            
-            if (!popup) {
-                console.error("Skill popup element not found:", id);
-                console.log("Available elements with IDs:", Array.from(document.querySelectorAll('[id]')).map(el => el.id));
-                return;
-            }
-            
-            popup.style.display = "flex";
-            body.classList.add("skill-popup-open");
-            
-            console.log("Skill popup opened successfully");
-        }
-
-        window.closeSkillPopup = function(id) {
-            console.log("Closing skill popup:", id);
-            
-            const popup = document.getElementById(id);
-            const body = document.body;
-            
-            if (popup) {
-                popup.style.display = "none";
-                body.classList.remove("skill-popup-open");
-            }
-            
-            console.log("Skill popup closed successfully");
-        }
-
-        // Test popup existence and setup event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            const popup = document.getElementById("popup");
-            console.log("Popup element found:", popup);
-            
-            if (popup) {
-                popup.addEventListener('click', function(e) {
-                    if (e.target === popup) {
-                        closePopup();
-                    }
-                });
-            }
-            
-            // Handle skill popup events
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('skill-popup-overlay')) {
-                    const popupId = e.target.id;
-                    closeSkillPopup(popupId);
-                }
-            });
-            
-            // Close popup with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closePopup();
-                    // Close skill popups
-                    const openSkillPopups = document.querySelectorAll('.skill-popup-overlay[style*="block"]');
-                    openSkillPopups.forEach(popup => {
-                        closeSkillPopup(popup.id);
-                    });
-                }
-            });
-        });
-    </script>
-    <style>
-        /* No blur effects - just prevent scrolling */
-        body.popup-open {
-            overflow: hidden;
-        }
-
-        /* Popup Overlay - Simple and reliable centering */
-        .popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 999999;
-            overflow: auto;
-        }
-
-
-
-        /* Popup Content - Centered using margin method */
-        .popup-content {
-            background: #1a1a1a;
-            border: 3px solid #00ff88;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 800px;
-            height: 85vh;
-            max-height: 700px;
-            margin: 5vh auto;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 50px rgba(0, 255, 136, 0.3);
-            position: relative;
-        }
-
-        .popup-overlay.show .popup-content {
-            transform: scale(1);
-        }
-
-        /* Popup Header */
-        .popup-header {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            padding: 20px !important;
-            background: #00ff88 !important; /* Bright green for visibility */
-            color: #000 !important;
-            flex-shrink: 0 !important;
-        }
-
-        .popup-header h3 {
-            margin: 0 !important;
-            color: #000000 !important;
-            font-size: 24px !important;
-            font-weight: bold !important;
-        }
-
-        /* Close Button */
-        .close-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: #ff4757;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            padding: 0;
-            flex-shrink: 0;
-        }
-
-        .close-btn:hover {
-            background: #ff3742;
-            transform: rotate(90deg) scale(1.1);
-        }
-
-        .close-btn svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Popup Body */
-        .popup-body {
-            flex: 1 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            padding: 20px !important;
-            background: #ffffff !important;
-            color: #000000 !important;
-        }
-
-        /* Iframe Container */
-        .iframe-container {
-            flex: 1;
-            padding: 20px;
-            background: #f8f9fa;
-        }
-
-        .iframe-container iframe,
-        .iframe-container object,
-        .iframe-container embed {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            display: block;
-        }
-
-        /* Popup Actions */
-        .popup-actions {
-            display: flex;
-            gap: 15px;
-            padding: 20px 25px;
-            border-top: 2px solid #333;
-            background: #2a2a2a;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .download-link {
-            text-decoration: none;
-        }
-
-        .download-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-family: var(--secondary-font);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .download-btn:active {
-            transform: translateY(0);
-        }
-
-        .cancel-btn {
-            padding: 12px 24px;
-            background: transparent;
-            color: #ccc;
-            border: 2px solid #555;
-            border-radius: 12px;
-            font-family: 'Roboto', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .cancel-btn:hover {
-            background: #555;
-            color: white;
-        }
-
-        /* No Resume State */
-        .no-resume {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
-
-        .no-resume p {
-            color: #ccc;
-            font-family: 'Roboto', sans-serif;
-            font-size: 18px;
-            text-align: center;
-            margin: 0;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .popup-content {
-                width: 95%;
-                height: 95vh;
-                margin: 20px;
-            }
-
-            .popup-header {
-                padding: 15px 20px;
-            }
-
-            .popup-header h3 {
-                font-size: 20px;
-            }
-
-            .popup-actions {
-                flex-direction: column;
-                padding: 15px 20px;
-            }
-
-            .download-btn,
-            .cancel-btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .popup-content {
-                width: 98%;
-                height: 98vh;
-                margin: 10px;
-                border-radius: 15px;
-            }
-
-            .iframe-container {
-                padding: 15px;
-            }
-        }
-    </style>
+    <!-- Global JavaScript Bundle -->
+    <script src="{% static 'js/index.js' %}?v=5.0"></script>
+    <script src="{% static 'js/contact.js' %}?v=5.0"></script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

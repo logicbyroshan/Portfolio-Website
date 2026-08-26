@@ -1,36 +1,42 @@
-<!-- Modern Skill Popups -->
+{% load portfolio_tags %}
+{% load static %}
+
+<!-- Reusable Skill Popups Component -->
 {% for skill in skills %}
     {% if skill.certificate %}
-        <!-- Certificate Popup -->
-        <div id="certificate-modal-{{ skill.id }}" class="skill-popup-overlay">
+        <!-- Certificate Preview Modal -->
+        <div id="certificate-modal-{{ skill.id }}" class="skill-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="cert-title-{{ skill.id }}">
             <div class="skill-popup-content">
                 <div class="skill-popup-header">
-                    <h3>{{ skill.name }} - Certificate</h3>
-                    <span class="skill-close-btn" onclick="closeSkillPopup('certificate-modal-{{ skill.id }}')" title="Close">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <h3 id="cert-title-{{ skill.id }}">{{ skill.name }} - Certificate</h3>
+                    <button type="button" class="skill-close-btn" onclick="closeSkillPopup('certificate-modal-{{ skill.id }}')" title="Close">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </span>
+                    </button>
                 </div>
                 
                 <div class="skill-popup-body">
                     <div class="skill-iframe-container">
                         <object data="{{ skill.certificate.url }}" type="application/pdf" width="100%" height="100%">
                             <embed src="{{ skill.certificate.url }}" type="application/pdf" width="100%" height="100%" />
-                            <p>Your browser doesn't have a PDF plugin. <a href="{{ skill.certificate.url }}">Click here to download the Certificate</a></p>
+                            <p class="no-pdf-fallback">
+                                Your browser does not support inline PDF preview. 
+                                <a href="{{ skill.certificate.url }}" target="_blank" rel="noopener noreferrer">Click here to download the Certificate</a>
+                            </p>
                         </object>
                     </div>
                     
                     <div class="skill-popup-actions">
                         <a href="{{ skill.certificate.url }}" download class="download-link">
-                            <button class="skill-download-btn">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <button type="button" class="skill-download-btn">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                                 Download Certificate
                             </button>
                         </a>
-                        <button class="skill-cancel-btn" onclick="closeSkillPopup('certificate-modal-{{ skill.id }}')">Cancel</button>
+                        <button type="button" class="skill-cancel-btn" onclick="closeSkillPopup('certificate-modal-{{ skill.id }}')">Close</button>
                     </div>
                 </div>
             </div>
@@ -38,35 +44,30 @@
     {% endif %}
 
     {% if skill.resource_links %}
-        <!-- Resource Popup -->
-        <div id="resource-modal-{{ skill.id }}" class="skill-popup-overlay">
+        <!-- Learning Resources Modal -->
+        <div id="resource-modal-{{ skill.id }}" class="skill-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="resource-title-{{ skill.id }}">
             <div class="skill-popup-content">
                 <div class="skill-popup-header">
-                    <h3>{{ skill.name }} - Resources</h3>
-                    <span class="skill-close-btn" onclick="closeSkillPopup('resource-modal-{{ skill.id }}')" title="Close">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <h3 id="resource-title-{{ skill.id }}">{{ skill.name }} - Learning Resources</h3>
+                    <button type="button" class="skill-close-btn" onclick="closeSkillPopup('resource-modal-{{ skill.id }}')" title="Close">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </span>
+                    </button>
                 </div>
                 
                 <div class="skill-popup-body">
                     <div class="resources-container">
                         {% for resource in skill.get_resource_list %}
                             <div class="resource-item">
-                                {% if "youtube.com/watch?v=" in resource %}
+                                {% if resource|is_video_link %}
                                     <iframe width="100%" height="315" 
-                                            src="{{ resource|cut:'watch?v='|add:'embed/' }}" 
-                                            frameborder="0" allowfullscreen>
-                                    </iframe>
-                                {% elif "youtu.be/" in resource %}
-                                    <iframe width="100%" height="315" 
-                                            src="https://www.youtube.com/embed/{{ resource|slice:'17:' }}" 
-                                            frameborder="0" allowfullscreen>
+                                            src="{{ resource|youtube_embed }}" 
+                                            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                                     </iframe>
                                 {% else %}
-                                    <a href="{{ resource }}" target="_blank" class="resource-link">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <a href="{{ resource }}" target="_blank" rel="noopener noreferrer" class="resource-link">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
                                         {{ resource }}
@@ -77,305 +78,10 @@
                     </div>
                     
                     <div class="skill-popup-actions">
-                        <button class="skill-cancel-btn" onclick="closeSkillPopup('resource-modal-{{ skill.id }}')">Close</button>
+                        <button type="button" class="skill-cancel-btn" onclick="closeSkillPopup('resource-modal-{{ skill.id }}')">Close</button>
                     </div>
                 </div>
             </div>
         </div>
     {% endif %}
 {% endfor %}
-
-<!-- CSS for Modern Skill Popups -->
-<style>
-    /* No blur effects - just prevent scrolling */
-    body.skill-popup-open {
-        overflow: hidden;
-    }
-
-    /* Skill Popup Overlay - Simple and reliable centering */
-    .skill-popup-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        z-index: 999999;
-        overflow: auto;
-    }
-
-    /* Skill Popup Content - Centered using margin method */
-    .skill-popup-content {
-        background: #1a1a1a;
-        border: 3px solid #667eea;
-        border-radius: 15px;
-        width: 90%;
-        max-width: 900px;
-        height: 85vh;
-        max-height: 700px;
-        margin: 5vh auto;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 0 50px rgba(102, 126, 234, 0.3);
-        position: relative;
-    }
-
-    /* Skill Popup Header */
-    .skill-popup-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-        background: #667eea;
-        color: #fff;
-        flex-shrink: 0;
-        border-radius: 12px 12px 0 0;
-    }
-
-    .skill-popup-header h3 {
-        margin: 0;
-        color: #ffffff;
-        font-size: 22px;
-        font-weight: bold;
-    }
-
-    /* Skill Close Button */
-    .skill-close-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        background: #ff4757;
-        color: white;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border: none;
-        padding: 0;
-        flex-shrink: 0;
-    }
-
-    .skill-close-btn:hover {
-        background: #ff3742;
-        transform: rotate(90deg) scale(1.1);
-    }
-
-    .skill-close-btn svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    /* Skill Popup Body */
-    .skill-popup-body {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        padding: 0;
-        background: #ffffff;
-        color: #000000;
-        border-radius: 0 0 12px 12px;
-    }
-
-    /* Iframe Container for Certificates */
-    .skill-iframe-container {
-        flex: 1;
-        padding: 20px;
-        background: #f8f9fa;
-    }
-
-    .skill-iframe-container iframe,
-    .skill-iframe-container object,
-    .skill-iframe-container embed {
-        width: 100%;
-        height: 100%;
-        border: none;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        display: block;
-    }
-
-    /* Resources Container */
-    .resources-container {
-        flex: 1;
-        padding: 20px;
-        overflow-y: auto;
-        max-height: 500px;
-    }
-
-    .resource-item {
-        margin-bottom: 20px;
-        padding: 15px;
-        background: #f8f9fa;
-        border-radius: 10px;
-        border: 2px solid #e9ecef;
-    }
-
-    .resource-item iframe {
-        width: 100%;
-        border-radius: 8px;
-    }
-
-    .resource-link {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 15px;
-        background: #667eea;
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        word-break: break-all;
-    }
-
-    .resource-link:hover {
-        background: #5a6fd8;
-        transform: translateY(-2px);
-    }
-
-    /* Skill Popup Actions */
-    .skill-popup-actions {
-        display: flex;
-        gap: 15px;
-        padding: 20px;
-        border-top: 2px solid #e9ecef;
-        background: #f8f9fa;
-        justify-content: center;
-        flex-shrink: 0;
-        border-radius: 0 0 12px 12px;
-    }
-
-    .download-link {
-        text-decoration: none;
-    }
-
-    .skill-download-btn {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 24px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        font-family: 'Roboto', sans-serif;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    }
-
-    .skill-download-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-    }
-
-    .skill-cancel-btn {
-        padding: 12px 24px;
-        background: transparent;
-        color: #6c757d;
-        border: 2px solid #dee2e6;
-        border-radius: 12px;
-        font-family: 'Roboto', sans-serif;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .skill-cancel-btn:hover {
-        background: #6c757d;
-        color: white;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .skill-popup-content {
-            width: 95%;
-            height: 95vh;
-            margin: 2.5vh auto;
-        }
-
-        .skill-popup-header {
-            padding: 15px 20px;
-        }
-
-        .skill-popup-header h3 {
-            font-size: 18px;
-        }
-
-        .skill-popup-actions {
-            flex-direction: column;
-            padding: 15px 20px;
-        }
-
-        .skill-download-btn,
-        .skill-cancel-btn {
-            width: 100%;
-            justify-content: center;
-        }
-
-        .resources-container {
-            max-height: 400px;
-        }
-    }
-</style>
-
-<!-- JavaScript for Modern Skill Popups -->
-<script>
-    function showSkillPopup(id) {
-        console.log("Opening skill popup:", id);
-        
-        const popup = document.getElementById(id);
-        const body = document.body;
-        
-        if (!popup) {
-            console.error("Skill popup element not found:", id);
-            return;
-        }
-        
-        popup.style.display = "block";
-        body.classList.add("skill-popup-open");
-        
-        console.log("Skill popup opened successfully");
-    }
-
-    function closeSkillPopup(id) {
-        console.log("Closing skill popup:", id);
-        
-        const popup = document.getElementById(id);
-        const body = document.body;
-        
-        if (popup) {
-            popup.style.display = "none";
-            body.classList.remove("skill-popup-open");
-        }
-        
-        console.log("Skill popup closed successfully");
-    }
-
-    // Close popup when clicking outside or pressing Escape
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handle click outside to close
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('skill-popup-overlay')) {
-                const popupId = e.target.id;
-                closeSkillPopup(popupId);
-            }
-        });
-        
-        // Handle Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const openPopups = document.querySelectorAll('.skill-popup-overlay[style*="block"]');
-                openPopups.forEach(popup => {
-                    closeSkillPopup(popup.id);
-                });
-            }
-        });
-    });
-</script>

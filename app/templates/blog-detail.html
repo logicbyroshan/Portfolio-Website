@@ -1,70 +1,163 @@
 {% extends "portfolio-base.html" %}
-{% block title %} Roshan {% endblock %}
 {% load static %}
+
+{% block title %}{{ blog.title }} | Roshan Damor Tech Blog{% endblock %}
+{% block meta_title %}{{ blog.title }} | Roshan Damor Software Engineering Insights{% endblock %}
+{% block meta_description %}{{ blog.content|striptags|truncatewords:28 }} Written by Roshan Damor, Software Engineer & UIT RGPV graduate.{% endblock %}
+
+{% block og_title %}{{ blog.title }} | Roshan Damor{% endblock %}
+{% block og_description %}{{ blog.content|striptags|truncatewords:28 }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% if blog.image %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ blog.image.url }}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{{ blog.image.url }}{% endblock %}
+{% endif %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "{{ blog.title|escapejs }}",
+      "description": "{{ blog.content|striptags|truncatewords:30|escapejs }}",
+      "author": {
+        "@type": "Person",
+        "name": "Roshan Damor",
+        "url": "{{ request.scheme }}://{{ request.get_host }}/"
+      },
+      "datePublished": "{{ blog.publication_date|date:'c' }}",
+      "dateModified": "{{ blog.updated_at|date:'c' }}",
+      {% if blog.image %}
+      "image": "{{ request.scheme }}://{{ request.get_host }}{{ blog.image.url }}",
+      {% endif %}
+      "publisher": {
+        "@type": "Person",
+        "name": "Roshan Damor"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ request.build_absolute_uri }}"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "{{ request.scheme }}://{{ request.get_host }}/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blogs",
+          "item": "{{ request.scheme }}://{{ request.get_host }}/blogs/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ blog.title|escapejs }}",
+          "item": "{{ request.build_absolute_uri }}"
+        }
+      ]
+    }
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <div class="blogs-container">
-    <div class="blog-detail-card">
-        <div class="blog-header">
-            <p class="blog-meg">{{ blog.get_category_list.0 }}</p>  
-            <p class="blog-meg">Published : <span>{{ blog.publication_date|date:"M d, Y" }}</span></p>
-            <p class="blog-meg">Read Time : <span>{{ blog.time_to_read }} min</span></p>
+    <!-- Main Blog Article -->
+    <article class="blog-detail-card">
+        <!-- Breadcrumb / Back Row -->
+        <div class="detail-nav-row">
+            <a href="{% url 'blog_list' %}" class="back-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Back to Blogs</span>
+            </a>
+
+            <div class="blog-meta-pills">
+                <span class="meta-pill date-pill">📅 {{ blog.publication_date|date:"M d, Y" }}</span>
+                <span class="meta-pill read-time-pill">⏱️ {{ blog.time_to_read }} min read</span>
+            </div>
         </div>
 
-        <h1 class="blog-title">{{ blog.title }}</h1>
+        <h1 class="blog-main-title">{{ blog.title }}</h1>
 
-        <!-- Fixed: Remove raw HTML in preview -->
-        <p class="blog-description">{{ blog.content|striptags|truncatewords:30 }}</p>
-
-        <div class="blog-tags">
+        <!-- Tags / Categories -->
+        <div class="blog-tags-row">
             {% for category in blog.get_category_list %}
-                <span class="blog-tag">{{ category }}</span>
+                <span class="blog-category-badge">{{ category }}</span>
             {% endfor %}
         </div>
 
-        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="blog-image">
+        <!-- Featured Cover Image -->
+        {% if blog.image %}
+            <div class="blog-cover-wrapper">
+                <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="blog-detail-cover">
+            </div>
+        {% endif %}
 
-        <!-- ✅ Correct way to render TinyMCE content -->
-        <div class="blog-content">
+        <!-- Article Rich Content -->
+        <div class="blog-article-body">
             {{ blog.content|safe }}
         </div>
-    </div>
-        <!-- Blog Sidebar -->
-    <div class="blog-side-card">
-        <!-- Latest Blogs -->
-        <div class="blog-side-card1">
-            <h1 class="blog-side-title">Latest Blogs</h1>
-            <div class="latest-blogs">
+
+        <!-- Article Footer / Author Card -->
+        <div class="blog-author-footer">
+            <div class="author-avatar">
+                <img src="{% static 'images/stock/Roshan_Logo_White.webp' %}" alt="Roshan Damor">
+            </div>
+            <div class="author-info">
+                <h4>Written by Roshan Damor</h4>
+                <p>Full-Stack Software Engineer building scalable backend systems, Django services, and modern interactive web apps.</p>
+            </div>
+        </div>
+    </article>
+
+    <!-- Sidebar: Latest & Similar Articles -->
+    <aside class="blog-sidebar">
+        <!-- Latest Blogs Widget -->
+        <div class="sidebar-widget">
+            <h3 class="sidebar-widget-title">Latest Articles</h3>
+            <div class="sidebar-items-list">
                 {% for latest_blog in latest_blogs %}
-                    <div class="latest-blog">
-                        <h2>{{ forloop.counter|default:"0" }}</h2>
-                        <h1 class="blog-title">
-                            <a href="{% url 'blog_detail' slug=latest_blog.slug %}">{{ latest_blog.title }}</a>
-                        </h1>
-                    </div>
+                    <a href="{% url 'blog_detail' slug=latest_blog.slug %}" class="sidebar-item-card">
+                        <span class="rank-number">0{{ forloop.counter }}</span>
+                        <div class="sidebar-item-meta">
+                            <h4>{{ latest_blog.title }}</h4>
+                            <span class="meta-sub">{{ latest_blog.publication_date|date:"M d, Y" }} • {{ latest_blog.time_to_read }} min read</span>
+                        </div>
+                    </a>
                 {% empty %}
-                    <p>No latest blogs available.</p>
+                    <p class="sidebar-empty">No other articles available.</p>
                 {% endfor %}
             </div>
         </div>
 
-        <!-- Similar Blogs -->
-        <div class="blog-side-card1">
-            <h1 class="blog-side-title">Similar Blogs</h1>
-            <div class="latest-blogs">
-                {% for similar_blog in similar_blogs %}
-                    <div class="latest-blog">
-                        <h2>{{ forloop.counter|default:"0" }}</h2>
-                        <h1 class="blog-title">
-                            <a href="{% url 'blog_detail' slug=similar_blog.slug %}">{{ similar_blog.title }}</a>
-                        </h1>
-                    </div>
-                {% empty %}
-                    <p>No similar blogs available.</p>
-                {% endfor %}
+        <!-- Similar Blogs Widget -->
+        {% if similar_blogs %}
+            <div class="sidebar-widget">
+                <h3 class="sidebar-widget-title">Related Topics</h3>
+                <div class="sidebar-items-list">
+                    {% for similar_blog in similar_blogs %}
+                        <a href="{% url 'blog_detail' slug=similar_blog.slug %}" class="sidebar-item-card">
+                            <span class="rank-number">#{{ forloop.counter }}</span>
+                            <div class="sidebar-item-meta">
+                                <h4>{{ similar_blog.title }}</h4>
+                                <span class="meta-sub">{{ similar_blog.get_category_list.0 }}</span>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    </div>
-
+        {% endif %}
+    </aside>
 </div>
 {% endblock %}

@@ -1,0 +1,61 @@
+{% load static %}
+<!-- Sticky Glassmorphic Navigation Bar -->
+<header class="navbar">
+    <div class="logo">
+        <div class="logo-img">
+            <a href="{% url 'home' %}" title="Roshan Damor Portfolio">
+                <img src="{% static 'images/stock/Roshan_Logo_White.webp' %}" alt="Roshan Logo">
+                <span>Portfolio</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Desktop Navigation Links (Skills, Experience, Projects, Blogs) -->
+    <nav class="nav-items" aria-label="Main Navigation">
+        <a href="{% url 'skill_list' %}" class="{% if 'skill' in request.resolver_match.url_name %}active{% endif %}">Skills</a>
+        <a href="{% url 'experience_list' %}" class="{% if 'experience' in request.resolver_match.url_name %}active{% endif %}">Experience</a>
+        <a href="{% url 'project_list' %}" class="{% if 'project' in request.resolver_match.url_name %}active{% endif %}">Projects</a>
+        <a href="{% url 'blog_list' %}" class="{% if 'blog' in request.resolver_match.url_name %}active{% endif %}">Blogs</a>
+    </nav>
+
+    <!-- Desktop Resume CTA -->
+    <div class="nav-btns">
+        <button class="outline-btn" onclick="openPopup()" title="Preview and download resume">
+            Download Resume
+        </button>
+    </div>
+
+    <!-- Mobile Hamburger Toggle -->
+    <div class="nav-mob-btn" id="mobile-toggle" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">
+        <img src="{% static 'images/icons/open.webp' %}" alt="Menu" id="mobile-toggle-icon">
+    </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-overlay" id="mobile-overlay" onclick="toggleMobileNav()"></div>
+<aside class="mobile-nav-panel" id="mobile-panel">
+    <div class="mobile-nav-header">
+        <div class="logo-img">
+            <a href="{% url 'home' %}" onclick="toggleMobileNav()">
+                <img src="{% static 'images/stock/Roshan_Logo_White.webp' %}" alt="Roshan Logo">
+                <span>Portfolio</span>
+            </a>
+        </div>
+        <div class="mobile-nav-close" onclick="toggleMobileNav()" aria-label="Close menu">&times;</div>
+    </div>
+
+    <nav class="mobile-nav-links" aria-label="Mobile Navigation">
+        <a href="{% url 'home' %}" onclick="toggleMobileNav()">🏠 Home</a>
+        <a href="{% url 'skill_list' %}" onclick="toggleMobileNav()">⚡ Skills</a>
+        <a href="{% url 'experience_list' %}" onclick="toggleMobileNav()">🏢 Experience</a>
+        <a href="{% url 'project_list' %}" onclick="toggleMobileNav()">💼 Projects</a>
+        <a href="{% url 'blog_list' %}" onclick="toggleMobileNav()">📝 Blogs</a>
+        <a href="{% url 'faq_list' %}" onclick="toggleMobileNav()">❓ FAQs</a>
+    </nav>
+
+    <div class="mobile-nav-resume">
+        <button class="primary-btn" onclick="toggleMobileNav(); openPopup();">
+            📄 Download Resume
+        </button>
+    </div>
+</aside>

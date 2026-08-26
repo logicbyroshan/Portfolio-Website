@@ -1,33 +1,54 @@
 {% extends "portfolio-base.html" %}
-{% block title %} Roshan {% endblock %}
 {% load static %}
+
+{% block title %}Work Experience & Career Journey | Roshan Damor - Software Engineer{% endblock %}
+{% block meta_title %}Work Experience & Career Journey | Roshan Damor - Software Engineer{% endblock %}
+{% block meta_description %}Professional software engineering work history, career milestones, and enterprise impact delivered by Roshan Damor, UIT RGPV alumnus.{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ request.scheme }}://{{ request.get_host }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Experience",
+      "item": "{{ request.build_absolute_uri }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <div class="all-container">
     <div class="cards-header">
         <h1>my experiences.</h1>
-        <p>Here are my professional experiences and work history.</p>
-        {% if query or selected_category %}
-        <div class="filter-status">
-            <p>
-                {% if query %}Showing results for: "<strong>{{ query }}</strong>"{% endif %}
-                {% if selected_category %}{% if query %} | {% endif %}Category: <strong>{{ selected_category }}</strong>{% endif %}
-                <a href="{% url 'experience_list' %}" class="clear-filters">Clear all filters</a>
-            </p>
-        </div>
-        {% endif %}
+        <p>Professional work history, software engineering roles, and architectural impact.</p>
     </div>
-    {% include 'filters.html' %}
+    
+    {% include 'components/filters.html' %}
+    
     <div class="hor-cards">
         {% for experience in experiences %}
             {% include 'components/experience_card.html' with experience=experience %}
         {% empty %}
-        <div class="no-results">
-            <h3>No Experience Found</h3>
-            <p>Try adjusting your search criteria.</p>
-        </div>
+            <div class="no-results">
+                <h3>No Experience Found</h3>
+                <p>Try adjusting your search criteria or browse all roles.</p>
+                <a href="{% url 'experience_list' %}" class="outline-btn">View All Roles</a>
+            </div>
         {% endfor %}
     </div>
+    
     {% include "components/pagination.html" %}
 </div>
 {% endblock %}

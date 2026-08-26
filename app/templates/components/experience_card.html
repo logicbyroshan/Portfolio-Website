@@ -1,19 +1,26 @@
-<div class="exp-card">
-    <div class="top-content">
-        <div class="exp-image">
-            <img src="{{ experience.image.url }}" alt="{{ experience.title }}">
+{% load static %}
+<div class="experience-card exp-card">
+    <div class="experience-header top-content">
+        <div class="experience-company-wrap">
+            <div class="experience-logo-box exp-image">
+                <img src="{{ experience.image.url }}" alt="{{ experience.title }}">
+            </div>
+            <div class="experience-title-group">
+                <h2 class="card-title">{{ experience.title }}</h2>
+                <span class="experience-company-name">{{ experience.categories }}</span>
+            </div>
         </div>
-        <h2 class="card-title">{{ experience.title }}</h2>
-        <div class="date">
-            <span class="badge">{{ experience.start_date|date:"M-Y" }}</span>
+        <div class="experience-dates date">
+            <span class="badge">{{ experience.start_date|date:"M Y" }}</span>
+            <span>–</span>
             {% if experience.end_date %}
-                <span class="badge">{{ experience.end_date|date:"M-Y" }}</span>
+                <span class="badge">{{ experience.end_date|date:"M Y" }}</span>
             {% else %}
-                <span class="badge">Present</span>
+                <span class="badge" style="color: #34d399; font-weight: 600;">Present</span>
             {% endif %}
         </div>
     </div>
-    <div class="exp-content">
-        <p class="card-desc">{{ experience.description }}</p>
+    <div class="experience-content exp-content">
+        <p class="card-desc experience-desc">{{ experience.description }}</p>
     </div>
 </div>

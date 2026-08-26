@@ -1,37 +1,44 @@
 {% load static %}
-<div class="project-card">
-    <div class="project-image">
+<div class="project-card projects-card">
+    <div class="project-image projects-image">
         {% if project.images.all %}
             <img src="{{ project.images.first.image.url }}" alt="{{ project.title }}">
         {% else %}
-            <img src="{% static 'images/others/Project Image1.webp' %}" alt="Default Image"> <!-- Fallback -->
+            <img src="{% static 'images/others/Project Image 3.webp' %}" alt="Default Image">
         {% endif %}                       
     </div>
-    <div class="project-content">
+    <div class="project-content projects-content">
         <h2 class="card-title">{{ project.title }}</h2>
         <p class="card-desc">{{ project.description }}</p>
 
-        <div class="skills">
-            <p>Skills Used:</p>
+        <div class="project-skills-list skills">
+            <span class="skills-label">Skills Used:</span>
             {% for skill in project.skills.all %}
                 <span class="badge-outline">{{ skill.name }}</span>
             {% endfor %}
         </div>
 
-        <div class="project-links">
-            <a href="{% url 'project_detail' slug=project.slug %}">
-                <button class="outline-btn">VIEW DETAILS</button>
+        <div class="project-card-footer project-links">
+            <a href="{% url 'project_detail' slug=project.slug %}" class="project-detail-btn outline-btn">
+                <span>View Details</span>
             </a>
-            {% if project.github_link %}
-                <a href="{{ project.github_link }}" target="_blank">
-                    <button class="outline-btn">GitHub Link</button>
-                </a>
-            {% endif %}
-            {% if project.live_link %}
-                <a href="{{ project.live_link }}" target="_blank">
-                    <button class="outline-btn">Live Link</button>
-                </a>
-            {% endif %}
+            
+            <div class="project-icon-actions">
+                {% if project.github_link %}
+                    <a href="{{ project.github_link }}" target="_blank" rel="noopener noreferrer" class="icon-action-btn" title="GitHub Repository">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                {% endif %}
+                {% if project.live_link %}
+                    <a href="{{ project.live_link }}" target="_blank" rel="noopener noreferrer" class="icon-action-btn" title="Live Preview">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

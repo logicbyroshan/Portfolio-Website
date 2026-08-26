@@ -1,36 +1,54 @@
 {% extends "portfolio-base.html" %}
-{% block title %} Roshan {% endblock %}
 {% load static %}
 
-{% block content %}
+{% block title %}Projects & Engineering Work | Roshan Damor - Software Engineer{% endblock %}
+{% block meta_title %}Projects & Engineering Work | Roshan Damor - Software Engineer{% endblock %}
+{% block meta_description %}Explore featured production software applications, backend architectures, full-stack systems, and open-source projects developed by Roshan Damor (UIT RGPV).{% endblock %}
 
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ request.scheme }}://{{ request.get_host }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Projects",
+      "item": "{{ request.build_absolute_uri }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
 <div class="all-container">
     <div class="cards-header">
         <h1>my projects.</h1>
-        <p>Here are some of my projects that showcase my skills and experience.</p>
-        {% if query or selected_category %}
-        <div class="filter-status">
-            <p>
-                {% if query %}Showing results for: "<strong>{{ query }}</strong>"{% endif %}
-                {% if selected_category %}{% if query %} | {% endif %}Category: <strong>{{ selected_category }}</strong>{% endif %}
-                <a href="{% url 'project_list' %}" class="clear-filters">Clear all filters</a>
-            </p>
-        </div>
-        {% endif %}
+        <p>Explore production applications, backend architectures, and open-source contributions.</p>
     </div>
-    {% include 'filters.html' %}
+    
+    {% include 'components/filters.html' %}
+    
     <div class="ver-cards">
         {% for project in projects %}
-                {% include "components/project_card.html" with project=project %}
-                {% empty %}
-        <div class="no-results">
-            <h3>No Projects Found</h3>
-            <p>Try adjusting your search criteria or browse all projects.</p>
-            <a href="{% url 'project_list' %}"><button class="outline-btn">View All Projects</button></a>
-        </div>
+            {% include "components/project_card.html" with project=project %}
+        {% empty %}
+            <div class="no-results">
+                <h3>No Projects Found</h3>
+                <p>Try adjusting your search criteria or browse all projects.</p>
+                <a href="{% url 'project_list' %}" class="outline-btn">View All Projects</a>
+            </div>
         {% endfor %}
     </div>
+    
     {% include "components/pagination.html" %}
 </div>    
-
 {% endblock %}

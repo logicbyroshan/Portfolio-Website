@@ -1,0 +1,101 @@
+{% load static %}
+<!-- Unified Search, Sort & Category Filter Bar -->
+<div class="filters-container search-filter-section">
+    <!-- Top Row: Search Input + Custom Sort Dropdown -->
+    <div class="filters-toolbar-row">
+        <div class="search-input-wrapper">
+            <form method="GET" class="search-form">
+                <input type="text" 
+                       name="search" 
+                       placeholder="Search by keywords, tech, or tags..." 
+                       value="{{ query|default:'' }}"
+                       class="search-input"
+                       autocomplete="off">
+                <input type="hidden" name="category" value="{{ selected_category|default:'' }}">
+                <input type="hidden" name="sort" value="{{ sort|default:'' }}">
+                
+                {% if query %}
+                    <button type="button" class="clear-search-btn" onclick="clearSearch()" title="Clear search">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                {% endif %}
+                
+                <button type="submit" class="search-btn" title="Search">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                        <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+        <!-- Custom Styled Sort Dropdown -->
+        <div class="custom-sort-dropdown">
+            <button type="button" class="sort-trigger-btn" onclick="toggleSortDropdown()" id="sortBtn" aria-label="Sort options">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 6h18M7 12h10m-7 6h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Sort{% if sort == 'latest' %}: Latest{% elif sort == 'oldest' %}: Oldest{% elif sort == 'name' %}: Name{% elif sort == 'level' %}: Level{% endif %}</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="sort-arrow-icon">
+                    <polyline points="6,9 12,15 18,9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            
+            <div class="custom-sort-menu" id="sortDropdown">
+                <a href="?{% if query %}search={{ query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=latest" 
+                   class="sort-item {% if sort == 'latest' or not sort %}active{% endif %}">
+                    <span>⚡ Latest First</span>
+                </a>
+                
+                <a href="?{% if query %}search={{ query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=oldest" 
+                   class="sort-item {% if sort == 'oldest' %}active{% endif %}">
+                    <span>⏳ Oldest First</span>
+                </a>
+
+                {% if 'skill' in request.resolver_match.url_name %}
+                    <div class="sort-menu-divider"></div>
+                    
+                    <a href="?{% if query %}search={{ query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=name" 
+                       class="sort-item {% if sort == 'name' %}active{% endif %}">
+                        <span>🔤 Name (A-Z)</span>
+                    </a>
+                    
+                    <a href="?{% if query %}search={{ query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=level" 
+                       class="sort-item {% if sort == 'level' %}active{% endif %}">
+                        <span>⭐ Skill Level</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Category Filter Pills -->
+    {% if category_list %}
+        <div class="category-pills-row">
+            <a href="?{% if query %}search={{ query }}&{% endif %}{% if sort %}sort={{ sort }}&{% endif %}" 
+               class="category-pill {% if not selected_category %}active{% endif %}">
+                All
+            </a>
+            {% for cat in category_list %}
+                <a href="?{% if query %}search={{ query }}&{% endif %}{% if sort %}sort={{ sort }}&{% endif %}category={{ cat }}" 
+                   class="category-pill {% if cat == selected_category %}active{% endif %}">
+                    {{ cat }}
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if query or selected_category %}
+        <div class="active-filter-badge-row">
+            <span class="active-filter-text">
+                Showing results for: 
+                {% if query %}<strong>"{{ query }}"</strong>{% endif %}
+                {% if query and selected_category %} in {% endif %}
+                {% if selected_category %}category <strong>"{{ selected_category }}"</strong>{% endif %}
+            </span>
+            <a href="?{% if sort %}sort={{ sort }}{% endif %}" class="clear-filters-link">✕ Clear Filters</a>
+        </div>
+    {% endif %}
+</div>

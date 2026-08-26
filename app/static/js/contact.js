@@ -1,28 +1,30 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let contactForm = document.getElementById("contactForm");
+    const contactForm = document.getElementById("contactForm");
     if (!contactForm) {
-        console.error("❌ contactForm not found!");
-        return; // Stop script execution
+        return;
     }
 
     contactForm.addEventListener("submit", async function (event) {
-        event.preventDefault(); // Stop refresh
-        console.log("Form submission started");
+        event.preventDefault();
 
-        let formData = new FormData(this);
-        let responseMessage = document.getElementById("formMessage");
-        let submitButton = this.querySelector('button[type="submit"]');
+        const formData = new FormData(this);
+        const responseMessage = document.getElementById("formMessage");
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalButtonHtml = submitButton.innerHTML;
         
         // Get CSRF token from the form
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const csrfTokenEl = document.querySelector('[name=csrfmiddlewaretoken]');
+        const csrfToken = csrfTokenEl ? csrfTokenEl.value : '';
         
         // Show loading state
-        submitButton.textContent = "Sending...";
+        submitButton.innerHTML = `<span>Sending...</span>`;
         submitButton.disabled = true;
-        responseMessage.innerHTML = `<div class="loading-message">📤 Sending your message...</div>`;
+        if (responseMessage) {
+            responseMessage.innerHTML = `<div class="loading-message">?? Sending your message...</div>`;
+        }
 
         try {
-            let response = await fetch("/", {
+            const response = await fetch("/", {
                 method: "POST",
                 body: formData,
                 headers: {
@@ -31,30 +33,31 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-            let result = await response.json();
-            console.log("Response received:", result);
+            const result = await response.json();
 
             if (result.success) {
-                responseMessage.innerHTML = `<div class="success-message">✅ ${result.message || 'Message sent successfully!'}</div>`;
-                responseMessage.style.color = "green";
-                this.reset();
+                if (responseMessage) {
+                    responseMessage.innerHTML = `<div class="success-message">? ${result.message || 'Message sent successfully!'}</div>`;
+                }
+                contactForm.reset();
                 
-                // Auto-hide success message after 5 seconds
                 setTimeout(() => {
-                    responseMessage.innerHTML = "";
-                }, 5000);
+                    if (responseMessage) {
+                        responseMessage.innerHTML = "";
+                    }
+                }, 6000);
             } else {
-                responseMessage.innerHTML = `<div class="error-message">❌ ${result.error || 'Failed to send message.'}</div>`;
-                responseMessage.style.color = "red";
-                console.error("Error:", result.error);
+                if (responseMessage) {
+                    responseMessage.innerHTML = `<div class="error-message">? ${result.error || 'Failed to send message.'}</div>`;
+                }
             }
         } catch (error) {
-            console.error("Fetch error:", error);
-            responseMessage.innerHTML = `<div class="error-message">❌ Network error. Please check your connection and try again.</div>`;
-            responseMessage.style.color = "red";
+            console.error("Contact form fetch error:", error);
+            if (responseMessage) {
+                responseMessage.innerHTML = `<div class="error-message">? Network error. Please check your connection and try again.</div>`;
+            }
         } finally {
-            // Reset button state
-            submitButton.textContent = "Send Message";
+            submitButton.innerHTML = originalButtonHtml;
             submitButton.disabled = false;
         }
     });

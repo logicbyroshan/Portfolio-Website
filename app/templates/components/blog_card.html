@@ -1,21 +1,30 @@
 {% load static %}
-<div class="blogs-card">
-    <div class="blogs-image">
-        <img src="{{ blog.image.url}}" alt="">
+<div class="blog-card blogs-card">
+    <div class="blog-image blogs-image">
+        {% if blog.image %}
+            <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="blog-cover-img">
+        {% else %}
+            <img src="{% static 'images/others/Project Image 3.webp' %}" alt="{{ blog.title }}" class="blog-cover-img">
+        {% endif %}
     </div>
-    <div class="blogs-content">
-        <div class="date" style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
-            <span class="badge"><img src="{% static 'images/icons/calendar.webp' %}" alt=""> {{ blog.publication_date|date:"M d, Y" }}</span>
-            <span class="badge">⏱️ {{ blog.time_to_read }} min read</span>
+    <div class="blog-content blogs-content">
+        <div class="blog-meta-row">
+            <span class="meta-date">
+                <img src="{% static 'images/icons/calendar.webp' %}" alt="" class="meta-icon">
+                {{ blog.publication_date|date:"M d, Y" }}
+            </span>
+            <span class="meta-read-time">
+                ⏱️ {{ blog.time_to_read }} min read
+            </span>
         </div>
         <h2 class="card-title">{{ blog.title }}</h2>
-        <div class="skills">
-            <p>Category:</p>
+        <div class="blog-categories">
+            <span class="cat-label">Category:</span>
             {% for category in blog.get_category_list %}
                 <span class="badge-outline">{{ category }}</span>
             {% endfor %}
         </div>
-        <div class="blogs-links">
+        <div class="blog-card-actions blogs-links">
             <a href="{% url 'blog_detail' slug=blog.slug %}">
                 <button class="outline-btn">Read More</button>
             </a>
