@@ -8,22 +8,48 @@ document.addEventListener("DOMContentLoaded", function () {
     // 1. Mobile Navigation Drawer Controls
     // --------------------------------------------------------------------------
     const mobileToggle = document.getElementById("mobile-toggle");
+    const mobileClose = document.getElementById("mobile-close");
     const mobilePanel = document.getElementById("mobile-panel");
     const mobileOverlay = document.getElementById("mobile-overlay");
 
-    window.toggleMobileNav = function () {
+    window.openMobileNav = function () {
         if (!mobilePanel || !mobileOverlay) return;
-        const isOpen = mobilePanel.classList.toggle("active");
-        mobileOverlay.classList.toggle("active", isOpen);
-        document.body.classList.toggle("popup-open", isOpen);
+        mobilePanel.classList.add("active");
+        mobileOverlay.classList.add("active");
+        document.body.classList.add("popup-open");
+    };
+
+    window.closeMobileNav = function () {
+        if (!mobilePanel || !mobileOverlay) return;
+        mobilePanel.classList.remove("active");
+        mobileOverlay.classList.remove("active");
+        document.body.classList.remove("popup-open");
+    };
+
+    window.toggleMobileNav = function (e) {
+        if (e && e.preventDefault) e.preventDefault();
+        if (!mobilePanel) return;
+        if (mobilePanel.classList.contains("active")) {
+            window.closeMobileNav();
+        } else {
+            window.openMobileNav();
+        }
     };
 
     if (mobileToggle) {
         mobileToggle.addEventListener("click", window.toggleMobileNav);
     }
-    if (mobileOverlay) {
-        mobileOverlay.addEventListener("click", window.toggleMobileNav);
+    if (mobileClose) {
+        mobileClose.addEventListener("click", window.closeMobileNav);
     }
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener("click", window.closeMobileNav);
+    }
+
+    // Auto-close mobile drawer when any link is clicked
+    document.querySelectorAll(".mobile-nav-links a").forEach(link => {
+        link.addEventListener("click", window.closeMobileNav);
+    });
 
     // --------------------------------------------------------------------------
     // 2. Global Resume PDF Modal Controls
@@ -92,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("keydown", function (e) {
         if (e.key === "Escape") {
             window.closePopup();
+            window.closeMobileNav();
             document.querySelectorAll('.skill-popup-overlay[style*="block"]').forEach(p => {
                 window.closeSkillPopup(p.id);
             });
