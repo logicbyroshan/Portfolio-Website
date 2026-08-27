@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from django.http import HttpResponse, JsonResponse
+from django.views.generic import RedirectView
 from app.sitemaps import StaticViewSitemap, ProjectSitemap, BlogSitemap
 
 sitemaps = {
@@ -33,6 +34,8 @@ urlpatterns = [
     path('robots.txt', robots_txt, name='robots_txt'),
     path('api/health/', health_check, name='health_check'),
     path('api/v1/health/', health_check, name='health_check_v1'),
+    path('login/', RedirectView.as_view(url=f'/{admin_path}', permanent=False), name='legacy_login'),
+    path('admin/', RedirectView.as_view(url=f'/{admin_path}', permanent=False), name='legacy_admin'),
     path(admin_path, admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('', include('app.urls')),
