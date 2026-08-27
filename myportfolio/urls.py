@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from app.sitemaps import StaticViewSitemap, ProjectSitemap, BlogSitemap
 
 sitemaps = {
@@ -11,6 +11,9 @@ sitemaps = {
     'projects': ProjectSitemap,
     'blogs': BlogSitemap,
 }
+
+def health_check(request):
+    return JsonResponse({"status": "ok", "service": "DevMeet Portfolio"})
 
 def robots_txt(request):
     lines = [
@@ -28,6 +31,8 @@ admin_path = getattr(settings, 'ADMIN_URL', 'dash-admin/').strip('/') + '/'
 urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt', robots_txt, name='robots_txt'),
+    path('api/health/', health_check, name='health_check'),
+    path('api/v1/health/', health_check, name='health_check_v1'),
     path(admin_path, admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('', include('app.urls')),
