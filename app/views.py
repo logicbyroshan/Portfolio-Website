@@ -427,3 +427,35 @@ def custom_403_view(request, exception=None):
 def custom_400_view(request, exception=None):
     return render(request, "400.html", status=400)
 
+
+def skill_icon_lookup(request):
+    """
+    API endpoint for admin panel live icon discovery and preview.
+    Queries 3-tier fallback icon CDNs (Devicon, SimpleIcons, SkillIcons).
+    """
+    name = request.GET.get("name", "").strip()
+    if not name:
+        return JsonResponse({"found": False, "error": "Name is required"})
+    
+    from .icon_fetcher import fetch_skill_icon, normalize_skill_name
+    content, source, url = fetch_skill_icon(name)
+    normalized = normalize_skill_name(name)
+
+    if url:
+        return JsonResponse({
+            "found": True,
+            "name": name,
+            "normalized": normalized,
+            "source": source,
+            "url": url,
+        })
+    else:
+        return JsonResponse({
+            "found": False,
+            "name": name,
+            "normalized": normalized,
+            "source": None,
+            "url": None,
+        })
+
+

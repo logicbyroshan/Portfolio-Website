@@ -233,7 +233,7 @@ class Skill(models.Model):
     ]
 
     name = models.CharField(max_length=100, unique=True, db_index=True)
-    icon = models.ImageField(upload_to="skills/icons/", blank=True, null=True)
+    icon = models.ImageField(upload_to="skills/icons/", blank=True, null=True, help_text="Leave blank to auto-fetch from free developer icon libraries (Devicon / SimpleIcons / SkillIcons), or upload your own.")
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="Learning")
     level = models.PositiveIntegerField(default=50, db_index=True)
     description = models.TextField(max_length=500, blank=True)
@@ -247,8 +247,21 @@ class Skill(models.Model):
         ordering = ["-level", "name"]
 
     def save(self, *args, **kwargs):
+        # If user didn't provide an icon, attempt auto-discovery from free icon libraries
+        if not self.icon:
+            try:
+                from .icon_fetcher import auto_assign_skill_icon
+                auto_assign_skill_icon(self)
+            except Exception as e:
+                logger.warning(f"Failed to auto-fetch icon for skill '{self.name}': {e}")
+
         optimize_image_field(self.icon, high_quality=False)
         super().save(*args, **kwargs)
+
+    def get_icon_url(self):
+        if self.icon and hasattr(self.icon, 'url'):
+            return self.icon.url
+        return "/static/images/icons/default.webp"
 
     def get_category_list(self):
         return [cat.strip() for cat in self.categories.split(",") if cat.strip()]

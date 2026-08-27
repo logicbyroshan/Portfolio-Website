@@ -257,3 +257,30 @@ class ComprehensivePortfolioTests(TestCase):
         # Test 400
         r400 = custom_400_view(req)
         self.assertEqual(r400.status_code, 400)
+
+    def test_skill_icon_lookup_api(self):
+        # Test lookup with empty name
+        res_empty = self.client.get(reverse('skill_icon_lookup'))
+        self.assertEqual(res_empty.status_code, 200)
+        self.assertFalse(res_empty.json().get('found'))
+
+        # Test lookup for a well-known skill (e.g. Python)
+        res_python = self.client.get(reverse('skill_icon_lookup') + '?name=Python')
+        self.assertEqual(res_python.status_code, 200)
+        data = res_python.json()
+        self.assertTrue(data.get('found'))
+        self.assertIn('http', data.get('url'))
+
+    def test_skill_auto_fetch_icon_on_creation(self):
+        # Create a skill without providing an icon
+        auto_skill = Skill.objects.create(name="Docker", level=88, status="Expert", categories="DevOps")
+        self.assertIsNotNone(auto_skill.icon)
+        self.assertTrue(bool(auto_skill.icon.name))
+        self.assertTrue(auto_skill.icon.name.endswith('.svg'))
+
+    def test_admin_login_page_renders_custom_template(self):
+        response = self.client.get('/dash-admin/login/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Roshan's Desk")
+        self.assertContains(response, "Sign In to Dashboard")
+

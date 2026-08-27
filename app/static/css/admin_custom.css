@@ -1,90 +1,515 @@
+/* ==========================================================================
+   Roshan's Desk — Ultra-Premium Dark Glassmorphic Admin Theme
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
 :root {
-    --main-bg-color-1: #001530;
-    --main-bg-color-2: #0c1134;
-    --main-outline-color: #667eea;
-    --heading-text-color: #ffffff;
-    --main-text-color: #e5e5e5;
+    --adm-bg-main: #060b13;
+    --adm-bg-surface: #0b1120;
+    --adm-bg-card: rgba(15, 23, 42, 0.85);
+    --adm-bg-card-hover: rgba(30, 41, 59, 0.7);
+    --adm-border: rgba(99, 102, 241, 0.2);
+    --adm-border-solid: #1e293b;
+    --adm-border-hover: rgba(99, 102, 241, 0.5);
+    --adm-primary: #6366f1;
+    --adm-primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --adm-primary-hover: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+    --adm-success: #10b981;
+    --adm-warning: #f59e0b;
+    --adm-danger: #ef4444;
+    --adm-info: #0ea5e9;
+    --adm-text-heading: #ffffff;
+    --adm-text-body: #e2e8f0;
+    --adm-text-muted: #94a3b8;
+    --adm-font-head: 'Outfit', sans-serif;
+    --adm-font-body: 'Plus Jakarta Sans', sans-serif;
+    --adm-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-[data-theme="dark"] body, 
+/* 1. Global Reset & Layout */
 body, 
-body.bg-body-tertiary,
+.wrapper, 
 .content-wrapper, 
-.wrapper,
 .app-main,
-.app-content-header,
-.app-content,
-.main-header, 
-.main-sidebar, 
-.brand-link,
-aside,
+.app-content, 
 .content {
-    background-color: var(--main-bg-color-1) !important;
-    color: var(--main-text-color) !important;
+    background-color: var(--adm-bg-main) !important;
+    color: var(--adm-text-body) !important;
+    font-family: var(--adm-font-body) !important;
+    -webkit-font-smoothing: antialiased;
 }
 
-.card {
-    background: linear-gradient(135deg, #040914 0%, #041415 100%) !important;
-    border: 1px solid var(--main-outline-color) !important;
+h1, h2, h3, h4, h5, h6,
+.content-header h1,
+.brand-text {
+    font-family: var(--adm-font-head) !important;
+    color: var(--adm-text-heading) !important;
+    letter-spacing: -0.3px;
 }
 
-.card-header, .card-footer {
-    background: transparent !important;
-    border-bottom: 1px solid var(--main-outline-color) !important;
+/* 2. Brand & Header Navbar */
+.main-header {
+    background: rgba(11, 17, 32, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid var(--adm-border-solid) !important;
+    padding: 6px 16px !important;
 }
 
-.card-title, h1, h2, h3, h4, h5, h6 {
-    color: var(--heading-text-color) !important;
+.brand-link {
+    background: #070d19 !important;
+    border-bottom: 1px solid var(--adm-border-solid) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 14px 18px !important;
 }
 
-/* Sidebar styling */
-.main-sidebar, .sidebar, .brand-link {
-    background: var(--main-bg-color-2) !important;
-    border-right: 1px solid var(--main-outline-color) !important;
+.brand-link .brand-image {
+    max-height: 32px !important;
+    width: auto !important;
+    filter: drop-shadow(0 2px 8px rgba(99, 102, 241, 0.35)) !important;
+}
+
+.brand-link .brand-text {
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    background: var(--adm-primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* 3. Sidebar */
+.main-sidebar, .sidebar {
+    background: #070d19 !important;
+    border-right: 1px solid var(--adm-border-solid) !important;
+}
+
+.nav-sidebar .nav-header {
+    color: #64748b !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    padding: 16px 16px 6px 16px !important;
 }
 
 .nav-sidebar .nav-item > .nav-link {
-    color: var(--main-text-color) !important;
+    color: var(--adm-text-muted) !important;
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    margin: 3px 10px !important;
+    padding: 9px 12px !important;
+    transition: var(--adm-transition) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.nav-sidebar .nav-item > .nav-link i {
+    font-size: 15px !important;
+    color: #818cf8 !important;
+    width: 20px !important;
+    text-align: center !important;
+}
+
+.nav-sidebar .nav-item > .nav-link:hover {
+    color: #ffffff !important;
+    background: rgba(99, 102, 241, 0.12) !important;
+    transform: translateX(3px);
 }
 
 .nav-sidebar .nav-item > .nav-link.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-    color: var(--heading-text-color) !important;
+    background: var(--adm-primary-gradient) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4) !important;
 }
 
-/* Links and buttons */
-a {
-    color: var(--main-outline-color) !important;
+.nav-sidebar .nav-item > .nav-link.active i {
+    color: #ffffff !important;
 }
 
-.btn-primary, .btn-info, .btn-success {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+/* 4. Dashboard Cards & Summary Tables */
+.card {
+    background: var(--adm-bg-card) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid var(--adm-border-solid) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    margin-bottom: 24px !important;
+    overflow: hidden !important;
+}
+
+.card-header {
+    background: rgba(11, 17, 32, 0.6) !important;
+    border-bottom: 1px solid var(--adm-border-solid) !important;
+    padding: 14px 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.card-title {
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    color: var(--adm-text-heading) !important;
+    margin: 0 !important;
+}
+
+/* Dashboard Action Buttons inside table */
+.card .btn-group .btn,
+.card-body .btn {
+    border-radius: 6px !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    padding: 6px 12px !important;
+    transition: var(--adm-transition) !important;
+}
+
+/* 5. Form Controls (Input, Select, Textarea) */
+.form-control,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    background: #0b1120 !important;
+    border: 1.5px solid var(--adm-border-solid) !important;
+    border-radius: 8px !important;
+    color: #ffffff !important;
+    font-family: var(--adm-font-body) !important;
+    font-size: 13.5px !important;
+    padding: 8px 14px !important;
+    transition: var(--adm-transition) !important;
+    box-shadow: none !important;
+}
+
+input[type="text"]:not(textarea),
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+input[type="date"],
+select {
+    height: 40px !important;
+}
+
+.form-control:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--adm-primary) !important;
+    background: #0f172a !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+    outline: none !important;
+}
+
+/* Form Labels */
+label,
+.form-group label {
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    color: #cbd5e1 !important;
+    margin-bottom: 6px !important;
+}
+
+.help-block, .help-inline, .form-text, .text-muted {
+    color: #94a3b8 !important;
+    font-size: 12px !important;
+    margin-top: 4px !important;
+}
+
+/* 6. Buttons Styling & Standardized Heights */
+.btn {
+    height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    font-family: var(--adm-font-head) !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    border-radius: 6px !important;
+    padding: 0 16px !important;
+    transition: var(--adm-transition) !important;
+    cursor: pointer !important;
     border: none !important;
-    color: var(--heading-text-color) !important;
 }
 
-.table {
-    color: var(--main-text-color) !important;
+.btn-primary, 
+.submit-row input[type="submit"],
+.submit-row button[type="submit"],
+.btn-save {
+    background: var(--adm-primary-gradient) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35) !important;
 }
 
-.table th {
-    color: var(--heading-text-color) !important;
-    border-bottom: 1px solid var(--main-outline-color) !important;
+.btn-primary:hover,
+.submit-row input[type="submit"]:hover,
+.submit-row button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5) !important;
 }
 
-.table td {
-    border-top: 1px solid rgba(102, 126, 234, 0.2) !important;
-    color: var(--main-text-color) !important;
+.btn-success {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
 }
 
-/* Form controls */
-.form-control, .select2-container--default .select2-selection--single {
-    background-color: #041415 !important;
-    border: 1px solid var(--main-outline-color) !important;
-    color: var(--main-text-color) !important;
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5) !important;
 }
 
-/* Fix specific texts */
-.text-dark, .text-muted {
-    color: var(--main-text-color) !important;
+.btn-danger, .deletelink {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%) !important;
+    color: #ffffff !important;
+}
+
+.btn-secondary {
+    background: #1e293b !important;
+    color: #cbd5e1 !important;
+    border: 1px solid #334155 !important;
+}
+
+.btn-secondary:hover {
+    background: #334155 !important;
+    color: #ffffff !important;
+}
+
+/* Submit Row on Edit Pages */
+.submit-row {
+    background: rgba(11, 17, 32, 0.95) !important;
+    border: 1px solid var(--adm-border-solid) !important;
+    border-radius: 10px !important;
+    padding: 16px 20px !important;
+    display: flex !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+}
+
+.submit-row input[type="submit"],
+.submit-row .btn,
+.submit-row a {
+    height: 40px !important;
+    padding: 0 20px !important;
+}
+
+/* 7. Search Bar, Filters & Changlist Toolbar */
+#changelist-search,
+.changelist-search-form,
+.changelist-form {
+    margin-bottom: 18px !important;
+}
+
+.changelist-search-form .form-group,
+#changelist-search .form-inline {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+}
+
+#changelist-search #searchbar {
+    height: 38px !important;
+    background: #0b1120 !important;
+    border: 1.5px solid var(--adm-border-solid) !important;
+    border-radius: 6px !important;
+    padding: 0 14px !important;
+    min-width: 240px !important;
+    color: #ffffff !important;
+}
+
+#changelist-search input[type="submit"],
+#changelist-search .btn {
+    height: 38px !important;
+    border-radius: 6px !important;
+    padding: 0 16px !important;
+}
+
+/* Actions Dropdown Bar */
+.actions {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid var(--adm-border-solid) !important;
+    border-radius: 8px !important;
+    padding: 10px 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 16px !important;
+}
+
+.actions select {
+    height: 36px !important;
+    background: #0b1120 !important;
+    border: 1px solid var(--adm-border-solid) !important;
+    border-radius: 6px !important;
+    color: #ffffff !important;
+    padding: 0 10px !important;
+}
+
+.actions .button,
+.actions .btn {
+    height: 36px !important;
+    padding: 0 14px !important;
+}
+
+/* 8. Table Styling */
+.table,
+#result_list {
+    background: transparent !important;
+    color: var(--adm-text-body) !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    width: 100% !important;
+}
+
+.table th,
+#result_list th {
+    background: #0b1120 !important;
+    color: #94a3b8 !important;
+    font-family: var(--adm-font-head) !important;
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    padding: 12px 16px !important;
+    border-bottom: 1px solid var(--adm-border-solid) !important;
+    border-top: none !important;
+}
+
+.table td,
+#result_list td {
+    padding: 12px 16px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-bottom: none !important;
+    font-size: 13.5px !important;
+    vertical-align: middle !important;
+}
+
+.table tr:hover td,
+#result_list tr:hover td {
+    background: rgba(99, 102, 241, 0.08) !important;
+}
+
+/* 9. Live Skill Icon Preview Card in Admin */
+.admin-live-icon-card {
+    background: #070d19;
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0 20px 0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    transition: var(--adm-transition);
+}
+
+.live-icon-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.live-icon-thumb {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px dashed #334155;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    flex-shrink: 0;
+    transition: var(--adm-transition);
+}
+
+.live-icon-thumb.found {
+    border-color: #34d399;
+    background: rgba(16, 185, 129, 0.12);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+.live-icon-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.live-icon-status {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+.live-icon-status.found {
+    color: #34d399;
+}
+
+.live-icon-status.not-found {
+    color: #f59e0b;
+}
+
+.live-icon-status.searching {
+    color: #60a5fa;
+}
+
+.live-icon-subtext {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 3px;
+}
+
+/* 10. Select2 Dropdowns */
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+    background-color: #0b1120 !important;
+    border: 1.5px solid var(--adm-border-solid) !important;
+    border-radius: 8px !important;
+    height: 40px !important;
+    color: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.select2-dropdown {
+    background-color: #0f172a !important;
+    border: 1px solid var(--adm-border-solid) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
+}
+
+.select2-container--default .select2-results__option {
+    color: #cbd5e1 !important;
+    padding: 8px 14px !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--adm-primary) !important;
+    color: #ffffff !important;
+}
+
+/* 11. Responsive Adjustments */
+@media (max-width: 768px) {
+    .submit-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .submit-row input[type="submit"],
+    .submit-row .btn {
+        width: 100% !important;
+    }
+
+    #changelist-search #searchbar {
+        width: 100% !important;
+    }
 }
