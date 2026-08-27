@@ -32,7 +32,12 @@ if PRODUCTION:
     if os.getenv('ALLOWED_HOSTS'):
         ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS', '').split(',') if host.strip()]
     else:
-        ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.roshandamor.site']
+        ALLOWED_HOSTS = [
+            'localhost',
+            '127.0.0.1',
+            'devmeet.logicbyroshan.in',
+            '.logicbyroshan.in',
+        ]
 else:
     ALLOWED_HOSTS = ['*']
 
@@ -44,7 +49,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://*.localhost:8000',
     'http://*.nip.io:8000',
     'http://*.127.0.0.1.nip.io:8000',
-    'https://*.roshandamor.site',
+    'https://devmeet.logicbyroshan.in',
+    'https://*.logicbyroshan.in',
 ]
 
 
@@ -248,6 +254,11 @@ CSP_FONT_SRC = ("'self'", "https://fonts.gstatic.com", "data:")
 CSP_CONNECT_SRC = ("'self'",)
 CSP_FRAME_SRC = ("'self'", "https://www.youtube.com", "https://youtube.com", "https://www.youtube-nocookie.com", "https://player.vimeo.com")
 
+# Reverse Proxy & SSL Configuration
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
+
 if PRODUCTION:
     # Production Security Settings
     # HTTPS/SSL Settings
@@ -265,9 +276,9 @@ if PRODUCTION:
     SECURE_REFERRER_POLICY = 'same-origin'
     
     # Admin URL Security (optional)
-    ADMIN_URL = os.getenv('ADMIN_URL', 'admin/')
+    ADMIN_URL = os.getenv('ADMIN_URL', 'dash-admin/').strip('/') + '/'
     
-    print(" Production security settings enabled")
+    print(" Production security settings enabled (SSL Proxy Header & HSTS Active)")
 else:
     # Development Security Settings (more relaxed)
     SECURE_SSL_REDIRECT = False

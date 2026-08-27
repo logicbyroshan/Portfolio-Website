@@ -7,26 +7,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <!-- Primary SEO Metadata -->
-    <title>{% block title %}Roshan Damor | Full-Stack Software Engineer & Python Developer{% endblock %}</title>
-    <meta name="title" content="{% block meta_title %}Roshan Damor | Full-Stack Software Engineer & Python Developer{% endblock %}">
-    <meta name="description" content="{% block meta_description %}Official portfolio of Roshan Damor - Full-Stack Software Engineer, Python Developer, and UIT RGPV alumnus. Explore production projects, technical blogs, and engineering architecture.{% endblock %}">
-    <meta name="keywords" content="Roshan, Roshan Damor, Roshan Software Engineer, Roshan UIT RGPV, Roshan Damor Portfolio, Roshan Damor Website, Roshan Damor Engineer, Roshan Damor Developer, Roshan Damor Full Stack, Roshan Python Django, Roshan RGPV, Software Engineer Indore, Python Developer India">
+    <!-- Primary SEO & AEO (Answer Engine Optimization) Metadata -->
+    <title>{% block title %}Roshan Damor | Full-Stack Software Engineer & Python Developer | DevMeet{% endblock %}</title>
+    <meta name="title" content="{% block meta_title %}Roshan Damor | Full-Stack Software Engineer & Python Developer | DevMeet{% endblock %}">
+    <meta name="description" content="{% block meta_description %}Official engineering portfolio of Roshan Damor (logicbyroshan) on devmeet.logicbyroshan.in. Full-Stack Software Engineer, Python/Django architect, and UIT RGPV alumnus building scalable cloud architectures.{% endblock %}">
+    <meta name="keywords" content="Roshan, Roshan Damor, devmeet.logicbyroshan.in, logicbyroshan, Roshan Software Engineer, Roshan UIT RGPV, Roshan Damor Portfolio, Roshan Damor Website, Roshan Damor Engineer, Roshan Damor Developer, Roshan Damor Full Stack, DevMeet, DevMeet Portfolio, Roshan Python Django, Roshan RGPV, Software Engineer Indore, Python Developer India">
     <meta name="author" content="Roshan Damor">
+    <meta name="publisher" content="logicbyroshan">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
     <meta name="theme-color" content="#070b14">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
 
-    <!-- Open Graph / Facebook / LinkedIn -->
-    <meta property="og:site_name" content="Roshan Damor | Software Engineer Portfolio">
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+    <meta property="og:site_name" content="DevMeet | Roshan Damor Portfolio">
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:title" content="{% block og_title %}Roshan Damor | Full-Stack Software Engineer & Python Developer{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Explore projects, architecture case studies, and engineering blogs by Roshan Damor, Full-Stack Software Engineer and UIT RGPV graduate.{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Roshan Damor | Full-Stack Software Engineer & Python Developer | DevMeet{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Explore scalable systems, real-time architectures, and technical case studies by Roshan Damor on devmeet.logicbyroshan.in.{% endblock %}">
     <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/stock/Portfolio.webp' %}{% endblock %}">
     <meta property="og:image:alt" content="Roshan Damor - Software Engineer Portfolio Cover">
 
@@ -35,8 +37,8 @@
     <meta name="twitter:site" content="@iamroshandamor">
     <meta name="twitter:creator" content="@iamroshandamor">
     <meta name="twitter:url" content="{{ request.build_absolute_uri }}">
-    <meta name="twitter:title" content="{% block twitter_title %}Roshan Damor | Full-Stack Software Engineer & Python Developer{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Explore projects, architecture case studies, and engineering blogs by Roshan Damor, Full-Stack Software Engineer and UIT RGPV graduate.{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}Roshan Damor | Full-Stack Software Engineer & Python Developer | DevMeet{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Explore scalable systems, real-time architectures, and technical case studies by Roshan Damor on devmeet.logicbyroshan.in.{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/stock/Portfolio.webp' %}{% endblock %}">
 
     <!-- Preconnect & Fonts -->
@@ -48,18 +50,18 @@
     <link rel="icon" type="image/x-icon" href="{% static 'images/icons/favicon.ico' %}">
     
     <!-- Core Design System & Component Stylesheets -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.5">
-    <link rel="stylesheet" href="{% static 'css/re-used.css' %}?v=5.5">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}?v=5.5">
-    <link rel="stylesheet" href="{% static 'css/projects.css' %}?v=5.5">
-    <link rel="stylesheet" href="{% static 'css/blogs.css' %}?v=5.5">
-    <link rel="stylesheet" href="{% static 'css/experiences.css' %}?v=5.5">
-    <link rel="stylesheet" href="{% static 'css/skills.css' %}?v=5.5">
-    <link rel="stylesheet" href="{% static 'css/blogs-detail.css' %}?v=5.5">
-    <link rel="stylesheet" href="{% static 'css/project-detail.css' %}?v=5.5">
-    <link rel="stylesheet" href="{% static 'css/error.css' %}?v=5.5">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.6">
+    <link rel="stylesheet" href="{% static 'css/re-used.css' %}?v=5.6">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}?v=5.6">
+    <link rel="stylesheet" href="{% static 'css/projects.css' %}?v=5.6">
+    <link rel="stylesheet" href="{% static 'css/blogs.css' %}?v=5.6">
+    <link rel="stylesheet" href="{% static 'css/experiences.css' %}?v=5.6">
+    <link rel="stylesheet" href="{% static 'css/skills.css' %}?v=5.6">
+    <link rel="stylesheet" href="{% static 'css/blogs-detail.css' %}?v=5.6">
+    <link rel="stylesheet" href="{% static 'css/project-detail.css' %}?v=5.6">
+    <link rel="stylesheet" href="{% static 'css/error.css' %}?v=5.6">
 
-    <!-- Global JSON-LD Schema (Person & WebSite) -->
+    <!-- Global JSON-LD Schema (Person, WebSite & ProfilePage for AI Search / AEO) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -68,11 +70,19 @@
           "@type": "Person",
           "@id": "{{ request.scheme }}://{{ request.get_host }}/#person",
           "name": "Roshan Damor",
-          "alternateName": ["Roshan", "RoshanDamor", "iamroshandamor", "Roshan Damor UIT RGPV", "Roshan Damor Engineer"],
+          "alternateName": [
+            "Roshan", 
+            "RoshanDamor", 
+            "iamroshandamor", 
+            "logicbyroshan", 
+            "Roshan Damor UIT RGPV", 
+            "Roshan Damor Engineer", 
+            "Roshan Damor Software Engineer"
+          ],
           "givenName": "Roshan",
           "familyName": "Damor",
           "jobTitle": "Full-Stack Software Engineer",
-          "description": "Full-Stack Software Engineer and Python Developer specializing in Django, scalable backend systems, and modern web architectures.",
+          "description": "Full-Stack Software Engineer and Python Developer specializing in Django, distributed microservices, scalable backend architecture, and modern cloud deployment.",
           "alumniOf": {
             "@type": "CollegeOrUniversity",
             "name": "University Institute of Technology, RGPV",
@@ -84,7 +94,8 @@
           "sameAs": [
             "https://github.com/logicbyroshan",
             "https://www.linkedin.com/in/iamroshandamor/",
-            "https://x.com/iamroshandamor"
+            "https://x.com/iamroshandamor",
+            "https://devmeet.logicbyroshan.in"
           ],
           "address": {
             "@type": "PostalAddress",
@@ -101,24 +112,38 @@
             "Database Architecture",
             "PostgreSQL",
             "MySQL",
-            "Redis",
-            "WebSockets",
-            "Docker",
+            "Redis Caching",
+            "WebSockets & Real-time Communication",
+            "Docker & Containerization",
             "AWS Cloud Architecture",
-            "JavaScript",
-            "React.js"
+            "System Design & Scalability",
+            "JavaScript & React.js",
+            "Linux Systems Administration"
           ]
         },
         {
           "@type": "WebSite",
           "@id": "{{ request.scheme }}://{{ request.get_host }}/#website",
           "url": "{{ request.scheme }}://{{ request.get_host }}/",
-          "name": "Roshan Damor | Software Engineer Portfolio",
-          "description": "Official website and engineering portfolio of Roshan Damor, Software Engineer & UIT RGPV alumnus.",
+          "name": "DevMeet | Roshan Damor Portfolio",
+          "alternateName": "devmeet.logicbyroshan.in",
+          "description": "Official software engineering portfolio of Roshan Damor on devmeet.logicbyroshan.in.",
           "publisher": {
             "@id": "{{ request.scheme }}://{{ request.get_host }}/#person"
           },
           "inLanguage": "en-US"
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "{{ request.scheme }}://{{ request.get_host }}/#profile",
+          "url": "{{ request.scheme }}://{{ request.get_host }}/",
+          "name": "Roshan Damor Profile & Portfolio",
+          "isPartOf": {
+            "@id": "{{ request.scheme }}://{{ request.get_host }}/#website"
+          },
+          "mainEntity": {
+            "@id": "{{ request.scheme }}://{{ request.get_host }}/#person"
+          }
         }
       ]
     }
