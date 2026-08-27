@@ -7,15 +7,17 @@
 :root {
     --adm-bg-main: #060b13;
     --adm-bg-surface: #0b1120;
-    --adm-bg-card: rgba(15, 23, 42, 0.85);
-    --adm-bg-card-hover: rgba(30, 41, 59, 0.7);
-    --adm-border: rgba(99, 102, 241, 0.2);
+    --adm-bg-card: rgba(13, 19, 34, 0.85);
+    --adm-bg-card-hover: rgba(22, 32, 54, 0.7);
+    --adm-border: rgba(99, 102, 241, 0.22);
     --adm-border-solid: #1e293b;
     --adm-border-hover: rgba(99, 102, 241, 0.5);
     --adm-primary: #6366f1;
+    --adm-primary-light: #818cf8;
     --adm-primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
     --adm-primary-hover: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
     --adm-success: #10b981;
+    --adm-success-gradient: linear-gradient(135deg, #059669 0%, #10b981 100%);
     --adm-warning: #f59e0b;
     --adm-danger: #ef4444;
     --adm-info: #0ea5e9;
@@ -24,10 +26,12 @@
     --adm-text-muted: #94a3b8;
     --adm-font-head: 'Outfit', sans-serif;
     --adm-font-body: 'Plus Jakarta Sans', sans-serif;
-    --adm-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --adm-transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 1. Global Reset & Layout */
+/* ==========================================================================
+   1. Global Reset & Layout
+   ========================================================================== */
 body, 
 .wrapper, 
 .content-wrapper, 
@@ -48,14 +52,102 @@ h1, h2, h3, h4, h5, h6,
     letter-spacing: -0.3px;
 }
 
-/* 2. Brand & Header Navbar */
+/* ==========================================================================
+   2. Top Navbar & Global Search Inputs
+   ========================================================================== */
 .main-header {
     background: rgba(11, 17, 32, 0.95) !important;
-    backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
     border-bottom: 1px solid var(--adm-border-solid) !important;
-    padding: 6px 16px !important;
+    padding: 8px 18px !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
+/* Navbar Nav Links */
+.main-header .navbar-nav .nav-link {
+    color: var(--adm-text-muted) !important;
+    font-family: var(--adm-font-head) !important;
+    font-weight: 600 !important;
+    font-size: 13.5px !important;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
+    transition: var(--adm-transition) !important;
+}
+
+.main-header .navbar-nav .nav-link:hover {
+    color: #ffffff !important;
+    background: rgba(99, 102, 241, 0.15) !important;
+}
+
+/* Top Navbar Search Forms (Projects, Skills, Blogs) */
+.main-header .navbar-nav form.form-inline {
+    margin-left: 12px !important;
+    margin-right: 4px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.main-header .input-group {
+    background: rgba(15, 23, 42, 0.85) !important;
+    border: 1px solid rgba(99, 102, 241, 0.28) !important;
+    border-radius: 24px !important;
+    padding: 2px 6px 2px 14px !important;
+    height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    transition: var(--adm-transition) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.main-header .input-group:focus-within {
+    border-color: var(--adm-primary-light) !important;
+    background: #0f172a !important;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.35) !important;
+}
+
+.main-header .input-group .form-control {
+    background: transparent !important;
+    border: none !important;
+    height: 32px !important;
+    color: #ffffff !important;
+    font-family: var(--adm-font-body) !important;
+    font-size: 13px !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    min-width: 140px !important;
+}
+
+.main-header .input-group .form-control::placeholder {
+    color: #64748b !important;
+    font-size: 12.5px !important;
+}
+
+.main-header .input-group .input-group-append .btn,
+.main-header .input-group .input-group-append button {
+    background: transparent !important;
+    border: none !important;
+    height: 30px !important;
+    width: 30px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--adm-primary-light) !important;
+    border-radius: 50% !important;
+    transition: var(--adm-transition) !important;
+    box-shadow: none !important;
+}
+
+.main-header .input-group .input-group-append .btn:hover {
+    background: rgba(99, 102, 241, 0.25) !important;
+    color: #ffffff !important;
+}
+
+/* ==========================================================================
+   3. Sidebar Styling
+   ========================================================================== */
 .brand-link {
     background: #070d19 !important;
     border-bottom: 1px solid var(--adm-border-solid) !important;
@@ -79,7 +171,6 @@ h1, h2, h3, h4, h5, h6,
     -webkit-text-fill-color: transparent;
 }
 
-/* 3. Sidebar */
 .main-sidebar, .sidebar {
     background: #070d19 !important;
     border-right: 1px solid var(--adm-border-solid) !important;
@@ -131,44 +222,191 @@ h1, h2, h3, h4, h5, h6,
     color: #ffffff !important;
 }
 
-/* 4. Dashboard Cards & Summary Tables */
+/* ==========================================================================
+   4. Dashboard Cards & Summary App Tables
+   ========================================================================== */
 .card {
     background: var(--adm-bg-card) !important;
-    backdrop-filter: blur(12px) !important;
-    border: 1px solid var(--adm-border-solid) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(99, 102, 241, 0.22) !important;
     border-radius: 12px !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45) !important;
     margin-bottom: 24px !important;
     overflow: hidden !important;
 }
 
 .card-header {
-    background: rgba(11, 17, 32, 0.6) !important;
-    border-bottom: 1px solid var(--adm-border-solid) !important;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8)) !important;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.25) !important;
     padding: 14px 20px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
 }
 
+.card-header h3.card-title,
 .card-title {
+    font-family: var(--adm-font-head) !important;
     font-size: 1.05rem !important;
     font-weight: 700 !important;
     color: var(--adm-text-heading) !important;
+    letter-spacing: 0.3px !important;
     margin: 0 !important;
 }
 
-/* Dashboard Action Buttons inside table */
-.card .btn-group .btn,
-.card-body .btn {
-    border-radius: 6px !important;
-    font-size: 12.5px !important;
-    font-weight: 600 !important;
-    padding: 6px 12px !important;
+/* Dashboard App Listing Table */
+.card-body.p-0 table.table {
+    margin-bottom: 0 !important;
+    background: transparent !important;
+}
+
+.card-body.p-0 table.table tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
     transition: var(--adm-transition) !important;
 }
 
-/* 5. Form Controls (Input, Select, Textarea) */
+.card-body.p-0 table.table tr:last-child {
+    border-bottom: none !important;
+}
+
+.card-body.p-0 table.table tr:hover {
+    background: rgba(99, 102, 241, 0.08) !important;
+}
+
+/* Model Row Title Link (Skills, Projects, Blogs, etc.) */
+.card-body.p-0 table.table tr th[scope="row"] a,
+.card-body.p-0 table.table tr th a {
+    font-family: var(--adm-font-head) !important;
+    font-size: 14.5px !important;
+    font-weight: 600 !important;
+    color: #f1f5f9 !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 14px 18px !important;
+    transition: var(--adm-transition) !important;
+}
+
+.card-body.p-0 table.table tr th[scope="row"] a:hover,
+.card-body.p-0 table.table tr th a:hover {
+    color: #38bdf8 !important;
+    transform: translateX(3px);
+}
+
+/* Dashboard Action Buttons Container */
+.card-body.p-0 table.table tr td:last-child,
+.card-body.p-0 table.table tr td {
+    padding: 10px 18px !important;
+    vertical-align: middle !important;
+    text-align: right !important;
+}
+
+.card-body.p-0 table.table .btn-group,
+.card-body.p-0 table.table .btn-group-sm {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    box-shadow: none !important;
+}
+
+/* Dashboard '+ Add' Button Pill */
+.card-body.p-0 table.table .btn-success,
+.card-body.p-0 table.table a[href*="/add/"] {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.3)) !important;
+    border: 1px solid rgba(16, 185, 129, 0.45) !important;
+    color: #34d399 !important;
+    font-family: var(--adm-font-head) !important;
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+    padding: 5px 14px !important;
+    height: 32px !important;
+    border-radius: 20px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    text-decoration: none !important;
+    transition: var(--adm-transition) !important;
+    box-shadow: none !important;
+}
+
+.card-body.p-0 table.table .btn-success:hover,
+.card-body.p-0 table.table a[href*="/add/"]:hover {
+    background: var(--adm-success-gradient) !important;
+    color: #ffffff !important;
+    border-color: #34d399 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45) !important;
+}
+
+/* Dashboard 'Change' / 'View' Button Pill */
+.card-body.p-0 table.table .btn-info,
+.card-body.p-0 table.table .btn-primary,
+.card-body.p-0 table.table a:not([href*="/add/"]).btn {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.25)) !important;
+    border: 1px solid rgba(99, 102, 241, 0.45) !important;
+    color: #a5b4fc !important;
+    font-family: var(--adm-font-head) !important;
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+    padding: 5px 14px !important;
+    height: 32px !important;
+    border-radius: 20px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    text-decoration: none !important;
+    transition: var(--adm-transition) !important;
+    box-shadow: none !important;
+}
+
+.card-body.p-0 table.table .btn-info:hover,
+.card-body.p-0 table.table .btn-primary:hover,
+.card-body.p-0 table.table a:not([href*="/add/"]).btn:hover {
+    background: var(--adm-primary-gradient) !important;
+    color: #ffffff !important;
+    border-color: #818cf8 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45) !important;
+}
+
+/* ==========================================================================
+   5. Content Header & Breadcrumbs
+   ========================================================================== */
+.content-header {
+    padding: 20px 8px 16px 8px !important;
+}
+
+.content-header h1 {
+    font-size: 1.6rem !important;
+    font-weight: 800 !important;
+}
+
+.breadcrumb {
+    background: rgba(15, 23, 42, 0.8) !important;
+    border: 1px solid rgba(99, 102, 241, 0.25) !important;
+    border-radius: 20px !important;
+    padding: 6px 16px !important;
+    backdrop-filter: blur(12px) !important;
+}
+
+.breadcrumb-item a {
+    color: #818cf8 !important;
+    font-weight: 600 !important;
+    font-size: 12.5px !important;
+    text-decoration: none !important;
+}
+
+.breadcrumb-item.active {
+    color: #f1f5f9 !important;
+    font-weight: 700 !important;
+    font-size: 12.5px !important;
+}
+
+/* ==========================================================================
+   6. Form Controls & General Inputs
+   ========================================================================== */
 .form-control,
 input[type="text"],
 input[type="password"],
@@ -209,7 +447,6 @@ textarea:focus {
     outline: none !important;
 }
 
-/* Form Labels */
 label,
 .form-group label {
     font-weight: 600 !important;
@@ -224,7 +461,9 @@ label,
     margin-top: 4px !important;
 }
 
-/* 6. Buttons Styling & Standardized Heights */
+/* ==========================================================================
+   7. Buttons & Standardized Action Heights
+   ========================================================================== */
 .btn {
     height: 38px !important;
     display: inline-flex !important;
@@ -258,7 +497,7 @@ label,
 }
 
 .btn-success {
-    background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+    background: var(--adm-success-gradient) !important;
     color: #ffffff !important;
     box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
 }
@@ -303,7 +542,9 @@ label,
     padding: 0 20px !important;
 }
 
-/* 7. Search Bar, Filters & Changlist Toolbar */
+/* ==========================================================================
+   8. Search Bar, Filters & Changelist Toolbar
+   ========================================================================== */
 #changelist-search,
 .changelist-search-form,
 .changelist-form {
@@ -363,7 +604,9 @@ label,
     padding: 0 14px !important;
 }
 
-/* 8. Table Styling */
+/* ==========================================================================
+   9. Result List Table Styling
+   ========================================================================== */
 .table,
 #result_list {
     background: transparent !important;
@@ -401,7 +644,9 @@ label,
     background: rgba(99, 102, 241, 0.08) !important;
 }
 
-/* 9. Live Skill Icon Preview Card in Admin */
+/* ==========================================================================
+   10. Live Skill Icon Preview Card
+   ========================================================================== */
 .admin-live-icon-card {
     background: #070d19;
     border: 1px solid rgba(99, 102, 241, 0.35);
@@ -468,7 +713,9 @@ label,
     margin-top: 3px;
 }
 
-/* 10. Select2 Dropdowns */
+/* ==========================================================================
+   11. Select2 Dropdowns
+   ========================================================================== */
 .select2-container--default .select2-selection--single,
 .select2-container--default .select2-selection--multiple {
     background-color: #0b1120 !important;
@@ -497,7 +744,20 @@ label,
     color: #ffffff !important;
 }
 
-/* 11. Responsive Adjustments */
+/* ==========================================================================
+   12. Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 992px) {
+    .main-header .navbar-nav form.form-inline {
+        margin: 4px 0 !important;
+        width: 100% !important;
+    }
+
+    .main-header .input-group {
+        width: 100% !important;
+    }
+}
+
 @media (max-width: 768px) {
     .submit-row {
         flex-direction: column;

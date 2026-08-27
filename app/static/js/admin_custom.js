@@ -1,12 +1,42 @@
 /**
  * Roshan Portfolio Admin Custom JS
  * Provides interactive auto-detection preview for skill icons across 3 CDN tiers
- * and improves form UI interactions.
+ * and enriches dashboard UI styling and interactions.
  */
 
 document.addEventListener('DOMContentLoaded', function () {
     // ----------------------------------------------------
-    // 1. Skill Admin Live Icon Auto-Detection Preview
+    // 1. Dashboard Model Icons & Visual Polish
+    // ----------------------------------------------------
+    const modelIconMap = {
+        'skill': 'fa-bolt text-warning',
+        'project': 'fa-briefcase text-info',
+        'experience': 'fa-building text-primary',
+        'blog': 'fa-newspaper text-success',
+        'faq': 'fa-question-circle text-purple',
+        'resume': 'fa-file-alt text-danger',
+        'contact': 'fa-envelope text-info',
+        'user': 'fa-user-shield text-emerald',
+        'group': 'fa-users text-cyan'
+    };
+
+    document.querySelectorAll('.card-body table tr th a').forEach(link => {
+        const text = link.textContent.trim().toLowerCase();
+        for (const [key, iconClass] of Object.entries(modelIconMap)) {
+            if (text.includes(key) && !link.querySelector('i')) {
+                const icon = document.createElement('i');
+                icon.className = `fas ${iconClass} mr-2`;
+                icon.style.marginRight = '8px';
+                icon.style.fontSize = '14px';
+                icon.style.color = '#818cf8';
+                link.prepend(icon);
+                break;
+            }
+        }
+    });
+
+    // ----------------------------------------------------
+    // 2. Skill Admin Live Icon Auto-Detection Preview
     // ----------------------------------------------------
     const skillNameInput = document.getElementById('id_name');
     const skillIconInput = document.getElementById('id_icon');
