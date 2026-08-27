@@ -690,3 +690,75 @@
         padding: 18px 12px;
     }
 }
+
+@media (max-width: 480px) {
+    .home-content h1 {
+        font-size: 2.3rem;
+    }
+
+    .home-content h4 {
+        font-size: 1.1rem;
+    }
+
+    .home-hero-image {
+        max-width: 240px;
+        height: 200px;
+    }
+
+    .home-buttons {
+        gap: 8px;
+    }
+
+    .contact-form-side h2 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .home-content h1 {
+        font-size: 1.95rem;
+    }
+
+    .home-content h4 {
+        font-size: 1rem;
+    }
+
+    #skill-text {
+        font-size: 1.05rem;
+    }
+
+    .home-hero-image {
+        max-width: 200px;
+        height: 175px;
+    }
+
+    .home-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .home-buttons a,
+    .home-buttons button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .mail-contact-card {
+        padding: 14px 8px;
+    }
+}
+
+@media (max-width: 320px) {
+    .home-content h1 {
+        font-size: 1.7rem;
+    }
+
+    .home-content p {
+        font-size: 13px;
+    }
+
+    .contact-info-list {
+        gap: 8px;
+    }
+}

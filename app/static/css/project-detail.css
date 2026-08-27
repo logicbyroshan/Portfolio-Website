@@ -511,7 +511,7 @@
 @media (max-width: 600px) {
     .projects-container {
         margin: 12px auto 35px auto;
-        gap: 24px;
+        gap: 20px;
     }
 
     .detail-nav-row {
@@ -535,7 +535,7 @@
 
     .detail-action-buttons a {
         width: 100%;
-        padding: 9px 8px;
+        padding: 9px 6px;
         font-size: 12.5px;
         box-sizing: border-box;
     }
@@ -546,12 +546,12 @@
     }
 
     .slider-btn {
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
     }
 
-    .slider-btn.prev { left: 8px; }
-    .slider-btn.next { right: 8px; }
+    .slider-btn.prev { left: 6px; }
+    .slider-btn.next { right: 6px; }
 
     .project-main-title {
         font-size: 1.45rem;
@@ -580,7 +580,7 @@
     }
 
     .skill-tag-box {
-        padding: 6px 10px;
+        padding: 5px 9px;
         font-size: 12px;
     }
 
@@ -602,16 +602,84 @@
     }
 }
 
+@media (max-width: 480px) {
+    .projects-container {
+        margin: 10px auto 30px auto;
+        gap: 18px;
+    }
+
+    .hero-image-slider {
+        height: 180px;
+    }
+
+    .project-main-title {
+        font-size: 1.35rem;
+    }
+
+    .project-lead-desc {
+        font-size: 13px;
+    }
+
+    .feature-thumb {
+        height: 120px;
+    }
+
+    .highlight-box {
+        padding: 12px;
+    }
+
+    .sidebar-widget {
+        padding: 12px;
+    }
+}
+
 @media (max-width: 360px) {
     .detail-action-buttons {
         grid-template-columns: 1fr;
     }
 
+    .detail-action-buttons a {
+        padding: 8px;
+        font-size: 12px;
+    }
+
     .project-main-title {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
     }
 
     .hero-image-slider {
-        height: 170px;
+        height: 160px;
+    }
+
+    .skill-tag-box {
+        padding: 4px 8px;
+        font-size: 11.5px;
+    }
+}
+
+@media (max-width: 320px) {
+    .back-link {
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+
+    .project-main-title {
+        font-size: 1.1rem;
+    }
+
+    .hero-image-slider {
+        height: 140px;
+    }
+
+    .highlight-box {
+        padding: 10px;
+    }
+
+    .highlight-title {
+        font-size: 0.95rem;
+    }
+
+    .highlight-box p {
+        font-size: 12px;
     }
 }

@@ -201,3 +201,30 @@
     }
 }
 
+@media (max-width: 320px) {
+    .project-card, .projects-card {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .project-image, .projects-image {
+        height: 135px;
+    }
+
+    .project-card h2.card-title,
+    .projects-card h2.card-title {
+        font-size: 1rem;
+    }
+
+    .project-detail-btn {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+
+    .icon-action-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+

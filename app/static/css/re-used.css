@@ -580,3 +580,90 @@
         font-size: 13.5px;
     }
 }
+
+@media (max-width: 480px) {
+    .all-container {
+        margin-top: 18px;
+        padding: 0 8px;
+    }
+
+    .cards-header h1 {
+        font-size: 1.9rem;
+    }
+
+    .cards-header p {
+        font-size: 13px;
+    }
+
+    .search-input {
+        padding: 9px 38px 9px 12px;
+        font-size: 13px;
+    }
+
+    .sort-trigger-btn {
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
+    .category-pill, .category-card {
+        padding: 5px 11px;
+        font-size: 12px;
+    }
+
+    .view-all-cta-btn {
+        padding: 10px 20px;
+        font-size: 13.5px;
+    }
+}
+
+@media (max-width: 360px) {
+    .all-container {
+        padding: 0 4px;
+    }
+
+    .cards-header h1 {
+        font-size: 1.65rem;
+    }
+
+    .cards-header p {
+        font-size: 12.5px;
+    }
+
+    .search-input {
+        padding: 8px 34px 8px 10px;
+        font-size: 12px;
+    }
+
+    .sort-trigger-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .category-pill, .category-card {
+        padding: 4px 9px;
+        font-size: 11.5px;
+    }
+
+    .pagination-container {
+        gap: 4px;
+    }
+
+    .page-link, .page-number {
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 320px) {
+    .all-container {
+        padding: 0 2px;
+    }
+
+    .cards-header h1 {
+        font-size: 1.45rem;
+    }
+
+    .cards-header p {
+        font-size: 12px;
+    }
+}

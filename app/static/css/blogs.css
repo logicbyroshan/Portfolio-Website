@@ -180,3 +180,23 @@
         text-align: center;
     }
 }
+
+@media (max-width: 320px) {
+    .blog-card, .blogs-card {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .blog-image, .blogs-image {
+        height: 135px;
+    }
+
+    .blog-card h2.card-title,
+    .blogs-card h2.card-title {
+        font-size: 0.98rem;
+    }
+
+    .meta-date, .blogs-content .date .badge {
+        font-size: 11px;
+    }
+}
