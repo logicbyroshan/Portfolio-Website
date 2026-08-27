@@ -156,7 +156,9 @@
 <body>
     <div class="main-container">
         <!-- Reusable Navigation Bar Component -->
+        {% block navbar %}
         {% include "components/navbar.html" %}
+        {% endblock %}
         
         <!-- Main Page View Content -->
         <main id="main-content">
@@ -164,7 +166,9 @@
         </main>
 
         <!-- Reusable Modern Footer Component -->
+        {% block footer %}
         {% include "components/footer.html" %}
+        {% endblock %}
     </div>
 
     <!-- Reusable Resume PDF Preview Modal -->

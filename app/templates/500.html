@@ -5,9 +5,19 @@
 {% block meta_title %}500 - Internal Server Error | Roshan Damor{% endblock %}
 {% block meta_description %}An unexpected server error occurred on Roshan Damor's developer portfolio.{% endblock %}
 
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
 {% block content %}
 <div class="error-page-container">
     <div class="error-card danger">
+        <div class="error-brand-badge">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/stock/Roshan_Logo_White.webp' %}" alt="Roshan Logo">
+                <span>Roshan's Portfolio</span>
+            </a>
+        </div>
+
         <div class="error-badge-wrapper">
             <h1 class="error-code">500</h1>
         </div>
@@ -38,7 +48,7 @@
 
         <div class="error-quick-links">
             <span>Direct Reach:</span>
-            <a href="mailto:contact@roshandamor.site">contact@roshandamor.site</a>
+            <a href="mailto:contact@logicbyroshan.in">contact@logicbyroshan.in</a>
             <span class="divider">•</span>
             <a href="https://github.com/logicbyroshan" target="_blank" rel="noopener noreferrer">GitHub</a>
             <span class="divider">•</span>
@@ -47,3 +57,4 @@
     </div>
 </div>
 {% endblock %}
+

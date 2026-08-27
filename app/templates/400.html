@@ -5,9 +5,19 @@
 {% block meta_title %}400 - Bad Request | Roshan Damor{% endblock %}
 {% block meta_description %}The server could not understand the request due to malformed syntax on Roshan Damor's developer portfolio.{% endblock %}
 
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
 {% block content %}
 <div class="error-page-container">
     <div class="error-card warning">
+        <div class="error-brand-badge">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/stock/Roshan_Logo_White.webp' %}" alt="Roshan Logo">
+                <span>Roshan's Portfolio</span>
+            </a>
+        </div>
+
         <div class="error-badge-wrapper">
             <h1 class="error-code">400</h1>
         </div>
@@ -46,3 +56,4 @@
     </div>
 </div>
 {% endblock %}
+

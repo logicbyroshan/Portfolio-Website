@@ -5,9 +5,19 @@
 {% block meta_title %}404 - Page Not Found | Roshan Damor{% endblock %}
 {% block meta_description %}The requested page could not be found on Roshan Damor's developer portfolio.{% endblock %}
 
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
 {% block content %}
 <div class="error-page-container">
     <div class="error-card">
+        <div class="error-brand-badge">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/stock/Roshan_Logo_White.webp' %}" alt="Roshan Logo">
+                <span>Roshan's Portfolio</span>
+            </a>
+        </div>
+
         <div class="error-badge-wrapper">
             <h1 class="error-code">404</h1>
         </div>
@@ -48,3 +58,4 @@
     </div>
 </div>
 {% endblock %}
+
