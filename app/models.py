@@ -9,6 +9,9 @@ from io import BytesIO
 from PIL import Image
 from django.core.files.base import ContentFile
 
+# Allow Pillow to process large, high-resolution project screenshots without DecompressionBomb limits
+Image.MAX_IMAGE_PIXELS = None
+
 logger = logging.getLogger(__name__)
 
 def optimize_image_field(image_field, high_quality=True):
@@ -64,6 +67,9 @@ class Resume(models.Model):
     )
     uploaded_at = models.DateTimeField(auto_now=True, db_index=True)
 
+    class Meta:
+        ordering = ["-uploaded_at"]
+
 
 # Project Model
 class Project(models.Model):
@@ -84,6 +90,9 @@ class Project(models.Model):
     # Fields for GitHub and Live Project link
     github_link = models.URLField(max_length=500, null=True, blank=True, help_text="GitHub repository link")
     live_link = models.URLField(max_length=500, null=True, blank=True, help_text="Live project link")
+
+    class Meta:
+        ordering = ["-created_at"]
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -156,6 +165,9 @@ class Blog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["-created_at"]
+
     def save(self, *args, **kwargs):
         if not self.slug:
             base_slug = slugify(self.title)
@@ -216,6 +228,15 @@ class FAQ(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+    def clean(self):
+        super().clean()
+        if not self.pk and FAQ.objects.count() >= 6:
+            raise ValidationError("Maximum limit reached: You can only add up to 6 FAQs. Please edit or delete an existing FAQ.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     def get_category_list(self):
         return [cat.strip() for cat in self.categories.split(",") if cat.strip()]

@@ -197,6 +197,11 @@ else:
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# File & Request Body Upload Settings (Support large project uploads, multiple inlines & high-res media)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 100 * 1024 * 1024  # 100 MB request body limit (resolves 'entity too large' / RequestDataTooBig)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024   # 50 MB in-memory upload limit
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 2500            # Allow complex inlines and fields in admin forms
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

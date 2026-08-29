@@ -185,19 +185,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!answer || !toggleIcon) return;
 
-        const openIcon = toggleIcon.dataset.openIcon || toggleIcon.src;
-        const closeIcon = toggleIcon.dataset.closedIcon || toggleIcon.src;
+        const openIcon = toggleIcon.dataset.openIcon;      // icon when open (close.webp / minus)
+        const closedIcon = toggleIcon.dataset.closedIcon;  // icon when closed (open.webp / plus)
 
         card.addEventListener("click", function () {
             const isVisible = answer.classList.toggle("visible");
             card.classList.toggle("active", isVisible);
             
             if (isVisible) {
-                toggleIcon.classList.add("rotated");
-                if (closeIcon) toggleIcon.src = closeIcon;
-            } else {
-                toggleIcon.classList.remove("rotated");
                 if (openIcon) toggleIcon.src = openIcon;
+                toggleIcon.alt = "Hide Answer";
+            } else {
+                if (closedIcon) toggleIcon.src = closedIcon;
+                toggleIcon.alt = "Show Answer";
             }
         });
     });

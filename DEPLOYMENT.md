@@ -39,6 +39,11 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 USE_X_FORWARDED_PORT = True
 
+# Upload limits (prevent 413 Entity Too Large / RequestDataTooBig)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 100 * 1024 * 1024  # 100MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024   # 50MB
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 2500
+
 if PRODUCTION:
     SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'True').lower() == 'true'
     SECURE_HSTS_SECONDS = 31536000  # 1 year
@@ -48,6 +53,48 @@ if PRODUCTION:
     CSRF_COOKIE_SECURE = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_REFERRER_POLICY = 'same-origin'
+```
+
+### 🌐 Production Nginx Server Block (`/etc/nginx/sites-available/devmeet`):
+```nginx
+server {
+    listen 80;
+    server_name devmeet.logicbyroshan.in;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name devmeet.logicbyroshan.in;
+
+    # CRITICAL: Prevent HTTP 413 (Request Entity Too Large) on large project uploads
+    client_max_body_size 100M;
+
+    ssl_certificate /etc/letsencrypt/live/devmeet.logicbyroshan.in/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/devmeet.logicbyroshan.in/privkey.pem;
+
+    location /static/ {
+        alias /var/www/devmeet/staticfiles/;
+        expires 30d;
+        add_header Cache-Control "public, no-transform";
+    }
+
+    location /media/ {
+        alias /var/www/devmeet/media/;
+        expires 7d;
+        add_header Cache-Control "public, no-transform";
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_connect_timeout 300s;
+        proxy_read_timeout 300s;
+    }
+}
 ```
 
 ---

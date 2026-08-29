@@ -140,8 +140,8 @@ def home(request):
     if request.method == "POST" and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return handle_contact_submission(request)
     
-    sort_by = request.GET.get("sort", "-publication_date")  
-    category = request.GET.get("category", "")
+    sort_by = request.GET.get("sort", "latest").strip()
+    category = request.GET.get("category", "").strip()
 
     # Optimized prefetching
     projects = Project.objects.prefetch_related("images", "skills").all()
@@ -157,11 +157,19 @@ def home(request):
         experiences = experiences.filter(categories__icontains=category)
         faqs = faqs.filter(categories__icontains=category)
 
-    projects = projects.order_by(sort_by)[:3]
-    blogs = blogs.order_by(sort_by)[:3]
-    skills = skills.order_by("-level")[:6]
+    if sort_by == 'oldest':
+        projects = projects.order_by('created_at')[:3]
+        blogs = blogs.order_by('created_at')[:3]
+    elif sort_by in ['-publication_date', 'publication_date']:
+        projects = projects.order_by(sort_by)[:3]
+        blogs = blogs.order_by(sort_by)[:3]
+    else:  # latest (default)
+        projects = projects.order_by('-created_at')[:3]
+        blogs = blogs.order_by('-created_at')[:3]
+
+    skills = skills.order_by("-level", "-created_at")[:6]
     experiences = experiences.order_by("-start_date")[:3]
-    faqs = faqs.order_by("-created_at")[:5]
+    faqs = faqs.order_by("-created_at")[:6]
 
     return render(request, "portfolio-landing-page.html", {
         "projects": projects,
@@ -243,8 +251,8 @@ def project_list(request):
     else:  # latest
         projects = projects.order_by('-created_at')
 
-    # Pagination: 6 per page
-    paginator = Paginator(projects, 6)
+    # Pagination: 9 per page
+    paginator = Paginator(projects, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -282,7 +290,8 @@ def blog_list(request):
     else:  # latest
         blogs = blogs.order_by('-publication_date')
 
-    paginator = Paginator(blogs, 6)
+    # Pagination: 9 per page
+    paginator = Paginator(blogs, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -324,7 +333,8 @@ def skill_list(request):
     else:  # latest
         skills = skills.order_by('-created_at')
 
-    paginator = Paginator(skills, 6)
+    # Pagination: 15 per page
+    paginator = Paginator(skills, 15)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -376,42 +386,7 @@ def experience_list(request):
     })
 
 
-# FAQs View
-def faq_list(request):
-    query = request.GET.get('search', '').strip()
-    category = request.GET.get('category', '').strip()
-    sort_by = request.GET.get('sort', 'latest').strip()
 
-    faqs = FAQ.objects.all()
-    category_list = get_unique_categories(FAQ.objects, "categories")
-
-    if query:
-        faqs = faqs.filter(
-            Q(question__icontains=query) | 
-            Q(answer__icontains=query) |
-            Q(categories__icontains=query)
-        ).distinct()
-
-    if category and category != "all":  
-        faqs = faqs.filter(categories__icontains=category)
-
-    if sort_by == 'oldest':
-        faqs = faqs.order_by('created_at')
-    else:  # latest
-        faqs = faqs.order_by('-created_at')
-
-    paginator = Paginator(faqs, 6)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(request, 'faqs.html', {
-        'faqs': page_obj, 
-        'page_obj': page_obj,
-        'query': query, 
-        'selected_category': category, 
-        'sort': sort_by, 
-        'category_list': category_list
-    })
 
 
 # Custom HTTP Error Handlers

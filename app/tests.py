@@ -125,10 +125,31 @@ class ComprehensivePortfolioTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Senior Software Engineer")
 
-    def test_faq_list(self):
-        response = self.client.get(reverse('faq_list'))
+    def test_faq_home_rendering_and_max_6_limit(self):
+        from django.core.exceptions import ValidationError
+        from app.admin import FAQAdmin
+        from django.contrib.admin.sites import AdminSite
+
+        # Check FAQ on home page
+        response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Are you available for freelance projects?")
+
+        # Create up to 6 FAQs
+        current_count = FAQ.objects.count()
+        for i in range(current_count, 6):
+            FAQ.objects.create(question=f"Test Question {i}", answer=f"Answer {i}", categories="General")
+        
+        self.assertEqual(FAQ.objects.count(), 6)
+
+        # 7th FAQ must raise ValidationError
+        faq_7 = FAQ(question="7th Question", answer="7th Answer", categories="General")
+        with self.assertRaises(ValidationError):
+            faq_7.save()
+
+        # Admin add permission must return False
+        admin_obj = FAQAdmin(FAQ, AdminSite())
+        self.assertFalse(admin_obj.has_add_permission(None))
 
     def test_user_terms(self):
         response = self.client.get(reverse('user_terms'))
@@ -283,4 +304,50 @@ class ComprehensivePortfolioTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Roshan's Desk")
         self.assertContains(response, "Sign In to Dashboard")
+
+    def test_upload_settings_limits(self):
+        from django.conf import settings
+        self.assertEqual(settings.DATA_UPLOAD_MAX_MEMORY_SIZE, 100 * 1024 * 1024)
+        self.assertEqual(settings.FILE_UPLOAD_MAX_MEMORY_SIZE, 50 * 1024 * 1024)
+        self.assertEqual(settings.DATA_UPLOAD_MAX_NUMBER_FIELDS, 2500)
+
+    def test_pagination_page_sizes(self):
+        # Create 16 skills to test 15 per page
+        for i in range(16):
+            Skill.objects.create(name=f"TechSkill_{i}", level=70, status="Learning", categories="Test")
+        res_skills = self.client.get(reverse('skill_list'))
+        self.assertEqual(res_skills.status_code, 200)
+        self.assertEqual(res_skills.context['page_obj'].paginator.per_page, 15)
+
+        # Create 10 projects to test 9 per page
+        for i in range(10):
+            Project.objects.create(title=f"Test Project {i}", description="Test Description", categories="Test")
+        res_projects = self.client.get(reverse('project_list'))
+        self.assertEqual(res_projects.status_code, 200)
+        self.assertEqual(res_projects.context['page_obj'].paginator.per_page, 9)
+
+        # Create 10 blogs to test 9 per page
+        for i in range(10):
+            Blog.objects.create(title=f"Test Blog {i}", content="<p>Test content</p>", categories="Test", image="blogs/test.webp")
+        res_blogs = self.client.get(reverse('blog_list'))
+        self.assertEqual(res_blogs.status_code, 200)
+        self.assertEqual(res_blogs.context['page_obj'].paginator.per_page, 9)
+
+    def test_home_and_list_latest_first_ordering(self):
+        newest_project = Project.objects.create(
+            title="Brand Newest Project Alpha",
+            categories="Web, AI",
+            description="Created most recently"
+        )
+        response_home = self.client.get(reverse('home'))
+        self.assertEqual(response_home.status_code, 200)
+        # Check that the first project in context is the newest one
+        home_projects = list(response_home.context['projects'])
+        self.assertTrue(len(home_projects) > 0)
+        self.assertEqual(home_projects[0].id, newest_project.id)
+
+        response_list = self.client.get(reverse('project_list'))
+        list_projects = list(response_list.context['page_obj'])
+        self.assertEqual(list_projects[0].id, newest_project.id)
+
 

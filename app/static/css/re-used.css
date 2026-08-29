@@ -158,18 +158,17 @@
     text-transform: lowercase;
     position: relative;
     display: inline-block;
-    margin: 0;
+    margin: 0 0 14px 0;
     line-height: 1;
 }
 
-.cards-header h1::after {
-    content: '';
-    display: block;
-    width: 45px;
-    height: 3px;
+.cards-header h1 .title-accent,
+.title-accent {
     background: var(--primary-gradient);
-    margin: 10px auto 0 auto;
-    border-radius: 2px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.45));
 }
 
 .cards-header p {

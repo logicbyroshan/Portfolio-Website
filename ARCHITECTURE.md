@@ -66,8 +66,10 @@ Templates are strictly divided into reusable partials:
 
 ---
 
-## 5. Security & Rate Limiting
+## 5. Security, Upload Limits & Rate Limiting
 
+- **Large Payload & File Uploads**: Configured `DATA_UPLOAD_MAX_MEMORY_SIZE = 100MB` and `FILE_UPLOAD_MAX_MEMORY_SIZE = 50MB` to eliminate 413 Payload Too Large / RequestDataTooBig errors when submitting multi-screenshot projects.
+- **Pillow Safety**: `Image.MAX_IMAGE_PIXELS = None` prevents decompression bomb blocks on large imagery.
 - **IP-Based Contact Limiting**: Tracks submission volume per IP over 24-hour sliding windows (10/day max in production).
 - **Hardened Allowed Hosts**: Strict host domain verification in production.
 - **Content Security Policy (CSP)**: Blocks unauthorized external scripts and framing attempts.

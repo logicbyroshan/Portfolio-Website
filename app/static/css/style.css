@@ -535,6 +535,21 @@ body {
     display: inline-block;
 }
 
+.badge-soon {
+    display: inline-block;
+    padding: 1px 6px;
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(99, 102, 241, 0.18);
+    color: #a5b4fc;
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
 .dropdown-toggle {
     display: none;
 }

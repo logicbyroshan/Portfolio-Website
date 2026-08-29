@@ -222,6 +222,11 @@ class FAQAdmin(admin.ModelAdmin):
     list_filter = ("categories", "created_at")
     search_fields = ("question", "answer")
 
+    def has_add_permission(self, request):
+        if FAQ.objects.count() >= 6:
+            return False
+        return super().has_add_permission(request)
+
     def category_badges(self, obj):
         cats = obj.get_category_list()
         badges = [f'<span style="display:inline-block; padding: 2px 7px; margin: 1px; background: rgba(99,102,241,0.18); border: 1px solid rgba(99,102,241,0.35); border-radius: 4px; font-size: 11px; color: #a5b4fc;">{c}</span>' for c in cats]

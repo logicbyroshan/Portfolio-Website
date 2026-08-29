@@ -173,11 +173,11 @@ Open **[http://127.0.0.1:8000](http://127.0.0.1:8000)** in your web browser.
          └─────────────────── M2M Relation ──────────────────┘
 ```
 
-- **`Project`**: Core showcase model supporting image carousels, feature cards, key learnings, and GitHub/Live links.
-- **`Blog`**: Technical insights with TinyMCE rich text, automatic reading time computation, and cover images.
-- **`Skill`**: Interactive skill bars with level percentages, status badges, and resource link popups.
+- **`Project`**: Core showcase model supporting image carousels, feature cards, key learnings, and GitHub/Live links (ordered latest-first, 9 per page).
+- **`Blog`**: Technical insights with TinyMCE rich text, automatic reading time computation, and cover images (ordered latest-first, 9 per page).
+- **`Skill`**: Interactive skill bars with level percentages, status badges, and resource link popups (15 per page).
 - **`Experience`**: Career history and company milestones ordered chronologically.
-- **`FAQ`**: Frequently asked questions with structured category filtering.
+- **`FAQ`**: Curated Q&A section limited to max 6 entries enforced at model and admin layers, seamlessly integrated on the home page.
 - **`Resume`**: PDF resume uploads with single active file delivery.
 - **`ContactMessage`**: Contact form inquiries with client IP address logging for rate limiting.
 
