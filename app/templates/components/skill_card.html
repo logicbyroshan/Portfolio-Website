@@ -37,18 +37,20 @@
             <p class="card-desc skill-desc">{{ skill.description }}</p>
         {% endif %}
 
-        <div class="skill-card-actions skills-links">
-            {% if skill.certificate %}
-                <button class="skill-action-btn outline-btn" onclick="showSkillPopup('certificate-modal-{{ skill.id }}')">
-                    View Certificate
-                </button>
-            {% endif %}
+        {% if skill.certificate or skill.resource_links %}
+            <div class="skill-card-actions skills-links">
+                {% if skill.certificate %}
+                    <button class="skill-action-btn outline-btn" onclick="showSkillPopup('certificate-modal-{{ skill.id }}')">
+                        View Certificate
+                    </button>
+                {% endif %}
 
-            {% if skill.resource_links %}
-                <button class="skill-action-btn outline-btn" onclick="showSkillPopup('resource-modal-{{ skill.id }}')">
-                    Used Resources
-                </button>
-            {% endif %}
-        </div>
+                {% if skill.resource_links %}
+                    <button class="skill-action-btn outline-btn" onclick="showSkillPopup('resource-modal-{{ skill.id }}')">
+                        Used Resources
+                    </button>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 </div>

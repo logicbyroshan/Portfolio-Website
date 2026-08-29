@@ -152,7 +152,7 @@
     font-size: 13px;
     color: var(--secondary-text-color);
     line-height: 1.6;
-    margin: 4px 0 0 0;
+    margin: 8px 0 0 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -161,10 +161,10 @@
 
 .skill-card-actions, .skills-links {
     display: flex;
-    gap: 8px;
-    padding-top: 14px;
+    gap: 10px;
+    padding-top: 16px;
     border-top: 1px solid var(--card-outline-color);
-    margin-top: 8px;
+    margin-top: 16px;
 }
 
 .skill-action-btn, .skills-links button {

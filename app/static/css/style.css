@@ -489,6 +489,24 @@ body {
     font-weight: 500;
     margin: 0;
     font-family: var(--secondary-font);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.status-indicator-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10b981;
+    display: inline-block;
+    box-shadow: 0 0 8px #10b981;
+    animation: statusPulse 2s infinite ease-in-out;
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
 }
 
 .footer-divider-line {

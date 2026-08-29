@@ -46,12 +46,14 @@
             <div class="custom-sort-menu" id="sortDropdown">
                 <a href="?{% if query %}search={{ query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=latest" 
                    class="sort-item {% if sort == 'latest' or not sort %}active{% endif %}">
-                    <span>⚡ Latest First</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    <span>Latest First</span>
                 </a>
                 
                 <a href="?{% if query %}search={{ query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=oldest" 
                    class="sort-item {% if sort == 'oldest' %}active{% endif %}">
-                    <span>⏳ Oldest First</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span>Oldest First</span>
                 </a>
 
                 {% if 'skill' in request.resolver_match.url_name %}
@@ -59,12 +61,14 @@
                     
                     <a href="?{% if query %}search={{ query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=name" 
                        class="sort-item {% if sort == 'name' %}active{% endif %}">
-                        <span>🔤 Name (A-Z)</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
+                        <span>Name (A-Z)</span>
                     </a>
                     
                     <a href="?{% if query %}search={{ query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=level" 
                        class="sort-item {% if sort == 'level' %}active{% endif %}">
-                        <span>⭐ Skill Level</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>Skill Level</span>
                     </a>
                 {% endif %}
             </div>
